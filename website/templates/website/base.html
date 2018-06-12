@@ -1,0 +1,15 @@
+{% load static %}
+{% load bootstrap4 %}
+{% load i18n %}
+{% load fontawesome %}
+
+<html>
+  <head>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    {% fontawesome_stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+  </head>
+    {% block base_content %}
+    {% endblock %}
+</html>

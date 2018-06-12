@@ -1,0 +1,25 @@
+body.login {
+    background: url("/static/login_bg.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+body.website {
+    background-color: #e6e6e6;
+}
+
+div.website-page {
+    margin-top: 40px;
+}
+
+.navbar {
+    border-top: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
+}
+
+.footer {
+    border-top: 1px solid #ededed;
+    padding-top: 0.5rem;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+}

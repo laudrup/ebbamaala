@@ -1,0 +1,62 @@
+{% extends 'website/base.html' %}
+{% load fontawesome %}
+{% load activeurl %}
+{% load static %}
+{% load random_image %}
+
+{% block base_content %}
+  <body class="website">
+    <div class="container card bg-white website-page">
+      <div class="card-body">
+        <p>
+          <h3 class="card-title">
+            Ebbamåla
+          </h3>
+        </p>
+        <nav class="navbar navbar-light navbar-expand-lg">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbar-content">
+            {% activeurl %}
+            <ul class="navbar-nav mr-auto">
+              <li>
+                <a class="nav-item nav-link" href="{% url 'website:index' %}">Forside {% fontawesome_icon 'home' %}</a>
+              </li>
+              <li>
+                <a class="nav-item nav-link" href="{% url 'website:info' %}">Praktisk Information {% fontawesome_icon 'info' %}</a>
+              </li>
+              {% if user.is_superuser %}
+              <li>
+                <a class="nav-item nav-link" href="{% url 'admin:index' %}">Administration {% fontawesome_icon 'cog' %}</a>
+              </li>
+            {% endif %}
+            </ul>
+          {% endactiveurl %}
+            <div class="navbar-nav">
+              <a class="nav-item nav-link" href="/accounts/logout">Log ud {% fontawesome_icon 'sign-out' %}</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="card-body">
+        <img class="mw-100" src="{% random_image 'banners' %}" alt="Banner" />
+      </div>
+      <div class="card-body">
+        <main role="main">
+          {% block content %}
+          {% endblock %}
+        </main>
+      </div>
+      <div class="card-body">
+        <div class="footer container">
+          <div class="float-right">
+            <a href="http://www.djangoproject.com/">
+              <img src="https://www.djangoproject.com/m/img/badges/djangomade124x25_grey.gif" border="0" alt="Made with Django." title="Made with Django." />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+{% endblock %}
