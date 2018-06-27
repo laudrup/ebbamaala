@@ -105,7 +105,6 @@ class Common(Configuration):
 class Development(Common):
     DEBUG = True
     ALLOWED_HOSTS = []
-    STATIC_ROOT = os.path.join(Common.BASE_DIR, 'static/')
 
 
 class Production(Common):
