@@ -108,4 +108,4 @@ class Development(Common):
 
 
 class Production(Common):
-    STATIC_ROOT = '/var/www/static'
+    STATIC_ROOT = '/home/www/static'
