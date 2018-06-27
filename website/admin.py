@@ -1,3 +1,5 @@
 from django.contrib import admin
+from markdownx.admin import MarkdownxModelAdmin
+from .models import Frontpage
 
-# Register your models here.
+admin.site.register(Frontpage, MarkdownxModelAdmin)

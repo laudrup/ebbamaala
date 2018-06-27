@@ -23,6 +23,7 @@ class Common(Configuration):
         'bootstrap4',
         'fontawesome',
         'django_activeurl',
+        'markdownx',
         'website',
     ]
 

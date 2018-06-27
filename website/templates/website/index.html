@@ -1,7 +1,8 @@
 {% extends 'website/website.html' %}
+{% load markdown %}
 
 {% block content %}
   <p>
-    Hejsa
+    {{ frontpage.content|markdown|safe }}
   </p>
 {% endblock %}
