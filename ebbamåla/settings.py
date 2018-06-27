@@ -102,15 +102,10 @@ class Common(Configuration):
 
 
 class Development(Common):
-    """
-    The in-development settings and the default configuration.
-    """
     DEBUG = True
-
     ALLOWED_HOSTS = []
+    STATIC_ROOT = os.path.join(Common.BASE_DIR, 'static/')
 
-    INTERNAL_IPS = [
-        '127.0.0.1'
-    ]
 
+class Production(Common):
     STATIC_ROOT = '/var/www/static'
