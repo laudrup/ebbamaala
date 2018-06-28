@@ -2,7 +2,7 @@
 {% load fontawesome %}
 {% load activeurl %}
 {% load static %}
-{% load random_image %}
+{% load header_image %}
 
 {% block base_content %}
   <body class="website">
@@ -40,7 +40,7 @@
         </nav>
       </div>
       <div class="card-body">
-        <img class="mw-100" src="{% random_image 'banners' %}" alt="Banner" />
+        <img class="mw-100" src="{% header_image %}" alt="Banner" />
       </div>
       <div class="card-body">
         <main role="main">

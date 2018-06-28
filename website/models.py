@@ -10,3 +10,11 @@ class Frontpage(models.Model):
     class Meta:
         verbose_name = _('Frontpage')
         verbose_name_plural = _('Frontpages')
+
+
+class HeaderImage(models.Model):
+    photo = models.ImageField(upload_to='headers', verbose_name=_('Photo'))
+
+    class Meta:
+        verbose_name = _('HeaderImage')
+        verbose_name_plural = _('HeaderImages')
