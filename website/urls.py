@@ -12,4 +12,4 @@ urlpatterns = [
 ]
 
 if not settings.DEBUG:
-    urlpatterns += path('media/<filename>', views.media, name='media')
+    urlpatterns += [path('media/<filename>', views.media, name='media')]
