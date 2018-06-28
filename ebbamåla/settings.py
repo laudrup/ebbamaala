@@ -110,4 +110,9 @@ class Development(Common):
 class Production(Common):
     STATIC_ROOT = '/home/www/static'
     ALLOWED_HOSTS = ['xn--ebbamla-ixa.se', 'localhost']
-    ADMINS = (('Kasper Laudrup', 'laudrup@stacktrace.dk'))
+    ADMINS = (
+        ('Kasper Laudrup', 'laudrup@stacktrace.dk'),
+    )
+    EMAIL_HOST = 'localhost'
+    SERVER_EMAIL = 'django@xn--ebbamla-ixa.se'
+
