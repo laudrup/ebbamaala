@@ -109,3 +109,4 @@ class Development(Common):
 
 class Production(Common):
     STATIC_ROOT = '/home/www/static'
+    ALLOWED_HOSTS = ['xn--ebbamla-ixa.se', 'localhost']
