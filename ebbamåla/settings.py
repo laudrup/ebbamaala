@@ -96,7 +96,6 @@ class Common(Configuration):
     ]
 
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
     LOGOUT_REDIRECT_URL = '/'
     LOGIN_REDIRECT_URL = '/'
@@ -105,10 +104,13 @@ class Common(Configuration):
 class Development(Common):
     DEBUG = True
     ALLOWED_HOSTS = []
+    MEDIA_ROOT = os.path.join(Common.BASE_DIR, 'media')
 
 
 class Production(Common):
     STATIC_ROOT = '/home/www/static'
+    MEDIA_ROOT = '/home/www/media'
+
     ALLOWED_HOSTS = ['xn--ebbamla-ixa.se', 'localhost']
     ADMINS = (
         ('Kasper Laudrup', 'laudrup@stacktrace.dk'),
