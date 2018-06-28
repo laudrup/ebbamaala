@@ -1,6 +1,3 @@
-import os
-
-from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -16,8 +13,8 @@ def info(request):
     return render(request, 'website/info.html', {})
 
 
-def media(request, filename):
+def media(request, path):
     response = HttpResponse()
-    response['Content-Type'] = ''
-    response['X-Sendfile'] = (os.path.join(settings.MEDIA_ROOT, filename))
+    del response['Content-Type']
+    response['X-Accel-Redirect'] = '/protected/media/{}'.format(path)
     return response

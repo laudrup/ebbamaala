@@ -1,5 +1,5 @@
 from markdownx import urls as markdownx
-from django.urls import path, include
+from django.urls import path, re_path, include
 from django.conf import settings
 
 from . import views
@@ -12,4 +12,4 @@ urlpatterns = [
 ]
 
 if not settings.DEBUG:
-    urlpatterns += [path('media/<filename>', views.media, name='media')]
+    urlpatterns += [re_path(r'^media/(?P<path>.*)', views.media, name='media')]
