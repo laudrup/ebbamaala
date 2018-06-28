@@ -1,6 +1,8 @@
+import os
+
 from django.db import models
-from markdownx.models import MarkdownxField
 from django.utils.translation import gettext as _
+from markdownx.models import MarkdownxField
 
 
 class Frontpage(models.Model):
@@ -11,6 +13,9 @@ class Frontpage(models.Model):
         verbose_name = _('Frontpage')
         verbose_name_plural = _('Frontpages')
 
+    def __str__(self):
+        return "{} ({})".format(_('Frontpage'), self.id)
+
 
 class HeaderImage(models.Model):
     photo = models.ImageField(upload_to='headers', verbose_name=_('Photo'))
@@ -18,3 +23,6 @@ class HeaderImage(models.Model):
     class Meta:
         verbose_name = _('HeaderImage')
         verbose_name_plural = _('HeaderImages')
+
+    def __str__(self):
+        return os.path.basename(self.photo.name)
