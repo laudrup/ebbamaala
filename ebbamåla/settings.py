@@ -114,4 +114,3 @@ class Production(Common):
         ('Kasper Laudrup', 'laudrup@stacktrace.dk'),
     )
     EMAIL_HOST = 'localhost'
-
