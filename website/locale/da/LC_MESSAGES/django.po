@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-28 21:57+0200\n"
+"POT-Creation-Date: 2018-07-01 15:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,26 +17,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:8
+#: models.py:10 models.py:22
 msgid "Content"
 msgstr "Indhold"
 
-#: models.py:11
+#: models.py:13 models.py:17
 msgid "Frontpage"
 msgstr "Forside"
 
-#: models.py:12
+#: models.py:14
 msgid "Frontpages"
 msgstr "Forsider"
 
-#: models.py:16
-msgid "Photo"
-msgstr ""
+#: models.py:25 models.py:26 models.py:29
+msgid "Practical Info"
+msgstr "Praktisk information"
 
-#: models.py:19
+#: models.py:33
+msgid "Photo"
+msgstr "Billede"
+
+#: models.py:36
 msgid "HeaderImage"
 msgstr "Headerbillede"
 
-#: models.py:20
+#: models.py:37
 msgid "HeaderImages"
 msgstr "Headerbilleder"

@@ -1,7 +1,8 @@
 {% extends 'website/website.html' %}
+{% load markdown %}
 
 {% block content %}
   <p>
-    Praktisk info
+    {{ info.content|markdown|safe }}
   </p>
 {% endblock %}

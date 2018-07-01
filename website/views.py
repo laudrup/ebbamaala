@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from .models import Frontpage
+from .models import Frontpage, PracticalInfo
 
 
 def index(request):
@@ -10,7 +10,8 @@ def index(request):
 
 
 def info(request):
-    return render(request, 'website/info.html', {})
+    info = PracticalInfo.objects.latest('pub_date')
+    return render(request, 'website/info.html', {'info': info})
 
 
 def media(request, path):
