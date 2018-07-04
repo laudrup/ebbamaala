@@ -11,6 +11,7 @@ ExifRead
 gunicorn
 lxml
 Markdown
+piexif
 pilkit
 Pillow
 pytz

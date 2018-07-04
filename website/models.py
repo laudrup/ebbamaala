@@ -1,13 +1,17 @@
 import os
+import sys
 from datetime import datetime
+from io import BytesIO
 
-import exifread
+import piexif
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import gettext as _
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from markdownx.models import MarkdownxField
+from PIL import Image
 
 
 class Frontpage(models.Model):
@@ -65,10 +69,44 @@ class GalleryPhoto(models.Model):
         verbose_name_plural = _('Photos')
 
     def save(self, *args, **kwargs):
-        tags = exifread.process_file(self.photo)
-        if 'EXIF DateTimeOriginal' in tags:
-            exif_date = str(tags['EXIF DateTimeOriginal'])
-            self.photo_date = datetime.strptime(exif_date, '%Y:%m:%d %H:%M:%S')
+        img = Image.open(self.photo)
+        if 'exif' in img.info:
+            exif_dict = piexif.load(img.info['exif'])
+
+            # Read and save original timestamp of picture if available
+            if piexif.ExifIFD.DateTimeOriginal in exif_dict['Exif']:
+                exif_date = exif_dict['Exif'][piexif.ExifIFD.DateTimeOriginal].decode()
+                self.date = datetime.strptime(exif_date, '%Y:%m:%d %H:%M:%S')
+
+            # Rotate image and remove rotation field if required
+            if piexif.ImageIFD.Orientation in exif_dict['0th']:
+                orientation = exif_dict['0th'].pop(piexif.ImageIFD.Orientation)
+                exif_bytes = piexif.dump(exif_dict)
+                output = BytesIO()
+                if orientation == 2:
+                    img = img.transpose(Image.FLIP_LEFT_RIGHT)
+                elif orientation == 3:
+                    img = img.rotate(180)
+                elif orientation == 4:
+                    img = img.rotate(180).transpose(Image.FLIP_LEFT_RIGHT)
+                elif orientation == 5:
+                    img = img.rotate(-90, expand=True).transpose(Image.FLIP_LEFT_RIGHT)
+                elif orientation == 6:
+                    img = img.rotate(-90, expand=True)
+                elif orientation == 7:
+                    img = img.rotate(90, expand=True).transpose(Image.FLIP_LEFT_RIGHT)
+                elif orientation == 8:
+                    img = img.rotate(90, expand=True)
+
+                img.save(output, format='JPEG', quality=100, exif=exif_bytes)
+                output.seek(0)
+
+                self.photo = InMemoryUploadedFile(output,
+                                                  'ImageField',
+                                                  '{}.jpg'.format(self.photo.name.split('.')[0]),
+                                                  'image/jpeg',
+                                                  sys.getsizeof(output),
+                                                  None)
         super().save(args, kwargs)
 
     def __str__(self):
