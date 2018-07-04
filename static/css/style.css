@@ -19,3 +19,17 @@ body.website {
     padding-bottom: 0.5rem;
     padding-left: 1rem;
 }
+
+.blueimp-gallery > .description {
+    position: fixed;
+    top: 50px;
+    left: 20px;
+    color: #fff;
+}
+
+.blueimp-gallery > .date {
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    color: #fff;
+}

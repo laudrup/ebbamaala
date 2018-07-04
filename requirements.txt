@@ -5,10 +5,14 @@ django-bootstrap4
 django-classy-tags
 django-configurations
 django-fontawesome
+django-imagekit
 django-markdownx
+ExifRead
 gunicorn
 lxml
 Markdown
+pilkit
 Pillow
 pytz
 PyYAML
+six

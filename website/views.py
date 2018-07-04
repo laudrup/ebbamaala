@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from .models import Frontpage, PracticalInfo
+from .models import Frontpage, Gallery, PracticalInfo
 
 
 def index(request):
@@ -12,6 +12,16 @@ def index(request):
 def info(request):
     info = PracticalInfo.objects.latest('pub_date')
     return render(request, 'website/info.html', {'info': info})
+
+
+def gallery(request):
+    galleries = Gallery.objects.all()
+    return render(request, 'website/gallery.html', {'galleries': galleries})
+
+
+def photos(request, gallery_id):
+    gallery = Gallery.objects.get(slug=gallery_id)
+    return render(request, 'website/photos.html', {'gallery': gallery})
 
 
 def media(request, path):
