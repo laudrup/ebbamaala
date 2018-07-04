@@ -69,6 +69,8 @@ class GalleryPhoto(models.Model):
         if 'EXIF DateTimeOriginal' in tags:
             exif_date = str(tags['EXIF DateTimeOriginal'])
             self.photo_date = datetime.strptime(exif_date, '%Y:%m:%d %H:%M:%S')
+        else:
+            self.photo_date = ""
         super().save(args, kwargs)
 
     def __str__(self):
