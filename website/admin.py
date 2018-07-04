@@ -14,6 +14,12 @@ class GalleryPhotoInline(admin.TabularInline):
 class GalleryAdmin(admin.ModelAdmin):
     inlines = [GalleryPhotoInline]
 
+    def save_model(self, request, obj, form, change):
+        obj.save()
+
+        for afile in request.FILES.getlist('photos_multiple'):
+            obj.galleryphoto_set.create(photo=afile)
+
 
 class HeaderImageAdmin(admin.ModelAdmin):
     image_display = AdminThumbnail(image_field='thumbnail')
