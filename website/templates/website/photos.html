@@ -1,0 +1,45 @@
+{% extends 'website/website.html' %}
+
+{% load static %}
+
+{% block head %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'blueimp-gallery/css/blueimp-gallery.min.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>{{ gallery.title }}</h1>
+    <hr />
+    <div class="row" id="photos">
+      {% for photo in gallery.galleryphoto_set.all %}
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+          <a href="{{ photo.photo.url }}" data-gallery="{{ gallery.slug }}" data-description="{{ photo.description }}" data-date="{{ photo.date }}">
+            <img class="img-thumbnail" src="{{ photo.photo.url }}" alt="{{ photo.description }}">
+          </a>
+        </div>
+      {% endfor %}
+      </div>
+  </div>
+{% endblock %}
+{% block endbody %}
+  <div id="blueimp-gallery" class="blueimp-gallery">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <p class="description"></p>
+    <p class="date"></p>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+  </div>
+  <script src="{% static 'blueimp-gallery/js/jquery.blueimp-gallery.min.js' %}"></script>
+  <script>
+    $('#blueimp-gallery').on('slide', function(event, index, slide) {
+      var link = $('#photos').children().eq(index).find('a');
+      var description = link.attr('data-description');
+      var date = link.attr('data-date');
+      $(this).find('.description').text(description);
+      $(this).find('.date').text(date);
+    });
+  </script>
+{% endblock %}

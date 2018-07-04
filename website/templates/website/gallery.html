@@ -1,0 +1,23 @@
+{% extends 'website/website.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Fotogallerier</h1>
+    <hr />
+    <div class="row">
+      {% for gallery in galleries %}
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <div class="card">
+            <a href="{% url 'website:photos' gallery.slug %}">
+              <img class="card-img-top img-thumbnail" src="{{ gallery.thumbnail.url }}" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">{{ gallery.title }}</h5>
+              <p class="card-text">{{ gallery.description }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
