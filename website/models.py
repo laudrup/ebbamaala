@@ -56,7 +56,7 @@ class GalleryPhoto(models.Model):
     thumbnail = ImageSpecField(source='photo',
                                processors=[ResizeToFill(120, 80)])
     date = models.DateTimeField(editable=False,
-                                blank=True,
+                                null=True,
                                 verbose_name=_('Photo Date'))
     gallery = models.ForeignKey('Gallery', on_delete=models.CASCADE)
 
@@ -69,8 +69,6 @@ class GalleryPhoto(models.Model):
         if 'EXIF DateTimeOriginal' in tags:
             exif_date = str(tags['EXIF DateTimeOriginal'])
             self.photo_date = datetime.strptime(exif_date, '%Y:%m:%d %H:%M:%S')
-        else:
-            self.photo_date = ""
         super().save(args, kwargs)
 
     def __str__(self):
