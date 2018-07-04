@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-01 15:49+0200\n"
+"POT-Creation-Date: 2018-07-04 09:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,30 +17,54 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:10 models.py:22
+#: models.py:15 models.py:27
 msgid "Content"
 msgstr "Indhold"
 
-#: models.py:13 models.py:17
+#: models.py:18 models.py:22
 msgid "Frontpage"
 msgstr "Forside"
 
-#: models.py:14
+#: models.py:19
 msgid "Frontpages"
 msgstr "Forsider"
 
-#: models.py:25 models.py:26 models.py:29
+#: models.py:30 models.py:31 models.py:34
 msgid "Practical Info"
 msgstr "Praktisk information"
 
-#: models.py:33
+#: models.py:38 models.py:54 models.py:64
 msgid "Photo"
 msgstr "Billede"
 
-#: models.py:36
+#: models.py:42
 msgid "HeaderImage"
 msgstr "Headerbillede"
 
-#: models.py:37
+#: models.py:43
 msgid "HeaderImages"
 msgstr "Headerbilleder"
+
+#: models.py:55 models.py:80
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: models.py:60
+msgid "Photo Date"
+msgstr "Tidspunkt for billede"
+
+#: models.py:65
+msgid "Photos"
+msgstr "Billede"
+
+#: models.py:79
+msgid "Title"
+msgstr "Titel"
+
+#: models.py:85
+msgid "Photo Gallery"
+msgstr "Fotogalleri"
+
+#: models.py:86
+msgid "Photo Galleries"
+msgstr "Fotogallerier"
