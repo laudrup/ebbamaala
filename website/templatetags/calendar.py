@@ -38,6 +38,7 @@ class BootstrapCalendar(cal.Calendar):
               </p>
             </div>
           </div>
+          <div class="row"><span class="reserved first">Primary</span></div>
         </div>
         """
 
