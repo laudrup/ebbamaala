@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-05 23:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/admin/website/gallery/change_form.html:7
+msgid "Upload Photos"
+msgstr "Upload billeder"
+
+#: templates/registration/login.html:11
+msgid "Welcome to Ebbamåla"
+msgstr "Velkommen til Ebbamåla"
+
+#: templates/registration/login.html:18
+msgid "Login"
+msgstr "Log ind"
+
+#: website/models.py:19 website/models.py:31
+msgid "Content"
+msgstr "Indhold"
+
+#: website/models.py:22 website/models.py:26
+#: website/templates/website/website.html:23
+msgid "Frontpage"
+msgstr "Forside"
+
+#: website/models.py:23
+msgid "Frontpages"
+msgstr "Forsider"
+
+#: website/models.py:34 website/models.py:35 website/models.py:38
+msgid "Practical Info"
+msgstr "Praktisk information"
+
+#: website/models.py:42 website/models.py:58 website/models.py:68
+msgid "Photo"
+msgstr "Billede"
+
+#: website/models.py:46
+msgid "HeaderImage"
+msgstr "Headerbillede"
+
+#: website/models.py:47
+msgid "HeaderImages"
+msgstr "Headerbilleder"
+
+#: website/models.py:59 website/models.py:121
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: website/models.py:64
+msgid "Photo Date"
+msgstr "Tidspunkt for billede"
+
+#: website/models.py:69
+msgid "Photos"
+msgstr "Billede"
+
+#: website/models.py:120
+msgid "Title"
+msgstr "Titel"
+
+#: website/models.py:126 website/templates/website/website.html:29
+msgid "Photo Gallery"
+msgstr "Fotogalleri"
+
+#: website/models.py:127 website/templates/website/gallery.html:5
+msgid "Photo Galleries"
+msgstr "Fotogallerier"
+
+#: website/templates/website/website.html:26
+msgid "Practical Information"
+msgstr "Praktisk information"
+
+#: website/templates/website/website.html:33
+msgid "Administration"
+msgstr "Administration"
+
+#: website/templates/website/website.html:39
+msgid "Logout"
+msgstr "Log ud"

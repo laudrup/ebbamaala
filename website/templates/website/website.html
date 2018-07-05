@@ -1,8 +1,11 @@
 {% extends 'website/base.html' %}
+
 {% load fontawesome %}
 {% load activeurl %}
 {% load static %}
 {% load header_image %}
+{% load i18n %}
+
 {% block base_content %}
   <body class="website">
     <div class="container bg-white mt-4">
@@ -20,23 +23,23 @@
             {% activeurl %}
             <ul class="navbar-nav mr-auto">
               <li>
-                <a class="nav-item nav-link" href="{% url 'website:index' %}">Forside {% fontawesome_icon 'home' %}</a>
+                <a class="nav-item nav-link" href="{% url 'website:index' %}">{% trans "Frontpage" %} {% fontawesome_icon 'home' %}</a>
               </li>
               <li>
-                <a class="nav-item nav-link" href="{% url 'website:info' %}">Praktisk Information {% fontawesome_icon 'info' %}</a>
+                <a class="nav-item nav-link" href="{% url 'website:info' %}">{% trans "Practical Information" %} {% fontawesome_icon 'info' %}</a>
               </li>
               <li>
-                <a class="nav-item nav-link" href="{% url 'website:gallery' %}">Fotogalleri {% fontawesome_icon 'image' %}</a>
+                <a class="nav-item nav-link" href="{% url 'website:gallery' %}">{% trans "Photo Gallery" %} {% fontawesome_icon 'image' %}</a>
               </li>
               {% if user.is_superuser %}
               <li>
-                <a class="nav-item nav-link" href="{% url 'admin:index' %}">Administration {% fontawesome_icon 'cog' %}</a>
+                <a class="nav-item nav-link" href="{% url 'admin:index' %}">{% trans "Administration" %} {% fontawesome_icon 'cog' %}</a>
               </li>
             {% endif %}
             </ul>
           {% endactiveurl %}
             <div class="navbar-nav">
-              <a class="nav-item nav-link" href="/accounts/logout">Log ud {% fontawesome_icon 'sign-out' %}</a>
+              <a class="nav-item nav-link" href="/accounts/logout">{% trans "Logout" %} {% fontawesome_icon 'sign-out' %}</a>
             </div>
           </div>
         </nav>
