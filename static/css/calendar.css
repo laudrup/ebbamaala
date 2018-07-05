@@ -1,0 +1,77 @@
+.calendar
+.weeks {
+    display: flex;
+}
+
+.calendar
+.week {
+    flex: 1;
+    min-width: 33px;
+    text-align: center;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
+    padding: 4px;
+}
+
+.calendar
+.week-row {
+    display: flex;
+    width: 100%;
+}
+
+.calendar
+.week-number {
+    min-width: 30px;
+    border-right: 1px solid #e0e0e0;
+    padding: 4px;
+}
+
+.calendar
+.day-cell {
+    flex: 1;
+    min-width: 33px;
+    min-height: 100px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    background: hsla(0,0%,58%,.1);
+    padding: 4px;
+}
+
+.calendar
+.day-number {
+    text-align: right;
+    color: rgba(0,0,0,.25);
+    font-size: 1em;
+}
+
+.calendar
+.current-month {
+    background: #fff;
+}
+
+.calendar
+.current-month
+.day-number {
+    color: rgba(0,0,0,.5);
+    font-size: 1.5em;
+}
+
+.calendar
+.weekend
+.day-number {
+    color: rgba(210,2,2,.6);
+}
+
+.calendar
+.today {
+    background-color: #e8fde7;
+}
+
+.calendar
+.today
+.day-number {
+    font-size: 2em;
+    font-weight: 700;
+    color: #367016;
+}

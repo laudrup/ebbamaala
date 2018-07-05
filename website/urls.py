@@ -10,6 +10,8 @@ urlpatterns = [
     path('info', views.info, name='info'),
     path('gallery', views.gallery, name='gallery'),
     path('gallery/<gallery_id>', views.photos, name='photos'),
+    path('calendar', views.calendar, name='calendar'),
+    path('calendar/<int:year>/<int:month>/', views.calendar, name='calendar'),
     path('markdownx/', include(markdownx)),
 ]
 

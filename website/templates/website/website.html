@@ -42,6 +42,9 @@
               <li>
                 <a class="nav-item nav-link" href="{% url 'website:gallery' %}">{% trans "Photo Gallery" %} {% fontawesome_icon 'image' %}</a>
               </li>
+              <li>
+                <a class="nav-item nav-link" href="{% url 'website:calendar' %}">{% trans "Calendar" %} {% fontawesome_icon 'calendar' %}</a>
+              </li>
               {% if user.is_superuser %}
                 <li>
                   <a class="nav-item nav-link" href="{% url 'admin:index' %}">{% trans "Administration" %} {% fontawesome_icon 'cog' %}</a>
