@@ -109,6 +109,9 @@ class GalleryPhoto(models.Model):
                                                   None)
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return self.photo.url
+
     def __str__(self):
         return os.path.basename(self.photo.name)
 

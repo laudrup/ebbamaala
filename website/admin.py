@@ -2,13 +2,20 @@ from django.contrib import admin
 from imagekit.admin import AdminThumbnail
 from markdownx.admin import MarkdownxModelAdmin
 
-from .models import Frontpage, Gallery, HeaderImage, PracticalInfo, GalleryPhoto
+from .models import (Frontpage, Gallery, GalleryPhoto, HeaderImage,
+                     PracticalInfo)
 
 
 class GalleryPhotoInline(admin.TabularInline):
     model = GalleryPhoto
     image_display = AdminThumbnail(image_field='thumbnail')
+    fields = ('image_display', 'description')
     readonly_fields = ['image_display', 'date']
+    exclude = ['photo']
+    ordering = ('date',)
+
+    def has_add_permission(self, request):
+        return False
 
 
 class GalleryAdmin(admin.ModelAdmin):
