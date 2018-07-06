@@ -12,9 +12,9 @@
     <div class="container bg-white mt-4">
       <div class="card-body">
         <div class="d-flex">
-            <h3>
-              Ebbamåla
-            </h3>
+          <h3>
+            Ebbamåla
+          </h3>
           <div class="dropdown ml-auto mt-2">
             <a href="#" data-toggle="dropdown">{% language_flag %}</a>
             {% get_available_languages as LANGUAGES %}
@@ -24,11 +24,6 @@
                 <a href="#" class="dropdown-item" data-value="{{ language.code }}">{% language_flag language.code %} {{ language.name_local }}</a>
               {% endfor %}
             </div>
-            <form action="{% url 'set_language' %}" method="post" class="mb-0" id="lang-form">{% csrf_token %}
-              <input name="next" type="hidden" value="{{ redirect_to }}" />
-              <input name="language" type="hidden" value="foo" />
-              <input type="submit" style="visibility: hidden;" />
-            </form>
           </div>
         </div>
         <nav class="navbar navbar-light navbar-expand-lg">
@@ -70,7 +65,7 @@
         </main>
       </div>
       <div class="card-body">
-        <div class="footer container">
+        <div class="footer container mb-2">
           <div class="float-right">
             <a href="http://www.djangoproject.com/">
               <img src="https://www.djangoproject.com/m/img/badges/djangomade124x25_grey.gif" border="0" alt="Made with Django." title="Made with Django." />
@@ -79,6 +74,11 @@
         </div>
       </div>
     </div>
+    <form action="{% url 'set_language' %}" method="post" id="lang-form" class="d-none">{% csrf_token %}
+      <input name="next" type="hidden" value="{{ redirect_to }}" />
+      <input name="language" type="hidden" />
+      <input type="submit" />
+    </form>
     <script>
       (function($) {
         $('.dropdown-menu a').click(function (e) {
