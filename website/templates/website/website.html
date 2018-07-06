@@ -21,7 +21,7 @@
             {% get_language_info_list for LANGUAGES as languages %}
             <div class="dropdown-menu dropdown-menu-right">
               {% for language in languages %}
-                <a href="#" class="dropdown-item" data-value="{{ language.code }}">{% language_flag language.code %} {{ language.name_local }}</a>
+                <a href="#" class="dropdown-item" data-value="{{ language.code }}">{% language_flag language.code %}<span class="ml-2 mt-3">{{ language.name_local|title }}</span></a>
               {% endfor %}
             </div>
           </div>
