@@ -5,6 +5,7 @@ Django settings for ebbamåla project.
 import os
 
 from configurations import Configuration, values
+from django.utils.translation import gettext_lazy as _
 
 
 class Common(Configuration):
@@ -31,6 +32,7 @@ class Common(Configuration):
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.locale.LocaleMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -91,6 +93,10 @@ class Common(Configuration):
     USE_TZ = True
     LOCALE_PATHS = [
         os.path.join(BASE_DIR, 'locale'),
+    ]
+    LANGUAGES = [
+        ('en', _('English')),
+        ('da', _('Danish')),
     ]
 
     # Static files (CSS, JavaScript, Images)
