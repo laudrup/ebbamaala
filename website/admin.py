@@ -2,7 +2,7 @@ from django.contrib import admin
 from imagekit.admin import AdminThumbnail
 from markdownx.admin import MarkdownxModelAdmin
 
-from .models import (Frontpage, Gallery, GalleryPhoto, HeaderImage,
+from .models import (Booking, Frontpage, Gallery, GalleryPhoto, HeaderImage,
                      PracticalInfo)
 
 
@@ -34,7 +34,14 @@ class HeaderImageAdmin(admin.ModelAdmin):
     readonly_fields = ['image_display']
 
 
+class BookingAdmin(admin.ModelAdmin):
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        super().save_model(request, obj, form, change)
+
+
 admin.site.register(Frontpage, MarkdownxModelAdmin)
 admin.site.register(PracticalInfo, MarkdownxModelAdmin)
 admin.site.register(HeaderImage, HeaderImageAdmin)
 admin.site.register(Gallery, GalleryAdmin)
+admin.site.register(Booking, BookingAdmin)

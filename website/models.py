@@ -4,6 +4,7 @@ from datetime import datetime
 from io import BytesIO
 
 import piexif
+from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -136,3 +137,23 @@ class Gallery(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Booking(models.Model):
+    start = models.DateField(verbose_name=_('Start date'))
+    end = models.DateField(verbose_name=_('End date'))
+    user = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
+    description = models.CharField(max_length=500, blank=False, verbose_name=_('Description'))
+    approved = models.BooleanField(default=False, verbose_name=_('Approved'))
+
+    class Meta:
+        verbose_name = _('Booking')
+        verbose_name_plural = _('Bookings')
+
+    def __str__(self):
+        if self.user.first_name and self.user.last_name:
+            return '{first_name} {last_name}s booking'.format(first_name=self.user.first_name,
+                                                              last_name=self.user.last_name)
+        if self.user.first_name:
+            return '{first_name}s booking'.format(first_name=self.user.first_name)
+        return '{user}s booking'.format(user=self.user)

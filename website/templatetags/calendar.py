@@ -8,10 +8,11 @@ from django import template
 
 class BootstrapCalendar(cal.Calendar):
 
-    def __init__(self, year, month):
+    def __init__(self, year, month, bookings):
         super().__init__()
         self._year = year
         self._month = month
+        self._bookings = bookings
         self._today = datetime.date.today()
 
     def render(self):
@@ -40,6 +41,10 @@ class BootstrapCalendar(cal.Calendar):
         </div>
         """
 
+        date = datetime.date(self._year, self._month, day)
+        for booking in self._bookings:
+            if date >= booking.start and date <= booking.end:
+                print('{} is booked'.format(date))
         extra_classes = []
 
         if weekday in [5, 6]:
@@ -108,8 +113,8 @@ register = template.Library()
 
 
 @register.simple_tag()
-def calendar(year, month):
-    cal = BootstrapCalendar(year, month)
+def calendar(year, month, bookings):
+    cal = BootstrapCalendar(year, month, bookings)
     return mark_safe(cal.render())
 
 
