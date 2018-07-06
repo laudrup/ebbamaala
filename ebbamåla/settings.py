@@ -97,6 +97,7 @@ class Common(Configuration):
     LANGUAGES = [
         ('en', _('English')),
         ('da', _('Danish')),
+        ('pl', _('Polish')),
     ]
 
     # Static files (CSS, JavaScript, Images)

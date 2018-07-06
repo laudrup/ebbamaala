@@ -7,6 +7,7 @@ register = template.Library()
 LANG_TO_FLAG = {
     'da': 'flag-icon-dk',
     'en': 'flag-icon-gb',
+    'pl': 'flag-icon-pl',
 }
 
 
