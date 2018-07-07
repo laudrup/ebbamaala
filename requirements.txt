@@ -1,3 +1,5 @@
+certifi
+chardet
 Django
 django-activeurl
 django-appconf
@@ -9,6 +11,7 @@ django-imagekit
 django-markdownx
 ExifRead
 gunicorn
+idna
 lxml
 Markdown
 piexif
@@ -16,4 +19,6 @@ pilkit
 Pillow
 pytz
 PyYAML
+requests
 six
+urllib3
