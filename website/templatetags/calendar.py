@@ -30,19 +30,27 @@ class BootstrapCalendar(cal.Calendar):
             return '<div class="day-cell"></div>'
 
         day_template = """
-        <div class="day-cell current-month {}">
+        <div class="day-cell current-month {extra_classes}">
           <div class="row">
             <div class="col-sm-12">
-              <p class="day-number">
-              {}
-              </p>
+              <div class="row">
+                <div class="col">
+                  <div class="m-1 d-none d-xl-block">
+                    {holiday}
+                  </div>
+                </div>
+                <div class="day-number col-md-auto">
+                  {day}
+                </div>
+              </div>
             </div>
           </div>
-          {}
+          {reservation}
         </div>
         """
 
         reservation = ''
+        holiday = ''
         date = datetime.date(self._year, self._month, day)
         for booking in self._bookings:
             if date == booking.start:
@@ -59,7 +67,10 @@ class BootstrapCalendar(cal.Calendar):
         if self._istoday(day):
             extra_classes = ['today']
 
-        return day_template.format(' '.join(extra_classes), day, reservation)
+        return day_template.format(extra_classes=' '.join(extra_classes),
+                                   holiday=holiday,
+                                   day=day,
+                                   reservation=reservation)
 
     def _getweeknum(self, theweek):
         for (d, wd) in theweek:
