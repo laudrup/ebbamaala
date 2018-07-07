@@ -38,14 +38,19 @@ class BootstrapCalendar(cal.Calendar):
               </p>
             </div>
           </div>
-          <div class="row"><span class="reserved first">Primary</span></div>
+          {}
         </div>
         """
 
+        reservation = ''
         date = datetime.date(self._year, self._month, day)
         for booking in self._bookings:
-            if date >= booking.start and date <= booking.end:
-                print('{} is booked'.format(date))
+            if date == booking.start:
+                reservation += '<div class="row"><span class="reserved first"><br/></span></div>'
+            elif date == booking.end:
+                reservation += '<div class="row"><span class="reserved last"><br/></span></div>'
+            elif date > booking.start and date < booking.end:
+                reservation += '<div class="row"><span class="reserved"><br/></span></div>'
         extra_classes = []
 
         if weekday in [5, 6]:
@@ -54,7 +59,7 @@ class BootstrapCalendar(cal.Calendar):
         if self._istoday(day):
             extra_classes = ['today']
 
-        return day_template.format(' '.join(extra_classes), day)
+        return day_template.format(' '.join(extra_classes), day, reservation)
 
     def _getweeknum(self, theweek):
         for (d, wd) in theweek:
