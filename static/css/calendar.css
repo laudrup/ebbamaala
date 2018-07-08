@@ -47,7 +47,7 @@
 
 .calendar
 .day-cell
-.reserved {
+.booking {
     background: green;
     font-size: 75%;
     margin-left: 11px;
@@ -57,7 +57,7 @@
 
 .calendar
 .day-cell
-.reserved.first
+.booking.first
 {
     border-radius: 5px 0px 0px 5px;
     margin-left: 13px;
@@ -65,7 +65,7 @@
 
 .calendar
 .day-cell
-.reserved.last
+.booking.last
 {
     border-radius: 0px 5px 5px 0px;
     margin-right: 13px;

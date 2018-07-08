@@ -3,6 +3,7 @@ import datetime
 
 import requests
 
+from django.template.loader import render_to_string
 from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
@@ -46,109 +47,55 @@ class BootstrapCalendar(cal.Calendar):
 
     def _formatday(self, day, weekday):
         if day == 0:
-            return '<div class="day-cell"></div>'
-
-        day_template = """
-        <div class="day-cell current-month {extra_classes}">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="row">
-                <div class="day-number col float-right">
-                  {day}
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <div class="d-none d-xl-block text-center">
-                    {description}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {reservation}
-        </div>
-        """
+            return render_to_string('calendar/day.html', {'day': day})
 
         date = datetime.date(self._year, self._month, day)
+        description = self._holidays[date]['name'] if date in self._holidays else None
 
-        description = self._holidays[date]['name'] if date in self._holidays else '</br>'
-        reservation = ''
+        booking = next((b for b in self._bookings
+                        if date >= b.start and date <= b.end), None)
+        booking_class = 'booking'
+        if booking:
+            if date == booking.start:
+                booking_class = 'booking first'
+            elif date == booking.end:
+                booking_class = 'booking last'
 
-        for booking in self._bookings:
-            if date >= booking.start and date <= booking.end:
-                reservation = '<div class="row"><span class="reserved mt-1 mb-1 {}"><br/></span></div>'
-                if date == booking.start:
-                    reservation = reservation.format('first')
-                elif date == booking.end:
-                    reservation = reservation.format('last')
-                else:
-                    reservation = reservation.format('')
-        extra_classes = []
-
-        if weekday in [5, 6] or date in self._holidays and self._holidays[date]['holiday']:
-            extra_classes = ['weekend']
-
+        day_class = ''
         if self._istoday(day):
-            extra_classes = ['today']
+            day_class = 'today'
+        elif weekday in [5, 6] or date in self._holidays and self._holidays[date]['holiday']:
+            day_class = 'weekend'
 
-        return day_template.format(extra_classes=' '.join(extra_classes),
-                                   description=description,
-                                   day=day,
-                                   reservation=reservation)
+        return render_to_string('calendar/day.html', {'day': day,
+                                                      'month': self._month,
+                                                      'year': self._year,
+                                                      'day_class': day_class,
+                                                      'description': description,
+                                                      'booking': booking,
+                                                      'booking_class': booking_class})
 
     def _getweeknum(self, theweek):
-        for (d, wd) in theweek:
-            if d != 0:
-                date = datetime.date(self._year, self._month, d)
-                return date.isocalendar()[1]
-        assert(False)
+        firstday = next(d for (d, wd) in theweek if d != 0)
+        date = datetime.date(self._year, self._month, firstday)
+        return date.isocalendar()[1]
 
     def _formatweek(self, theweek):
-        week_template = """
-        <div class="week-row">
-          <div class="week-number d-flex align-items-center">
-            {}
-          </div>
-          {}
-        </div>
-        """
-
-        s = ''.join(self._formatday(d, wd) for (d, wd) in theweek)
+        days = [self._formatday(d, wd) for (d, wd) in theweek]
         weeknum = self._getweeknum(theweek)
-        return week_template.format(weeknum, s)
-
-    def _formatweekday(self, day):
-        weekday_template = """
-        <strong class="week">
-          {}
-        </strong>
-        """
-        weekday = _(cal.day_abbr[day])
-        return weekday_template.format(weekday.capitalize())
+        return render_to_string('calendar/week.html', {'weeknum': weeknum,
+                                                       'days': days})
 
     def _formatweekheader(self):
-        weekheader_template = """
-        <div class="weeks">
-          <div class="week-number d-flex">
-          </div>
-          {}
-        </div>
-        """
-        s = ''.join(self._formatweekday(i) for i in self.iterweekdays())
-        return weekheader_template.format(s)
+        weekdays = [_(cal.day_abbr[day]) for day in self.iterweekdays()]
+        return render_to_string('calendar/weekheader.html', {'weekdays': weekdays})
 
     def _formatmonth(self):
-        v = []
-        a = v.append
-        a('<div class="calendar">')
-        a(self._formatweekheader())
-        a('<div class="dates">')
-        for week in self.monthdays2calendar(self._year, self._month):
-            a(self._formatweek(week))
-        a('</div>')
-        a('</div>')
-        return ''.join(v)
+        weekheader = self._formatweekheader()
+        weeks = [self._formatweek(week) for week in
+                 self.monthdays2calendar(self._year, self._month)]
+        return render_to_string('calendar/month.html', {'weekheader': mark_safe(weekheader),
+                                                        'weeks': weeks})
 
 
 register = template.Library()

@@ -1,0 +1,29 @@
+{% if day == 0 %}
+  <div class="day-cell"></div>
+{% else %}
+  <div class="day-cell current-month {{ day_class }}">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="day-number col float-right">
+            {{ day }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="d-none d-xl-block text-center">
+              {% if description %}
+                {{ description }}
+              {% else %}
+                <br />
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if booking %}
+      <div class="row"><span class="{{ booking_class }} mt-1 mb-1"><br/></span></div>
+    {% endif %}
+  </div>
+{% endif %}
