@@ -9,7 +9,7 @@
 
 {% block base_content %}
   <body class="website">
-    <div class="container bg-white mt-4">
+    <div class="container bg-white my-xl-4">
       <div class="card-body">
         <div class="d-flex">
           <h3>
@@ -43,10 +43,10 @@
                 <a class="nav-item nav-link" href="{% url 'website:gallery' %}">{% trans "Photo Gallery" %} {% fontawesome_icon 'image' %}</a>
               </li>
               {% if user.is_superuser %}
-              <li>
-                <a class="nav-item nav-link" href="{% url 'admin:index' %}">{% trans "Administration" %} {% fontawesome_icon 'cog' %}</a>
-              </li>
-            {% endif %}
+                <li>
+                  <a class="nav-item nav-link" href="{% url 'admin:index' %}">{% trans "Administration" %} {% fontawesome_icon 'cog' %}</a>
+                </li>
+              {% endif %}
             </ul>
           {% endactiveurl %}
             <div class="navbar-nav">
