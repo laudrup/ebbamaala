@@ -7,6 +7,19 @@
 {% load i18n %}
 {% load language_flag %}
 
+{% block head %}
+  {{ block.super }}
+  <script>
+    $(function() {
+      $('.dropdown-menu a').click(function (e) {
+        e.preventDefault();
+        $('#lang-form input[name="language"]').val($(this).data('value'));
+        $('#lang-form').submit();
+      });
+    });
+  </script>
+{% endblock %}
+
 {% block base_content %}
   <body class="website">
     <div class="container bg-white my-xl-4">
@@ -77,20 +90,12 @@
         </div>
       </div>
     </div>
-    <form action="{% url 'set_language' %}" method="post" id="lang-form" class="d-none">{% csrf_token %}
+    <form action="{% url 'set_language' %}" method="post" id="lang-form" class="d-none">
+      {% csrf_token %}
       <input name="next" type="hidden" value="{{ redirect_to }}" />
       <input name="language" type="hidden" />
       <input type="submit" />
     </form>
-    <script>
-      (function($) {
-        $('.dropdown-menu a').click(function (e) {
-          e.preventDefault();
-          $('#lang-form input[name="language"]').val($(this).data('value'));
-          $('#lang-form').submit();
-        });
-      })(jQuery);
-    </script>
     {% block endbody %}
     {% endblock %}
   </body>
