@@ -140,8 +140,8 @@ class Gallery(models.Model):
 
 
 class Booking(models.Model):
-    start = models.DateField(verbose_name=_('Start date'))
-    end = models.DateField(verbose_name=_('End date'))
+    start_date = models.DateField(verbose_name=_('Start date'))
+    end_date = models.DateField(verbose_name=_('End date'))
     user = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
     description = models.CharField(max_length=500, blank=False, verbose_name=_('Description'))
     approved = models.BooleanField(default=False, verbose_name=_('Approved'))
