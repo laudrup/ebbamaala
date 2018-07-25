@@ -69,6 +69,9 @@ class GalleryPhoto(models.Model):
         verbose_name = _('Photo')
         verbose_name_plural = _('Photos')
 
+    def __str__(self):
+        return os.path.basename(self.photo.name)
+
     def save(self, *args, **kwargs):
         img = Image.open(self.photo)
         if 'exif' in img.info:
@@ -113,9 +116,6 @@ class GalleryPhoto(models.Model):
     def get_absolute_url(self):
         return self.photo.url
 
-    def __str__(self):
-        return os.path.basename(self.photo.name)
-
 
 class Gallery(models.Model):
     title = models.CharField(max_length=100, verbose_name=_('Title'))
@@ -127,16 +127,16 @@ class Gallery(models.Model):
         verbose_name = _('Photo Gallery')
         verbose_name_plural = _('Photo Galleries')
 
-    def thumbnail(self):
-        return self.galleryphoto_set.order_by('?')[0].thumbnail
+    def __str__(self):
+        return self.title
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
-    def __str__(self):
-        return self.title
+    def thumbnail(self):
+        return self.galleryphoto_set.order_by('?')[0].thumbnail
 
 
 class Booking(models.Model):
