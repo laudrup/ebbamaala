@@ -101,6 +101,9 @@ class Common(Configuration):
         ('pl', _('Polish')),
     ]
 
+    FORMAT_MODULE_PATH = [
+        'website.formats',
+    ]
     # Static files (CSS, JavaScript, Images)
     STATIC_URL = '/static/'
     STATICFILES_DIRS = [
