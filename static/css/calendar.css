@@ -39,6 +39,17 @@
 }
 
 .calendar
+.day-cell.current-month.selectable:hover
+{
+    background: #e0e0e0;
+}
+
+.calendar
+.day-cell.current-month a:hover {
+    text-decoration: none !important;
+}
+
+.calendar
 .day-number {
     text-align: right;
     color: rgba(0,0,0,.25);
@@ -97,8 +108,9 @@
 .calendar
 .today
 .day-number {
-    font-size: 2em;
+    font-size: 1.8em;
     font-weight: 700;
     color: #367016;
     margin-top: -4px;
+    margin-bottom: -3px;
 }

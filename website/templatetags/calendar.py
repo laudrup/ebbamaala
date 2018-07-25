@@ -44,12 +44,12 @@ class BootstrapCalendar(cal.Calendar):
         description = self._holidays[date]['name'] if date in self._holidays else None
 
         booking = next((b for b in self._bookings
-                        if date >= b.start and date <= b.end), None)
+                        if date >= b.start_date and date <= b.end_date), None)
         booking_class = 'booking'
         if booking:
-            if date == booking.start:
+            if date == booking.start_date:
                 booking_class = 'booking first'
-            elif date == booking.end:
+            elif date == booking.end_date:
                 booking_class = 'booking last'
 
         day_class = ''
@@ -58,9 +58,11 @@ class BootstrapCalendar(cal.Calendar):
         elif weekday in [5, 6] or date in self._holidays and self._holidays[date]['holiday']:
             day_class = 'weekend'
 
+        bookable = date >= datetime.date.today()
         return render_to_string('calendar/day.html', {'day': day,
                                                       'month': self._month,
                                                       'year': self._year,
+                                                      'bookable': bookable,
                                                       'day_class': day_class,
                                                       'description': description,
                                                       'booking': booking,

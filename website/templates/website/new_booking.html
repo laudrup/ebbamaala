@@ -1,0 +1,67 @@
+{% extends 'website/website.html' %}
+
+{% load fontawesome %}
+{% load bootstrap4 %}
+{% load i18n %}
+{% load static %}
+{% load form_errors %}
+
+{% block head %}
+  {{ block.super }}
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.min.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="{% static 'js/booking-dates.js' %}"></script>
+  {% get_current_language as LANGUAGE_CODE %}
+  {% if LANGUAGE_CODE == 'en' %}
+    <script>
+      $(function() {
+        $.datepicker.setDefaults($.datepicker.regional['']);
+      });
+    </script>
+  {% else %}
+    {% static '' as static_base %}
+    <script src="{{ static_base }}i18n/datepicker-{{ LANGUAGE_CODE }}.js"></script>
+    <script>
+      $(function() {
+        $.datepicker.setDefaults($.datepicker.regional['{{ LANGUAGE_CODE }}']);
+      });
+    </script>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% form_errors form.non_field_errors %}
+  <form action="{% url 'website:booking' %}" method="post">
+    {% csrf_token %}
+    {% form_errors form.start_date.errors %}
+    {% form_errors form.end_date.errors %}
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        <label for="{{ form.start_date.id_for_label }}">
+          {% trans "Start date" %}
+        </label>
+        {{ form.start_date }}
+      </div>
+      <div class="form-group col-md-2">
+        <label for="{{ form.end_date.id_for_label }}">
+          {% trans "End date" %}
+        </label>
+        {{ form.end_date }}
+      </div>
+    </div>
+    {% form_errors form.description.errors %}
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="{{ form.description.id_for_label }}">
+          {% trans "Description" %}
+        </label>
+        {{ form.description }}
+      </div>
+    </div>
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% trans "Book" %}
+    </button>
+  {% endbuttons %}
+  </form>
+{% endblock %}
