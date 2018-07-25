@@ -9,7 +9,6 @@ django-configurations
 django-fontawesome
 django-imagekit
 django-markdownx
-ExifRead
 gunicorn
 idna
 lxml
