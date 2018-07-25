@@ -19,5 +19,6 @@ Pillow
 pytz
 PyYAML
 requests
+salling-group-holidays
 six
 urllib3

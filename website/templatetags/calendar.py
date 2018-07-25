@@ -1,7 +1,7 @@
 import calendar as cal
 import datetime
 
-import requests
+import salling_group_holidays
 
 from django.template.loader import render_to_string
 from django.conf import settings
@@ -24,19 +24,10 @@ class BootstrapCalendar(cal.Calendar):
         return self._formatmonth()
 
     def _getholidays(self):
-        url = 'https://api.dansksupermarked.dk/v1/holidays/'
+        api = salling_group_holidays.v1(settings.DS_API_KEY)
         last_day = cal.monthrange(self._year, self._month)[1]
-        params = {
-            'startDate': datetime.date(self._year, self._month, 1).isoformat(),
-            'endDate': datetime.date(self._year, self._month, last_day).isoformat()
-        }
-        headers = {'Authorization': 'Bearer {}'.format(settings.DS_API_KEY)}
-        r = requests.get(url, headers=headers, params=params)
-        result = {datetime.datetime.strptime(val['date'], '%Y-%m-%d').date():
-                  {'name': val['name'],
-                   'holiday': val['nationalHoliday']}
-                  for val in r.json()}
-        return result
+        return api.holidays(datetime.date(self._year, self._month, 1),
+                            datetime.date(self._year, self._month, last_day))
 
     def _istoday(self, day):
         if self._today.year != self._year:
