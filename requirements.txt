@@ -1,3 +1,7 @@
+atomicwrites
+attrs
+beautifulsoup4
+bs4
 certifi
 chardet
 Django
@@ -13,9 +17,12 @@ gunicorn
 idna
 lxml
 Markdown
+more-itertools
+pbr
 piexif
 pilkit
 Pillow
+pluggy
 pytz
 PyYAML
 requests

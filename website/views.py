@@ -1,6 +1,7 @@
 import calendar as cal
 import datetime
 
+from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -52,10 +53,14 @@ def calendar(request, year=None, month=None):
 
 
 def booking(request, id):
-    if request.method == 'POST':
-        # TODO: Delete booking
-        pass
     booking = get_object_or_404(Booking, pk=id)
+
+    if request.method == 'POST':
+        if not request.user.is_superuser and request.user != booking.user:
+            raise PermissionDenied
+        booking.delete()
+        return HttpResponseRedirect(reverse('website:calendar'))
+
     return render(request, 'website/booking.html', {'booking': booking})
 
 
