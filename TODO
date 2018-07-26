@@ -1,0 +1,16 @@
+- Style admin interface like the rest of the website
+- Support videos in gallery
+- Show tooltip for booking in calendar
+- Add shadow to month selector buttons in calendar
+- Support approved status for bookings
+- Send emails to admins on relevant events
+- Update Danish and Polish translations
+- Add German translations if someone will provide it
+- Support overlapping bookings
+- Allow user to modify own account for non admins instead of admin site
+- Custom HTTP error pages
+- Show message when booking has been deleted
+- Add jquery ui version to settings.py and use that
+- Remove unneeded dependencies from requirements.txt
+- Add at least basic tests for all views
+- Add continous integration with travis
