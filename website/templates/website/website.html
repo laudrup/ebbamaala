@@ -7,6 +7,19 @@
 {% load i18n %}
 {% load language_flag %}
 
+{% block head %}
+  {{ block.super }}
+  <script>
+    $(function() {
+      $('.dropdown-menu a').click(function (e) {
+        e.preventDefault();
+        $('#lang-form input[name="language"]').val($(this).data('value'));
+        $('#lang-form').submit();
+      });
+    });
+  </script>
+{% endblock %}
+
 {% block base_content %}
   <body class="website">
     <div class="container bg-white my-xl-4">
@@ -16,42 +29,65 @@
             Ebbamåla
           </h3>
           <div class="dropdown ml-auto mt-2">
-            <a href="#" data-toggle="dropdown">{% language_flag %}</a>
+            <a href="#" data-toggle="dropdown">
+              {% language_flag %}
+            </a>
             {% get_available_languages as LANGUAGES %}
             {% get_language_info_list for LANGUAGES as languages %}
             <div class="dropdown-menu dropdown-menu-right">
               {% for language in languages %}
-                <a href="#" class="dropdown-item" data-value="{{ language.code }}">{% language_flag language.code %}<span class="ml-2 mt-3">{{ language.name_local|title }}</span></a>
+                <a href="#" class="dropdown-item" data-value="{{ language.code }}">
+                  {% language_flag language.code %}
+                  <span class="ml-2 mt-3">
+                    {{ language.name_local|title }}
+                  </span>
+                </a>
               {% endfor %}
             </div>
           </div>
         </div>
         <nav class="navbar navbar-light navbar-expand-lg">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon">
+            </span>
           </button>
           <div class="collapse navbar-collapse" id="navbar-content">
             {% activeurl %}
             <ul class="navbar-nav mr-auto">
               <li>
-                <a class="nav-item nav-link" href="{% url 'website:index' %}">{% trans "Frontpage" %} {% fontawesome_icon 'home' %}</a>
+                <a class="nav-item nav-link" href="{% url 'website:index' %}">
+                  {% trans "Frontpage" %} {% fontawesome_icon 'home' %}
+                </a>
               </li>
               <li>
-                <a class="nav-item nav-link" href="{% url 'website:info' %}">{% trans "Practical Information" %} {% fontawesome_icon 'info' %}</a>
+                <a class="nav-item nav-link" href="{% url 'website:info' %}">
+                  {% trans "Practical Information" %} {% fontawesome_icon 'info' %}
+                </a>
               </li>
               <li>
-                <a class="nav-item nav-link" href="{% url 'website:gallery' %}">{% trans "Photo Gallery" %} {% fontawesome_icon 'image' %}</a>
+                <a class="nav-item nav-link" href="{% url 'website:gallery' %}">
+                  {% trans "Photo Gallery" %} {% fontawesome_icon 'image' %}
+                </a>
+              </li>
+              <li>
+                <a class="nav-item nav-link" href="{% url 'website:calendar' %}">
+                  {% trans "Calendar" %} {% fontawesome_icon 'calendar' %}
+                </a>
               </li>
               {% if user.is_superuser %}
                 <li>
-                  <a class="nav-item nav-link" href="{% url 'admin:index' %}">{% trans "Administration" %} {% fontawesome_icon 'cog' %}</a>
+                  <a class="nav-item nav-link" href="{% url 'admin:index' %}">
+                    {% trans "Administration" %} {% fontawesome_icon 'cog' %}
+                  </a>
                 </li>
               {% endif %}
             </ul>
           {% endactiveurl %}
-            <div class="navbar-nav">
-              <a class="nav-item nav-link" href="/accounts/logout">{% trans "Logout" %} {% fontawesome_icon 'sign-out' %}</a>
-            </div>
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/accounts/logout">
+              {% trans "Logout" %} {% fontawesome_icon 'sign-out' %}
+            </a>
+          </div>
           </div>
         </nav>
       </div>
@@ -74,20 +110,12 @@
         </div>
       </div>
     </div>
-    <form action="{% url 'set_language' %}" method="post" id="lang-form" class="d-none">{% csrf_token %}
+    <form action="{% url 'set_language' %}" method="post" id="lang-form" class="d-none">
+      {% csrf_token %}
       <input name="next" type="hidden" value="{{ redirect_to }}" />
       <input name="language" type="hidden" />
       <input type="submit" />
     </form>
-    <script>
-      (function($) {
-        $('.dropdown-menu a').click(function (e) {
-          e.preventDefault();
-          $('#lang-form input[name="language"]').val($(this).data('value'));
-          $('#lang-form').submit();
-        });
-      })(jQuery);
-    </script>
     {% block endbody %}
     {% endblock %}
   </body>

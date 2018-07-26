@@ -4,6 +4,7 @@ from datetime import datetime
 from io import BytesIO
 
 import piexif
+from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -68,6 +69,9 @@ class GalleryPhoto(models.Model):
         verbose_name = _('Photo')
         verbose_name_plural = _('Photos')
 
+    def __str__(self):
+        return os.path.basename(self.photo.name)
+
     def save(self, *args, **kwargs):
         img = Image.open(self.photo)
         if 'exif' in img.info:
@@ -112,9 +116,6 @@ class GalleryPhoto(models.Model):
     def get_absolute_url(self):
         return self.photo.url
 
-    def __str__(self):
-        return os.path.basename(self.photo.name)
-
 
 class Gallery(models.Model):
     title = models.CharField(max_length=100, verbose_name=_('Title'))
@@ -126,13 +127,33 @@ class Gallery(models.Model):
         verbose_name = _('Photo Gallery')
         verbose_name_plural = _('Photo Galleries')
 
-    def thumbnail(self):
-        return self.galleryphoto_set.order_by('?')[0].thumbnail
+    def __str__(self):
+        return self.title
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
+    def thumbnail(self):
+        return self.galleryphoto_set.order_by('?')[0].thumbnail
+
+
+class Booking(models.Model):
+    start_date = models.DateField(verbose_name=_('Start date'))
+    end_date = models.DateField(verbose_name=_('End date'))
+    user = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
+    description = models.CharField(max_length=500, blank=False, verbose_name=_('Description'))
+    approved = models.BooleanField(default=False, verbose_name=_('Approved'))
+
+    class Meta:
+        verbose_name = _('Booking')
+        verbose_name_plural = _('Bookings')
+
     def __str__(self):
-        return self.title
+        if self.user.first_name and self.user.last_name:
+            return _('{first_name} {last_name}s booking').format(first_name=self.user.first_name,
+                                                                 last_name=self.user.last_name)
+        if self.user.first_name:
+            return _('{first_name}s booking').format(first_name=self.user.first_name)
+        return _('{user}s booking').format(user=self.user)

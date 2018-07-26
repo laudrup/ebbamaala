@@ -1,0 +1,49 @@
+{% if day == 0 %}
+  <div class="day-cell"></div>
+{% else %}
+  {% if booking or bookable %}
+    <div class="day-cell current-month selectable {{ day_class }}">
+  {% else %}
+    <div class="day-cell current-month {{ day_class }}">
+  {% endif %}
+  {% if booking %}
+    <a href="{% url 'website:booking' booking.id %}">
+  {% elif bookable %}
+    <a href="{% url 'website:booking' %}?year={{ year }}&month={{ month }}&day={{ day }}">
+  {% endif %}
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="day-number col float-right">
+          {{ day }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="d-none d-xl-block text-center">
+            {% if description %}
+              {{ description }}
+            {% else %}
+              <br />
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if booking %}
+    <div class="row">
+      <span class="{{ booking_class }} mt-1 mb-1">
+        <br/>
+      </span>
+    </div>
+  {% else %}
+    <div class="row">
+      <br />
+    </div>
+  {% endif %}
+  {% if booking or bookable %}
+    </a>
+  {% endif %}
+    </div>
+  {% endif %}

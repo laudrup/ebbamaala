@@ -12,6 +12,7 @@ class Common(Configuration):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
     SECRET_KEY = values.SecretValue()
+    DS_API_KEY = values.SecretValue()
 
     # Application definition
     INSTALLED_APPS = [
@@ -86,7 +87,7 @@ class Common(Configuration):
     ]
 
     # Internationalization
-    LANGUAGE_CODE = 'da'
+    LANGUAGE_CODE = 'en'
     TIME_ZONE = 'UTC'
     USE_I18N = True
     USE_L10N = True
@@ -100,6 +101,9 @@ class Common(Configuration):
         ('pl', _('Polish')),
     ]
 
+    FORMAT_MODULE_PATH = [
+        'website.formats',
+    ]
     # Static files (CSS, JavaScript, Images)
     STATIC_URL = '/static/'
     STATICFILES_DIRS = [
