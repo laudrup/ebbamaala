@@ -9,3 +9,4 @@ env:
   - DJANGO_SECRET_KEY="deadcafebabe" DJANGO_DS_API_KEY="deadcafebabe"
 script:
   - python manage.py test
+  - flake8

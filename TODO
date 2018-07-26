@@ -7,10 +7,9 @@
 - Update Danish and Polish translations
 - Add German translations if someone will provide it
 - Support overlapping bookings
-- Allow user to modify own account for non admins instead of admin site
+- Allow user to modify their own account for non admins instead of linking to admin site
 - Custom HTTP error pages
 - Show message when booking has been deleted
 - Add jquery ui version to settings.py and use that
 - Remove unneeded dependencies from requirements.txt
 - Add at least basic tests for all views
-- Add continous integration with travis
