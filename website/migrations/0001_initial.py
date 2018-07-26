@@ -15,28 +15,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Booking',
-            fields=[
-                ('id', models.AutoField(auto_created=True,
-                                        primary_key=True,
-                                        serialize=False,
-                                        verbose_name='ID')),
-                ('start', models.DateField(verbose_name='Start date')),
-                ('end', models.DateField(verbose_name='End date')),
-                ('description', models.CharField(max_length=500,
-                                                 verbose_name='Description')),
-                ('approved', models.BooleanField(default=False,
-                                                 verbose_name='Approved')),
-                ('user', models.ForeignKey(editable=False,
-                                           on_delete=django.db.models.deletion.CASCADE,
-                                           to=settings.AUTH_USER_MODEL)),
-            ],
-            options={
-                'verbose_name': 'Booking',
-                'verbose_name_plural': 'Bookings',
-            },
-        ),
-        migrations.CreateModel(
             name='Frontpage',
             fields=[
                 ('id', models.AutoField(auto_created=True,
