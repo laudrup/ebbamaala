@@ -7,8 +7,6 @@ from .models import Booking
 class BookingForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         self.user = user
-        for k, v in kwargs.items():
-            print('{}: {}'.format(k, v))
         super().__init__(*args, **kwargs)
 
     class Meta:
