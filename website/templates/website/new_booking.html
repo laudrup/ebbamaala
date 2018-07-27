@@ -8,45 +8,55 @@
 
 {% block head %}
   {{ block.super }}
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.min.css">
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-  <script src="{% static 'js/booking-dates.js' %}"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
   {% get_current_language as LANGUAGE_CODE %}
-  {% if LANGUAGE_CODE == 'en' %}
+  {% if LANGUAGE_CODE != 'en' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.{{ LANGUAGE_CODE }}.min.js"></script>
     <script>
-     $(function() {
-       $.datepicker.setDefaults($.datepicker.regional['']);
-     });
-    </script>
-  {% else %}
-    {% static '' as static_base %}
-    <script src="{{ static_base }}i18n/datepicker-{{ LANGUAGE_CODE }}.js"></script>
-    <script>
-     $(function() {
-       $.datepicker.setDefaults($.datepicker.regional['{{ LANGUAGE_CODE }}']);
-     });
+     $.fn.datepicker.defaults.language = '{{ LANGUAGE_CODE }}';
     </script>
   {% endif %}
+  <script>
+   $(function() {
+     $('#id_start_date').datepicker({startDate: new Date()});
+     $('#id_end_date').datepicker({startDate: new Date()});
+
+     $('#id_start_date').datepicker().on('changeDate', function(e) {
+       $('#id_end_date').datepicker('setStartDate', e.date);
+     });
+
+     $('#id_end_date').datepicker().on('changeDate', function(e) {
+       $('#id_start_date').datepicker('setEndDate', e.date);
+     });
+
+     $('#booking_dates').datepicker({
+       inputs: [$('#id_start_date'), $('#id_end_date')]
+     });
+   });
+  </script>
 {% endblock %}
 
 {% block content %}
   {% form_errors form.non_field_errors %}
-  <form action="{% url 'website:booking' %}" method="post">
+  <form action="{% url 'website:booking' %}" method="post" autocomplete="off">
     {% csrf_token %}
     {% form_errors form.start_date.errors %}
     {% form_errors form.end_date.errors %}
     <div class="form-row">
-      <div class="form-group col-md-2">
-        <label for="{{ form.start_date.id_for_label }}">
-          {% trans "Start date" %}
+      <div class="form-group col-md-4">
+        <label>
+          {% trans "Dates" %}
         </label>
-        {{ form.start_date }}
-      </div>
-      <div class="form-group col-md-2">
-        <label for="{{ form.end_date.id_for_label }}">
-          {% trans "End date" %}
-        </label>
-        {{ form.end_date }}
+        <div class="input-group" id="booking_dates">
+          {{ form.start_date }}
+          <span class="input-group-text date-range-splitter">
+            {% trans "to" %}
+          </span>
+          {{ form.end_date }}
+        </div>
       </div>
     </div>
     {% form_errors form.description.errors %}

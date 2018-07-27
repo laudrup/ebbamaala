@@ -23,3 +23,8 @@ body.website {
 .black-text-shadow {
     text-shadow: 2px 2px 4px #000000;
 }
+
+.date-range-splitter {
+    border-radius: 0; border: 1px solid #ced4da;
+    border-width: 1px 0 1px 0;
+}
