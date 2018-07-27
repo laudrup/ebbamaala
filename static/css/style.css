@@ -19,3 +19,7 @@ body.website {
     padding-bottom: 0.5rem;
     padding-left: 1rem;
 }
+
+.black-text-shadow {
+    text-shadow: 2px 2px 4px #000000;
+}

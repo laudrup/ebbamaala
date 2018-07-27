@@ -68,6 +68,7 @@ class GalleryPhoto(models.Model):
     class Meta:
         verbose_name = _('Photo')
         verbose_name_plural = _('Photos')
+        ordering = ['date']
 
     def __str__(self):
         return os.path.basename(self.photo.name)

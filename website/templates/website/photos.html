@@ -5,6 +5,18 @@
 {% block head %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static 'blueimp-gallery/css/blueimp-gallery.min.css' %}">
+  <script src="{% static 'blueimp-gallery/js/jquery.blueimp-gallery.min.js' %}"></script>
+  <script>
+   $(function() {
+     $('#blueimp-gallery').on('slide', function(event, index, slide) {
+       var link = $('#photos').children().eq(index).find('a');
+       var description = link.attr('data-description');
+       var date = link.attr('data-date');
+       $(this).find('.description').text(description);
+       $(this).find('.date').text(date);
+     });
+   });
+  </script>
 {% endblock %}
 
 {% block content %}
@@ -28,26 +40,17 @@
   <div id="blueimp-gallery" class="blueimp-gallery">
     <div class="slides"></div>
     <h3 class="title"></h3>
-    <p class="description fixed-top text-left p-3 text-white"></p>
-    <p class="date fixed-top text-right p-3 text-white"></p>
+    <p class="description fixed-top text-left p-3 text-white black-text-shadow"
+       style="max-width: 90%;"></p>
+    <p class="date fixed-bottom text-right p-3 text-white black-text-shadow"></p>
     <a class="prev">
-      ‹
+      &lsaquo;
     </a>
     <a class="next">
-      ›
+      &rsaquo;
     </a>
-    <a class="close">
-      ×
+    <a class="close text-white">
+      &times;
     </a>
   </div>
-  <script src="{% static 'blueimp-gallery/js/jquery.blueimp-gallery.min.js' %}"></script>
-  <script>
-   $('#blueimp-gallery').on('slide', function(event, index, slide) {
-     var link = $('#photos').children().eq(index).find('a');
-     var description = link.attr('data-description');
-     var date = link.attr('data-date');
-     $(this).find('.description').text(description);
-     $(this).find('.date').text(date);
-   });
-  </script>
 {% endblock %}
