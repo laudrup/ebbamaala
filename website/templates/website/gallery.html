@@ -4,7 +4,9 @@
 
 {% block content %}
   <div class="container">
-    <h1>{% trans "Photo Galleries" %}</h1>
+    <h1>
+      {% trans "Photo Galleries" %}
+    </h1>
     <hr />
     <div class="row">
       {% for gallery in galleries %}
@@ -14,8 +16,12 @@
               <img class="card-img-top img-thumbnail" src="{{ gallery.thumbnail.url }}" alt="Card image cap">
             </a>
             <div class="card-body">
-              <h5 class="card-title">{{ gallery.title }}</h5>
-              <p class="card-text">{{ gallery.description }}</p>
+              <h5 class="card-title">
+                {{ gallery.title }}
+              </h5>
+              <p class="card-text">
+                {{ gallery.description }}
+              </p>
             </div>
           </div>
         </div>

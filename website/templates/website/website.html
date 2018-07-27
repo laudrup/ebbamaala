@@ -10,13 +10,13 @@
 {% block head %}
   {{ block.super }}
   <script>
-    $(function() {
-      $('.dropdown-menu a').click(function (e) {
-        e.preventDefault();
-        $('#lang-form input[name="language"]').val($(this).data('value'));
-        $('#lang-form').submit();
-      });
-    });
+   $(function() {
+     $('.dropdown-menu a').click(function (e) {
+       e.preventDefault();
+       $('#lang-form input[name="language"]').val($(this).data('value'));
+       $('#lang-form').submit();
+     });
+   });
   </script>
 {% endblock %}
 

@@ -14,17 +14,17 @@
   {% get_current_language as LANGUAGE_CODE %}
   {% if LANGUAGE_CODE == 'en' %}
     <script>
-      $(function() {
-        $.datepicker.setDefaults($.datepicker.regional['']);
-      });
+     $(function() {
+       $.datepicker.setDefaults($.datepicker.regional['']);
+     });
     </script>
   {% else %}
     {% static '' as static_base %}
     <script src="{{ static_base }}i18n/datepicker-{{ LANGUAGE_CODE }}.js"></script>
     <script>
-      $(function() {
-        $.datepicker.setDefaults($.datepicker.regional['{{ LANGUAGE_CODE }}']);
-      });
+     $(function() {
+       $.datepicker.setDefaults($.datepicker.regional['{{ LANGUAGE_CODE }}']);
+     });
     </script>
   {% endif %}
 {% endblock %}

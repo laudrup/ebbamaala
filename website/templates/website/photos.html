@@ -9,7 +9,9 @@
 
 {% block content %}
   <div class="container">
-    <h1>{{ gallery.title }}</h1>
+    <h1>
+      {{ gallery.title }}
+    </h1>
     <hr />
     <div class="row" id="photos">
       {% for photo in gallery.galleryphoto_set.all %}
@@ -19,7 +21,7 @@
           </a>
         </div>
       {% endfor %}
-      </div>
+    </div>
   </div>
 {% endblock %}
 {% block endbody %}
@@ -28,18 +30,24 @@
     <h3 class="title"></h3>
     <p class="description fixed-top text-left p-3 text-white"></p>
     <p class="date fixed-top text-right p-3 text-white"></p>
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="close">×</a>
+    <a class="prev">
+      ‹
+    </a>
+    <a class="next">
+      ›
+    </a>
+    <a class="close">
+      ×
+    </a>
   </div>
   <script src="{% static 'blueimp-gallery/js/jquery.blueimp-gallery.min.js' %}"></script>
   <script>
-    $('#blueimp-gallery').on('slide', function(event, index, slide) {
-      var link = $('#photos').children().eq(index).find('a');
-      var description = link.attr('data-description');
-      var date = link.attr('data-date');
-      $(this).find('.description').text(description);
-      $(this).find('.date').text(date);
-    });
+   $('#blueimp-gallery').on('slide', function(event, index, slide) {
+     var link = $('#photos').children().eq(index).find('a');
+     var description = link.attr('data-description');
+     var date = link.attr('data-date');
+     $(this).find('.description').text(description);
+     $(this).find('.date').text(date);
+   });
   </script>
 {% endblock %}

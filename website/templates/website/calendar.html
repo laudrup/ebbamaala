@@ -19,18 +19,18 @@
       <div class="p-3">
         <h5 class="text-right">
           {{ month|month_name|title }} {{ year }}
-        </h2>
-        <div class="row align-items-center justify-content-center">
-          <div class="btn-group">
-            <a href="{% url 'website:calendar' prev_month.0 prev_month.1 %}" class="btn btn-primary" style="min-width: 110px;">
-              {% fontawesome_icon 'arrow-left' %} {% trans "Previous" %}
-            </a>
-            <a href="{% url 'website:calendar' %}" class="btn btn-outline-primary">{% trans "Today" %}</a>
-            <a href="{% url 'website:calendar' next_month.0 next_month.1 %}" class="btn btn-primary" style="min-width: 110px;">
-              {% trans "Next" %} {% fontawesome_icon 'arrow-right' %}
-            </a>
-          </div>
+      </h2>
+      <div class="row align-items-center justify-content-center">
+        <div class="btn-group calendar-buttons">
+          <a href="{% url 'website:calendar' prev_month.0 prev_month.1 %}" class="btn btn-primary" style="min-width: 110px;">
+            {% fontawesome_icon 'arrow-left' %} {% trans "Previous" %}
+          </a>
+          <a href="{% url 'website:calendar' %}" class="btn btn-outline-primary">{% trans "Today" %}</a>
+          <a href="{% url 'website:calendar' next_month.0 next_month.1 %}" class="btn btn-primary" style="min-width: 110px;">
+            {% trans "Next" %} {% fontawesome_icon 'arrow-right' %}
+          </a>
         </div>
+      </div>
       </div>
       <div>
         {% calendar year month bookings %}
