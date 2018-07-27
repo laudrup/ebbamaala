@@ -10,6 +10,5 @@
 - Allow user to modify their own account for non admins instead of linking to admin site
 - Custom HTTP error pages
 - Show message when booking has been deleted
-- Add jquery ui version to settings.py and use that
 - Remove unneeded dependencies from requirements.txt
 - Add at least basic tests for all views
