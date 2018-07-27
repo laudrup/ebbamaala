@@ -1,3 +1,12 @@
+.calendar-buttons
+.btn
+{
+    box-shadow:
+        inset 0px 11px 8px -10px rgba(0, 0, 0, .4),
+        inset 0px -11px 8px -10px white;
+    border: 0;
+}
+
 .calendar
 .weeks {
     display: flex;
@@ -64,6 +73,9 @@
     margin-left: 11px;
     margin-right: 10px;
     width: 100%;
+    box-shadow:
+        inset 0px 11px 8px -10px rgba(0, 0, 0, .4),
+        inset 0px -11px 8px -10px white;
 }
 
 .calendar
