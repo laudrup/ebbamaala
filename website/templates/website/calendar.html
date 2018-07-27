@@ -8,6 +8,11 @@
 {% block head %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+  <script>
+   $(function () {
+     $('[data-toggle="tooltip"]').tooltip()
+   });
+  </script>
 {% endblock %}
 
 {% block content %}

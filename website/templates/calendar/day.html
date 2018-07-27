@@ -7,7 +7,7 @@
     <div class="day-cell current-month {{ day_class }}">
   {% endif %}
   {% if booking %}
-    <a href="{% url 'website:booking' booking.id %}">
+    <a href="{% url 'website:booking' booking.id %}" data-toggle="tooltip" title="{{ booking }}">
   {% elif bookable %}
     <a href="{% url 'website:booking' %}?year={{ year }}&month={{ month }}&day={{ day }}">
   {% endif %}
