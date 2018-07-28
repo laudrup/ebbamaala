@@ -4,3 +4,4 @@ env
 media
 *.mo
 run_devel.sh
+.coverage
