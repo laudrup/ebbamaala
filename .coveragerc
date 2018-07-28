@@ -1,2 +1,4 @@
 [run]
-omit = website/admin.py
+omit =
+     website/admin.py
+     website/apps.py
