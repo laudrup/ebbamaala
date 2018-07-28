@@ -8,10 +8,8 @@
 
 {% block head %}
   {{ block.super }}
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
-
   {% get_current_language as LANGUAGE_CODE %}
   {% if LANGUAGE_CODE != 'en' %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.{{ LANGUAGE_CODE }}.min.js"></script>
