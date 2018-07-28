@@ -2,7 +2,5 @@
 {% load markdown %}
 
 {% block content %}
-  <p>
-    {{ frontpage.content|markdown|safe }}
-  </p>
+  {{ frontpage.content|markdown|safe }}
 {% endblock %}
