@@ -1,5 +1,6 @@
 import calendar as cal
 import datetime
+import logging
 
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponse, HttpResponseRedirect
@@ -9,9 +10,15 @@ from django.urls import reverse
 from .forms import BookingForm
 from .models import Booking, Frontpage, Gallery, PracticalInfo
 
+logger = logging.getLogger(__name__)
+
 
 def index(request):
-    frontpage = Frontpage.objects.latest('pub_date')
+    try:
+        frontpage = Frontpage.objects.latest('pub_date')
+    except Frontpage.DoesNotExist:
+        logger.warning('No frontpage added')
+        raise Http404
     return render(request, 'website/index.html', {'frontpage': frontpage})
 
 
