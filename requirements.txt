@@ -27,6 +27,7 @@ piexif
 pilkit
 Pillow
 pluggy
+pyfakefs
 pytz
 PyYAML
 requests
