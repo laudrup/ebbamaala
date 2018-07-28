@@ -11,3 +11,5 @@
 - Show message when booking has been deleted
 - Remove unneeded dependencies from requirements.txt
 - Add at least basic tests for all views
+- Split practical info into sections
+- Test with Python 3.7 once travis supports it
