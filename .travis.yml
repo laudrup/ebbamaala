@@ -10,3 +10,5 @@ env:
 script:
   - python manage.py test
   - flake8
+after_success:
+  - coveralls

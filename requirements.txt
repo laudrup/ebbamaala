@@ -4,6 +4,8 @@ beautifulsoup4
 bs4
 certifi
 chardet
+coverage
+coveralls
 Django
 django-activeurl
 django-appconf
@@ -13,6 +15,7 @@ django-configurations
 django-fontawesome
 django-imagekit
 django-markdownx
+django-nose
 flake8
 gunicorn
 idna

@@ -27,6 +27,7 @@ class Common(Configuration):
         'django_activeurl',
         'imagekit',
         'markdownx',
+        'django_nose',
         'website',
     ]
 
@@ -114,6 +115,13 @@ class Common(Configuration):
 
     LOGOUT_REDIRECT_URL = '/'
     LOGIN_REDIRECT_URL = '/'
+
+    TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+    NOSE_ARGS = [
+        '--with-coverage',
+        '--cover-package=website',
+    ]
 
 
 class Development(Common):
