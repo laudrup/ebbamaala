@@ -1,9 +1,8 @@
-from bs4 import BeautifulSoup
-from django.test import TestCase
-from django.contrib.auth import get_user_model
-
 from datetime import date
 
+from bs4 import BeautifulSoup
+from django.contrib.auth import get_user_model
+from django.test import TestCase
 from website.forms import BookingForm
 from website.models import Booking
 
