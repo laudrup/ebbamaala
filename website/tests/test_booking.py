@@ -21,7 +21,7 @@ class BookingFormTests(TestCase):
         self.assertEqual(1, len(Booking.objects.all()))
 
     def test_missing_dates(self):
-        form = BookingForm(self._user)
+        form = self._booking_form(None, None)
         self.assertFalse(form.is_valid())
 
     def test_end_before_start(self):
@@ -34,17 +34,12 @@ class BookingFormTests(TestCase):
         form = self._booking_form(date(2018, 7, 25), date(2018, 7, 27))
         form.save()
 
-        form = self._booking_form(date(2018, 7, 20), date(2018, 7, 26))
-        self.assertFalse(form.is_valid())
-        self.assertIn('bobby has already booked these dates.', str(form.errors))
-
-        form = self._booking_form(date(2018, 7, 26), date(2018, 7, 30))
-        self.assertFalse(form.is_valid())
-        self.assertIn('bobby has already booked these dates.', str(form.errors))
-
-        form = self._booking_form(date(2018, 7, 20), date(2018, 7, 30))
-        self.assertFalse(form.is_valid())
-        self.assertIn('bobby has already booked these dates.', str(form.errors))
+        for dates in ((date(2018, 7, 20), date(2018, 7, 26)),
+                      (date(2018, 7, 26), date(2018, 7, 30)),
+                      (date(2018, 7, 20), date(2018, 7, 30))):
+            form = self._booking_form(dates[0], dates[1])
+            self.assertFalse(form.is_valid())
+            self.assertIn('bobby has already booked these dates.', str(form.errors))
 
         form = self._booking_form(date(2018, 7, 28), date(2018, 7, 30))
         self.assertTrue(form.is_valid())

@@ -1,5 +1,5 @@
 from unittest import mock
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import urlencode
 
 from bs4 import BeautifulSoup
 from django.conf import settings
@@ -15,11 +15,8 @@ class FrontpageViewTests(TestCase):
 
     def test_not_logged_in(self):
         response = self.client.get('/')
-        self.assertEqual(302, response.status_code)
-
-        url = urlparse(response.url)
-        self.assertEqual(settings.LOGIN_URL, url.path)
-        self.assertEquals({'next': ['/']}, parse_qs(url.query))
+        url = "{}?{}".format(settings.LOGIN_URL, urlencode({'next': '/'}))
+        self.assertRedirects(response, url)
 
     @mock.patch('website.views.logger')
     def test_no_frontage(self, mock_logger):
