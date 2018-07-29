@@ -1,3 +1,4 @@
+import logging
 import os
 import sys
 from datetime import datetime
@@ -14,6 +15,8 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from markdownx.models import MarkdownxField
 from PIL import Image
+
+logger = logging.getLogger(__name__)
 
 
 class Frontpage(models.Model):
@@ -84,40 +87,48 @@ class GalleryPhoto(models.Model):
                 exif_date = exif_dict['Exif'][piexif.ExifIFD.DateTimeOriginal].decode()
                 self.date = timezone.make_aware(datetime.strptime(exif_date, '%Y:%m:%d %H:%M:%S'))
 
-            # Rotate image and remove rotation field if required
+            # Rotate image and change orientation field if required
             if piexif.ImageIFD.Orientation in exif_dict['0th']:
-                # TODO: Don't pop the orientation info - change it
-                orientation = exif_dict['0th'].pop(piexif.ImageIFD.Orientation)
-                exif_bytes = piexif.dump(exif_dict)
-                output = BytesIO()
-                if orientation == 2:
-                    img = img.transpose(Image.FLIP_LEFT_RIGHT)
-                elif orientation == 3:
-                    img = img.rotate(180)
-                elif orientation == 4:
-                    img = img.rotate(180).transpose(Image.FLIP_LEFT_RIGHT)
-                elif orientation == 5:
-                    img = img.rotate(-90, expand=True).transpose(Image.FLIP_LEFT_RIGHT)
-                elif orientation == 6:
-                    img = img.rotate(-90, expand=True)
-                elif orientation == 7:
-                    img = img.rotate(90, expand=True).transpose(Image.FLIP_LEFT_RIGHT)
-                elif orientation == 8:
-                    img = img.rotate(90, expand=True)
+                orientation = exif_dict['0th'][piexif.ImageIFD.Orientation]
+                if orientation not in range(1, 9):
+                    logger.warning('Unexpected orientation: {}'.format(orientation))
+                elif orientation != 1:
+                    self._fix_rotation(img, exif_dict)
 
-                img.save(output, format='JPEG', quality=100, exif=exif_bytes)
-                output.seek(0)
-
-                self.photo = InMemoryUploadedFile(output,
-                                                  'ImageField',
-                                                  '{}.jpg'.format(self.photo.name.split('.')[0]),
-                                                  'image/jpeg',
-                                                  sys.getsizeof(output),
-                                                  None)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return self.photo.url
+
+    def _fix_rotation(self, img, exif_dict):
+        orientation = exif_dict['0th'][piexif.ImageIFD.Orientation]
+        if orientation == 2:
+            img = img.transpose(Image.FLIP_LEFT_RIGHT)
+        elif orientation == 3:
+            img = img.rotate(180)
+        elif orientation == 4:
+            img = img.rotate(180).transpose(Image.FLIP_LEFT_RIGHT)
+        elif orientation == 5:
+            img = img.rotate(-90, expand=True).transpose(Image.FLIP_LEFT_RIGHT)
+        elif orientation == 6:
+            img = img.rotate(-90, expand=True)
+        elif orientation == 7:
+            img = img.rotate(90, expand=True).transpose(Image.FLIP_LEFT_RIGHT)
+        elif orientation == 8:
+            img = img.rotate(90, expand=True)
+
+        exif_dict['0th'][piexif.ImageIFD.Orientation] = 1
+        exif_bytes = piexif.dump(exif_dict)
+        output = BytesIO()
+        img.save(output, format='JPEG', quality=100, exif=exif_bytes)
+        output.seek(0)
+
+        self.photo = InMemoryUploadedFile(output,
+                                          'ImageField',
+                                          '{}.jpg'.format(self.photo.name.split('.')[0]),
+                                          'image/jpeg',
+                                          sys.getsizeof(output),
+                                          None)
 
 
 class Gallery(models.Model):

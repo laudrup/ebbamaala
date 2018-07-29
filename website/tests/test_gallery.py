@@ -52,8 +52,40 @@ class GalleryPhotoModelTests(TestCase):
         gallery = Gallery.objects.create(title='Test Gallery')
         photo = GalleryPhoto.objects.create(photo=SimpleUploadedFile('test.jpg', jpeg_data),
                                             gallery=gallery)
-
         self.assertEqual(timestamp, photo.date)
+
+    @mock.patch('website.models.logger')
+    def test_invalid_orientation_tag(self, mock_logger):
+        gallery = Gallery.objects.create(title='Test Gallery')
+        jpeg_data = self._create_jpeg_data(exif={'0th': {piexif.ImageIFD.Orientation:
+                                                         666}})
+
+        GalleryPhoto.objects.create(photo=SimpleUploadedFile('test.jpg', jpeg_data),
+                                    gallery=gallery)
+        # The photo should still be saved
+        gallery_photos = gallery.galleryphoto_set.all()
+        self.assertEqual(1, len(gallery_photos))
+        mock_logger.warning.assert_called_with('Unexpected orientation: 666')
+
+    def test_photo_rotation(self):
+        gallery = Gallery.objects.create(title='Test Gallery')
+
+        for rotation in range(1, 9):
+            # Create image with EXIF rotation info
+            jpeg_data = self._create_jpeg_data(exif={'0th': {piexif.ImageIFD.Orientation:
+                                                             rotation}})
+
+            # Save image to gallery
+            photo = GalleryPhoto.objects.create(photo=SimpleUploadedFile('test.jpg', jpeg_data),
+                                                gallery=gallery)
+
+            # Read and verify uploaded photos orientation tag
+            byte_io = BytesIO(photo.photo.read())
+            img = Image.open(byte_io)
+            exif_dict = piexif.load(img.info['exif'])
+
+            self.assertIn(piexif.ImageIFD.Orientation, exif_dict['0th'])
+            self.assertEqual(exif_dict['0th'][piexif.ImageIFD.Orientation], 1)
 
     def _create_jpeg_data(self, exif={}):
         byte_io = BytesIO()
