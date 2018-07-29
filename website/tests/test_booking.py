@@ -10,7 +10,7 @@ from website.models import Booking
 class BookingFormTests(TestCase):
     def setUp(self):
         User = get_user_model()
-        self.user = User.objects.create_user('bobby', 'littlebobby@gmail.com', 'tables')
+        self._user = User.objects.create_user('bobby', 'littlebobby@gmail.com', 'tables')
 
     def test_valid_booking(self):
         form = self._booking_form(date(2018, 7, 25), date(2018, 7, 27))
@@ -19,6 +19,10 @@ class BookingFormTests(TestCase):
         self.assertEqual(0, len(form.errors))
         form.save()
         self.assertEqual(1, len(Booking.objects.all()))
+
+    def test_missing_dates(self):
+        form = BookingForm(self._user)
+        self.assertFalse(form.is_valid())
 
     def test_end_before_start(self):
         form = self._booking_form(date(2018, 7, 27), date(2018, 7, 25))
@@ -49,7 +53,7 @@ class BookingFormTests(TestCase):
         self.assertTrue(form.is_valid())
 
     def _booking_form(self, start_date, end_date):
-        return BookingForm(self.user,
+        return BookingForm(self._user,
                            {'description': 'Not important',
                             'start_date': start_date,
                             'end_date': end_date})
