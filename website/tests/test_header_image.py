@@ -1,13 +1,13 @@
 from io import BytesIO
-from PIL import Image
-from django.core.files.uploadedfile import SimpleUploadedFile
 
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template import Context, Template
 from django.test import TestCase
+from PIL import Image
 from website.models import HeaderImage
 
 
-class HeaderImageTagTest(TestCase):
+class HeaderImageTagTests(TestCase):
 
     def test_no_header(self):
         template_to_render = Template(
