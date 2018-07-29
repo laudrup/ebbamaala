@@ -2,7 +2,7 @@ Ebbamåla
 ========
 
 [![Build Status](https://travis-ci.org/laudrup/ebbamaala.png)](https://travis-ci.org/laudrup/ebbamaala)
-[![Coverage Status](https://coveralls.io/repos/github/laudrup/ebbamaala/badge.svg?branch=master)](https://coveralls.io/github/laudrup/ebbamaala?branch=master)
+[![Coverage Status](https://img.shields.io/coveralls/github/laudrup/ebbamaala.svg)](https://coveralls.io/github/laudrup/ebbamaala)
 
 Just the code for my summerhouse website.
 
