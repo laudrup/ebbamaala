@@ -102,4 +102,4 @@ def calendar(year, month, bookings):
 
 @register.filter()
 def month_name(month):
-    return _(cal.month_name[month])
+    return _(cal.month_name[month]).capitalize()
