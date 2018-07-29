@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.utils import timezone
 from django.utils.translation import gettext as _
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
@@ -81,10 +82,11 @@ class GalleryPhoto(models.Model):
             # Read and save original timestamp of picture if available
             if piexif.ExifIFD.DateTimeOriginal in exif_dict['Exif']:
                 exif_date = exif_dict['Exif'][piexif.ExifIFD.DateTimeOriginal].decode()
-                self.date = datetime.strptime(exif_date, '%Y:%m:%d %H:%M:%S')
+                self.date = timezone.make_aware(datetime.strptime(exif_date, '%Y:%m:%d %H:%M:%S'))
 
             # Rotate image and remove rotation field if required
             if piexif.ImageIFD.Orientation in exif_dict['0th']:
+                # TODO: Don't pop the orientation info - change it
                 orientation = exif_dict['0th'].pop(piexif.ImageIFD.Orientation)
                 exif_bytes = piexif.dump(exif_dict)
                 output = BytesIO()

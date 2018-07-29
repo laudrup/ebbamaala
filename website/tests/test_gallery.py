@@ -1,10 +1,11 @@
+from datetime import datetime
 from io import BytesIO
 from unittest import mock
-import piexif
-from datetime import datetime
 
+import piexif
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
+from django.utils import timezone
 from PIL import Image
 from pyfakefs.fake_filesystem_unittest import Patcher
 from website.models import Gallery, GalleryPhoto
@@ -26,14 +27,9 @@ class GalleryPhotoModelTests(TestCase):
         self.flock_patcher.stop()
 
     def test_photo_upload(self):
-        # Create image
-        img = Image.new('RGB', (10, 10))
-        byte_io = BytesIO()
-        img.save(byte_io, 'JPEG')
-
-        # Save to gallery
+        jpeg_data = self._create_jpeg_data()
         gallery = Gallery.objects.create(title='Test Gallery')
-        GalleryPhoto.objects.create(photo=SimpleUploadedFile('test.jpg', byte_io.getvalue()),
+        GalleryPhoto.objects.create(photo=SimpleUploadedFile('test.jpg', jpeg_data),
                                     gallery=gallery)
 
         # There should be one photo
@@ -46,21 +42,24 @@ class GalleryPhotoModelTests(TestCase):
         self.assertIsNone(photo.date)
 
     def test_photo_timestamp(self):
-        # Create EXIF timestamp
-        timestamp = datetime(2015, 8, 15)
-        exif_dict = {'Exif': {piexif.ExifIFD.DateTimeOriginal:
-                              timestamp.strftime('%Y:%m:%d %H:%M:%S')}}
-        exif_bytes = piexif.dump(exif_dict)
-
         # Create image with EXIF timestamp
-        byte_io = BytesIO()
-        img = Image.new('RGB', (10, 10))
-        img.save(byte_io, 'JPEG', exif=exif_bytes)
+        timestamp = timezone.make_aware(datetime(2015, 8, 15))
+        exif = {'Exif': {piexif.ExifIFD.DateTimeOriginal:
+                         timestamp.strftime('%Y:%m:%d %H:%M:%S')}}
+        jpeg_data = self._create_jpeg_data(exif=exif)
 
         # Save image to gallery
         gallery = Gallery.objects.create(title='Test Gallery')
-        photo = GalleryPhoto.objects.create(photo=SimpleUploadedFile('test.jpg',
-                                                                     byte_io.getvalue()),
+        photo = GalleryPhoto.objects.create(photo=SimpleUploadedFile('test.jpg', jpeg_data),
                                             gallery=gallery)
 
         self.assertEqual(timestamp, photo.date)
+
+    def _create_jpeg_data(self, exif={}):
+        byte_io = BytesIO()
+        img = Image.new('RGB', (10, 10))
+        if exif:
+            img.save(byte_io, 'JPEG', exif=piexif.dump(exif))
+        else:
+            img.save(byte_io, 'JPEG')
+        return byte_io.getvalue()
