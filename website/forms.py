@@ -42,6 +42,8 @@ class BookingForm(forms.ModelForm):
     def save(self):
         booking = super().save(commit=False)
         booking.user = self.user
+        if self.user.is_superuser:
+            booking.approved = True
         booking.save()
         return booking
 

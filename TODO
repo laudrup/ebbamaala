@@ -1,7 +1,5 @@
 - Style admin interface like the rest of the website
 - Support videos in gallery
-- Add shadow to month selector buttons in calendar
-- Support approved status for bookings
 - Send emails to admins on relevant events
 - Update Danish and Polish translations
 - Add German translations if someone will provide it
@@ -14,3 +12,6 @@
 - Split practical info into sections
 - Test with Python 3.7 once travis supports it
 - Test upload of invalid photos
+- Add confirmation dialog before a booking is added
+- Use class based views
+- Use HTML table for calendar.

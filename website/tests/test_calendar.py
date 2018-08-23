@@ -72,7 +72,7 @@ class CalendarTagTests(TestCase):
         mock_holidays.assert_called_with(datetime.date(2018, 1, 1),
                                          datetime.date(2018, 1, 31))
 
-        days = soup.findAll('div', {'class': ['current-month']})
+        days = soup.findAll('div', {'class': 'current-month'})
         self.assertEqual(31, len(days))
 
         holiday = days[16].find('div', {'class': 'd-xl-block'})

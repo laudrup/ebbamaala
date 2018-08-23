@@ -79,7 +79,7 @@ class BookingViewTests(TestCase):
         self.assertIsNone(soup.find(id='delete_booking'))
 
         # Bob cannot delete Alices booking
-        response = self.client.post(alice_booking_url)
+        response = self.client.post(alice_booking_url, {'type': 'delete'})
         self.assertEqual(403, response.status_code)
         self.assertEqual(1, len(Booking.objects.all()))
 
@@ -89,7 +89,7 @@ class BookingViewTests(TestCase):
                                                  'end_date': date(2018, 7, 30)})
         self.assertEqual(2, len(Booking.objects.all()))
         bob_booking_url = response.url
-        response = self.client.post(bob_booking_url)
+        response = self.client.post(bob_booking_url, {'type': 'delete'})
         self.assertNotEqual(403, response.status_code)
         self.assertEqual(1, len(Booking.objects.all()))
 
@@ -99,6 +99,44 @@ class BookingViewTests(TestCase):
         self.assertIsNotNone(soup.find(id='delete_booking'))
 
         # Admin can delete all bookings
-        response = self.client.post(alice_booking_url)
+        response = self.client.post(alice_booking_url, {'type': 'delete'})
         self.assertNotEqual(403, response.status_code)
         self.assertEqual(0, len(Booking.objects.all()))
+
+
+    def test_approve_booking(self):
+        self.client.login(username='alice', password='password')
+        response = self.client.post('/booking', {'description': 'Not important',
+                                                 'start_date': date(2018, 7, 25),
+                                                 'end_date': date(2018, 7, 27)})
+        self.assertEqual(1, len(Booking.objects.all()))
+        booking = Booking.objects.all().last()
+        self.assertFalse(booking.approved)
+
+        # Alice cannot approve her own booking
+        alice_booking_url = response.url
+        response = self.client.post(alice_booking_url, {'type': 'approve'})
+        self.assertEqual(403, response.status_code)
+        self.assertFalse(Booking.objects.all().last().approved)
+
+        # And neither can Bob
+        self.client.login(username='bob', password='password')
+        response = self.client.post(alice_booking_url, {'type': 'approve'})
+        self.assertEqual(403, response.status_code)
+        self.assertFalse(Booking.objects.all().last().approved)
+
+        # But an admin can
+        self.client.login(username='admin', password='password')
+        response = self.client.post(alice_booking_url, {'type': 'approve'})
+        self.assertEqual(302, response.status_code)
+        self.assertTrue(Booking.objects.all().last().approved)
+
+    def test_admin_booking_approved(self):
+        # An admin doesn't have to approve her own booking
+        self.client.login(username='admin', password='password')
+        response = self.client.post('/booking', {'description': 'Not important',
+                                                 'start_date': date(2018, 7, 25),
+                                                 'end_date': date(2018, 7, 27)})
+        self.assertEqual(1, len(Booking.objects.all()))
+        booking = Booking.objects.all().last()
+        self.assertTrue(booking.approved)

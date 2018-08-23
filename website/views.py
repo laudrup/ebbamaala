@@ -2,7 +2,7 @@ import calendar as cal
 import datetime
 import logging
 
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -63,9 +63,19 @@ def booking(request, id):
     booking = get_object_or_404(Booking, pk=id)
 
     if request.method == 'POST':
-        if not request.user.is_superuser and request.user != booking.user:
+        if not 'type' in request.POST:
+            raise SuspiciousOperation
+        if request.POST['type'] == 'approve':
+            if not request.user.is_superuser:
+                raise PermissionDenied
+            booking.approved = True
+            booking.save()
+        elif request.POST['type'] == 'delete':
+            if not request.user.is_superuser and request.user != booking.user:
+                raise PermissionDenied
+            booking.delete()
+        else:
             raise PermissionDenied
-        booking.delete()
         return HttpResponseRedirect(reverse('website:calendar'))
 
     return render(request, 'website/booking.html', {'booking': booking})
