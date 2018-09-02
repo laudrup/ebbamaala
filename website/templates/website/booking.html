@@ -100,9 +100,7 @@
           </button>
         </div>
         <div class="modal-body">
-          {% blocktrans %}
-            Are you sure you want to delete {{ booking }}?
-          {% endblocktrans %}
+          {% blocktrans %}Are you sure you want to delete {{ booking }}?{% endblocktrans %}
         </div>
         <div class="modal-footer">
           <form action="{{ request.path }}" method="post" class="mb-0">
