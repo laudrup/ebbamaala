@@ -63,7 +63,7 @@ def booking(request, id):
     booking = get_object_or_404(Booking, pk=id)
 
     if request.method == 'POST':
-        if not 'type' in request.POST:
+        if 'type' not in request.POST:
             raise SuspiciousOperation
         if request.POST['type'] == 'approve':
             if not request.user.is_superuser:

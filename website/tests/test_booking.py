@@ -103,7 +103,6 @@ class BookingViewTests(TestCase):
         self.assertNotEqual(403, response.status_code)
         self.assertEqual(0, len(Booking.objects.all()))
 
-
     def test_approve_booking(self):
         self.client.login(username='alice', password='password')
         response = self.client.post('/booking', {'description': 'Not important',
@@ -134,9 +133,9 @@ class BookingViewTests(TestCase):
     def test_admin_booking_approved(self):
         # An admin doesn't have to approve her own booking
         self.client.login(username='admin', password='password')
-        response = self.client.post('/booking', {'description': 'Not important',
-                                                 'start_date': date(2018, 7, 25),
-                                                 'end_date': date(2018, 7, 27)})
+        self.client.post('/booking', {'description': 'Not important',
+                                      'start_date': date(2018, 7, 25),
+                                      'end_date': date(2018, 7, 27)})
         self.assertEqual(1, len(Booking.objects.all()))
         booking = Booking.objects.all().last()
         self.assertTrue(booking.approved)
