@@ -12,6 +12,6 @@
 - Split practical info into sections
 - Test with Python 3.7 once travis supports it
 - Test upload of invalid photos
-- Add confirmation dialog before a booking is added
+- Suppport editing existing booking
 - Use class based views
 - Use HTML table for calendar.
