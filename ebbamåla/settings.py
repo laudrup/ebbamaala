@@ -139,3 +139,25 @@ class Production(Common):
         ('Kasper Laudrup', 'laudrup@stacktrace.dk'),
     )
     EMAIL_HOST = 'localhost'
+
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False.
+        'handlers': {
+            'console': {
+                'level': 'INFO',
+                'class': 'logging.StreamHandler',
+            },
+            'mail_admins': {
+                'level': 'ERROR',
+                'class': 'django.utils.log.AdminEmailHandler'
+            }
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['console', 'mail_admins'],
+                'propagate': True,
+                'level': 'DEBUG',
+            },
+        }
+    }
