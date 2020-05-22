@@ -6,7 +6,7 @@ certifi
 chardet
 coverage
 coveralls
-Django==2.2
+Django==2.2.10
 django-activeurl
 django-appconf
 django-bootstrap4
