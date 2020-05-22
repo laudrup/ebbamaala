@@ -21,6 +21,11 @@ class GalleryPhotoInline(admin.TabularInline):
 class GalleryAdmin(admin.ModelAdmin):
     inlines = [GalleryPhotoInline]
 
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        form.is_multipart = lambda self: True
+        return form
+
     def save_model(self, request, obj, form, change):
         obj.save()
 
