@@ -18,17 +18,6 @@
           {{ day }}
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <div class="d-none d-xl-block text-center">
-            {% if description %}
-              {{ description }}
-            {% else %}
-              <br />
-            {% endif %}
-          </div>
-        </div>
-      </div>
     </div>
   </div>
   {% if booking %}
@@ -42,6 +31,17 @@
       <br />
     </div>
   {% endif %}
+  <div class="row">
+    <div class="col">
+      <div class="d-none d-xl-block text-center">
+        {% if description %}
+          {{ description }}
+        {% else %}
+          <br />
+        {% endif %}
+      </div>
+    </div>
+  </div>
   {% if booking or bookable %}
     </a>
   {% endif %}
