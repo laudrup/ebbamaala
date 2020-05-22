@@ -50,6 +50,7 @@ class BookingFormTests(TestCase):
     def _booking_form(self, start_date, end_date):
         return BookingForm(self._user,
                            {'description': 'Not important',
+                            'booker': 'Gurli Gris',
                             'start_date': start_date,
                             'end_date': end_date})
 
@@ -64,6 +65,7 @@ class BookingViewTests(TestCase):
     def test_delete_booking(self):
         self.client.login(username='alice', password='password')
         response = self.client.post('/booking', {'description': 'Not important',
+                                                 'booker': 'John Doe',
                                                  'start_date': date(2018, 7, 25),
                                                  'end_date': date(2018, 7, 27)})
         self.assertEqual(1, len(Booking.objects.all()))
@@ -85,6 +87,7 @@ class BookingViewTests(TestCase):
 
         # Bob can create his own booking and delete that
         response = self.client.post('/booking', {'description': 'Not important',
+                                                 'booker': 'John Doe',
                                                  'start_date': date(2018, 7, 28),
                                                  'end_date': date(2018, 7, 30)})
         self.assertEqual(2, len(Booking.objects.all()))
@@ -106,6 +109,7 @@ class BookingViewTests(TestCase):
     def test_approve_booking(self):
         self.client.login(username='alice', password='password')
         response = self.client.post('/booking', {'description': 'Not important',
+                                                 'booker': 'John Doe',
                                                  'start_date': date(2018, 7, 25),
                                                  'end_date': date(2018, 7, 27)})
         self.assertEqual(1, len(Booking.objects.all()))
@@ -134,6 +138,7 @@ class BookingViewTests(TestCase):
         # An admin doesn't have to approve her own booking
         self.client.login(username='admin', password='password')
         self.client.post('/booking', {'description': 'Not important',
+                                      'booker': 'John Doe',
                                       'start_date': date(2018, 7, 25),
                                       'end_date': date(2018, 7, 27)})
         self.assertEqual(1, len(Booking.objects.all()))
