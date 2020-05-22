@@ -157,6 +157,7 @@ class Booking(models.Model):
     start_date = models.DateField(verbose_name=_('Start date'))
     end_date = models.DateField(verbose_name=_('End date'))
     user = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
+    booker = models.CharField(max_length=100, blank=False, verbose_name=_('Booker'))
     description = models.CharField(max_length=500, blank=False, verbose_name=_('Description'))
     approved = models.BooleanField(default=False, verbose_name=_('Approved'))
 
@@ -165,9 +166,9 @@ class Booking(models.Model):
         verbose_name_plural = _('Bookings')
 
     def __str__(self):
-        if self.user.first_name and self.user.last_name:
-            return _('{first_name} {last_name}s booking').format(first_name=self.user.first_name,
-                                                                 last_name=self.user.last_name)
-        if self.user.first_name:
-            return _('{first_name}s booking').format(first_name=self.user.first_name)
-        return _('{user}s booking').format(user=self.user)
+        return _('{booker}s booking').format(booker=self.booker)
+
+def save(self, *args, **kwargs):
+    if not self.booker:
+        self.booker = self.user.get_full_name()
+    super(Booking, self).save(*args, **kwargs)

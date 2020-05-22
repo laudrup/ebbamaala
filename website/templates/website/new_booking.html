@@ -60,6 +60,14 @@
     {% form_errors form.description.errors %}
     <div class="form-row">
       <div class="form-group col-md-4">
+        <label for="{{ form.user.id_for_label }}">
+          {% trans "Reserved for" %}
+        </label>
+        {{ form.booker }}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
         <label for="{{ form.description.id_for_label }}">
           {% trans "Description" %}
         </label>

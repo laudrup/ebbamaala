@@ -6,16 +6,18 @@ from .models import Booking
 
 class BookingForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
-        self.user = user
         super().__init__(*args, **kwargs)
+        self.user = user
+        self.fields['booker'].initial = user.get_full_name()
 
     class Meta:
         model = Booking
-        fields = ('description', 'start_date', 'end_date')
+        fields = ('booker', 'description', 'start_date', 'end_date')
         localized_fields = ('start_date', 'end_date')
         widgets = {
             'start_date': forms.TextInput(attrs={'class': 'form-control'}),
             'end_date': forms.TextInput(attrs={'class': 'form-control'}),
+            'booker': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control',
                                                  'placeholder':
                                                  _('Any relevant information related to your booking')}),
