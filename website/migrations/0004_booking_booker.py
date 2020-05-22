@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 
+
 def set_default_booker(apps, schema_editor):
     Booking = apps.get_model('website', 'Booking')
     for booking in Booking.objects.all().iterator():
@@ -12,6 +13,7 @@ def set_default_booker(apps, schema_editor):
         else:
             booking.booker = booking.user
         booking.save()
+
 
 class Migration(migrations.Migration):
 
