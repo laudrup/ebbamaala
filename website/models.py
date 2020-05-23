@@ -167,9 +167,3 @@ class Booking(models.Model):
 
     def __str__(self):
         return _('{booker}s booking').format(booker=self.booker)
-
-
-def save(self, *args, **kwargs):
-    if not self.booker:
-        self.booker = self.user.get_full_name()
-    super(Booking, self).save(*args, **kwargs)
