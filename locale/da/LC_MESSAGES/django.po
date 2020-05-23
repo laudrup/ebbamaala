@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-02 10:18+0000\n"
+"POT-Creation-Date: 2020-05-23 20:04+0000\n"
 "PO-Revision-Date: 2018-09-02 12:50+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,15 +41,15 @@ msgstr "Velkommen til Ebbamåla"
 msgid "Login"
 msgstr "Log ind"
 
-#: website/forms.py:21
+#: website/forms.py:23
 msgid "Any relevant information related to your booking"
 msgstr "Oplysninger om din ønskede reservation"
 
-#: website/forms.py:32
+#: website/forms.py:34
 msgid "Booking cannot end before it starts."
 msgstr "En reservation kan ikke slutte før den begynder"
 
-#: website/forms.py:37
+#: website/forms.py:39
 #, python-brace-format
 msgid "{user} has already booked these dates."
 msgstr "{user} har allerede reserveret de ønskede datoer"
@@ -83,9 +83,9 @@ msgstr "Headerbillede"
 msgid "HeaderImages"
 msgstr "Headerbilleder"
 
-#: website/models.py:64 website/models.py:136 website/models.py:160
-#: website/templates/website/booking.html:33
-#: website/templates/website/new_booking.html:64
+#: website/models.py:64 website/models.py:136 website/models.py:161
+#: website/templates/website/booking.html:47
+#: website/templates/website/new_booking.html:72
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -117,61 +117,59 @@ msgstr "Startdato"
 msgid "End date"
 msgstr "Slutdato"
 
-#: website/models.py:161 website/templates/website/booking.html:53
+#: website/models.py:160
+msgid "Booker"
+msgstr "Besøgende"
+
+#: website/models.py:162 website/templates/website/booking.html:67
 msgid "Approved"
 msgstr "Godkendt"
 
-#: website/models.py:164
+#: website/models.py:165
 msgid "Booking"
 msgstr "Reservation"
 
-#: website/models.py:165
+#: website/models.py:166
 msgid "Bookings"
 msgstr "Reservationer"
 
 #: website/models.py:169
-#, python-brace-format
-msgid "{first_name} {last_name}s booking"
-msgstr "{first_name} {last_name}s reservation"
-
-#: website/models.py:172
-#, python-brace-format
-msgid "{first_name}s booking"
-msgstr "{first_name}s reservation"
-
-#: website/models.py:173
-#, python-brace-format
-msgid "{user}s booking"
+msgid "{booker}s booking"
 msgstr "{user}s reservation"
 
 #: website/templates/website/booking.html:21
 msgid "Duration"
-msgstr "Beskrivelse"
+msgstr "Varighed"
 
-#: website/templates/website/booking.html:47
+#: website/templates/website/booking.html:33
+#: website/templates/website/new_booking.html:64
+msgid "Reserved for"
+msgstr "Reserveret til"
+
+#: website/templates/website/booking.html:61
 msgid "Status"
 msgstr "Status"
 
-#: website/templates/website/booking.html:55
+#: website/templates/website/booking.html:69
 msgid "Waiting for approval"
 msgstr "Venter på godkendelse"
 
-#: website/templates/website/booking.html:67
-#: website/templates/website/booking.html:94
-#: website/templates/website/booking.html:110
+#: website/templates/website/booking.html:81
+#: website/templates/website/booking.html:108
+#: website/templates/website/booking.html:124
 msgid "Delete booking"
 msgstr "Slet reservation"
 
-#: website/templates/website/booking.html:76
+#: website/templates/website/booking.html:90
 msgid "Approve booking"
 msgstr "Godkend reservation"
 
-#: website/templates/website/booking.html:103
+#: website/templates/website/booking.html:117
 #, python-format
 msgid "Are you sure you want to delete %(booking)s?"
 msgstr "Er du sikker på du vil slette %(booking)s"
 
-#: website/templates/website/booking.html:109
+#: website/templates/website/booking.html:123
 msgid "Cancel"
 msgstr "Annuller"
 
@@ -200,7 +198,7 @@ msgstr "Datoer"
 msgid "to"
 msgstr "til"
 
-#: website/templates/website/new_booking.html:71
+#: website/templates/website/new_booking.html:79
 msgid "Book"
 msgstr "Reserver"
 
@@ -215,3 +213,11 @@ msgstr "Administration"
 #: website/templates/website/website.html:88
 msgid "Logout"
 msgstr "Log ud"
+
+#, python-brace-format
+#~ msgid "{first_name} {last_name}s booking"
+#~ msgstr "{first_name} {last_name}s reservation"
+
+#, python-brace-format
+#~ msgid "{first_name}s booking"
+#~ msgstr "{first_name}s reservation"
