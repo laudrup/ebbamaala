@@ -1,6 +1,6 @@
 {% extends 'website/base.html' %}
 
-{% load fontawesome %}
+{% load fontawesome_5 %}
 {% load activeurl %}
 {% load static %}
 {% load header_image %}
@@ -56,28 +56,28 @@
             <ul class="navbar-nav mr-auto">
               <li>
                 <a class="nav-item nav-link" href="{% url 'website:index' %}">
-                  {% trans "Frontpage" %} {% fontawesome_icon 'home' %}
+                  {% trans "Frontpage" %} {% fa5_icon 'home' %}
                 </a>
               </li>
               <li>
                 <a class="nav-item nav-link" href="{% url 'website:info' %}">
-                  {% trans "Practical Information" %} {% fontawesome_icon 'info' %}
+                  {% trans "Practical Information" %} {% fa5_icon 'info' %}
                 </a>
               </li>
               <li>
                 <a class="nav-item nav-link" href="{% url 'website:gallery' %}">
-                  {% trans "Photo Gallery" %} {% fontawesome_icon 'image' %}
+                  {% trans "Photo Gallery" %} {% fa5_icon 'image' %}
                 </a>
               </li>
               <li>
                 <a class="nav-item nav-link" href="{% url 'website:calendar' %}">
-                  {% trans "Calendar" %} {% fontawesome_icon 'calendar' %}
+                  {% trans "Calendar" %} {% fa5_icon 'calendar' %}
                 </a>
               </li>
               {% if user.is_superuser %}
                 <li>
                   <a class="nav-item nav-link" href="{% url 'admin:index' %}">
-                    {% trans "Administration" %} {% fontawesome_icon 'cog' %}
+                    {% trans "Administration" %} {% fa5_icon 'cog' %}
                   </a>
                 </li>
               {% endif %}
@@ -85,7 +85,7 @@
           {% endactiveurl %}
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="/accounts/logout">
-              {% trans "Logout" %} {% fontawesome_icon 'sign-out' %}
+              {% trans "Logout" %} {% fa5_icon 'sign-out' %}
             </a>
           </div>
           </div>

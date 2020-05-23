@@ -23,7 +23,7 @@ class Common(Configuration):
         'django.contrib.messages',
         'django.contrib.staticfiles',
         'bootstrap4',
-        'fontawesome',
+        'fontawesome_5',
         'django_activeurl',
         'imagekit',
         'markdownx',

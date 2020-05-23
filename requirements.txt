@@ -6,13 +6,13 @@ certifi
 chardet
 coverage
 coveralls
-Django==2.2.10
+Django==3
 django-activeurl
 django-appconf
 django-bootstrap4
 django-classy-tags
 django-configurations
-django-fontawesome
+django-fontawesome-5
 django-imagekit
 django-markdownx
 django-nose

@@ -1,10 +1,10 @@
-{% load fontawesome %}
+{% load fontawesome_5 %}
 
 {% for error in errors %}
   <div class="row">
     <div class="col-md-4">
       <div class="alert alert-danger" role="alert">
-        {% fontawesome_icon 'exclamation-circle' %} {{ error }}
+        {% fa5_icon 'exclamation-circle' %} {{ error }}
       </div>
     </div>
   </div>
