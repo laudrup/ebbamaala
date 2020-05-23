@@ -1,0 +1,16 @@
+{% extends 'website/base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block base_content %}
+  <body>
+    <div class="card text-center border-0">
+      <div class="card-body">
+        <h1 class="card-title">{% trans 'Page not found' %}</h1>
+        <img class="mb-4" src="{% static "sad_moose.png" %}" alt="Sad moose">
+        <p class="card-text">{% trans 'We’re sorry, but the requested page could not be found.' %}</p>
+      </div>
+    </div>
+  </body>
+{% endblock %}
