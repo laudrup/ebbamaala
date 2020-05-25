@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-23 20:04+0000\n"
+"POT-Creation-Date: 2020-05-25 19:18+0000\n"
 "PO-Revision-Date: 2018-09-02 12:50+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,7 +135,7 @@ msgstr "Reservationer"
 
 #: website/models.py:169
 msgid "{booker}s booking"
-msgstr "{user}s reservation"
+msgstr "{booker}s reservation"
 
 #: website/templates/website/booking.html:21
 msgid "Duration"
