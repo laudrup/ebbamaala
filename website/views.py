@@ -105,5 +105,5 @@ def new_booking(request):
 def media(request, path):
     response = HttpResponse()
     del response['Content-Type']
-    response['X-Accel-Redirect'] = '/protected/media/{}'.format(path)
+    response['X-Accel-Redirect'] = '/protected/media/{}'.format(path).encode('utf-8')
     return response
