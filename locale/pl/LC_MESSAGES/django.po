@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-23 20:04+0000\n"
+"POT-Creation-Date: 2021-04-26 12:15+0000\n"
 "PO-Revision-Date: 2018-07-06 19:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -30,6 +30,24 @@ msgstr ""
 
 #: ebbamåla/settings.py:102
 msgid "Polish"
+msgstr ""
+
+#: templates/404.html:10
+msgid "Page not found"
+msgstr ""
+
+#: templates/404.html:12
+msgid "We’re sorry, but the requested page could not be found."
+msgstr ""
+
+#: templates/500.html:10
+msgid "Server Error <em>(500)</em>"
+msgstr ""
+
+#: templates/500.html:12
+msgid ""
+"There’s been an error. It’s been reported to the site administrators via "
+"email and should be fixed shortly. Thanks for your patience."
 msgstr ""
 
 #: templates/admin/website/gallery/change_form.html:10
@@ -57,7 +75,7 @@ msgstr ""
 msgid "{user} has already booked these dates."
 msgstr ""
 
-#: website/models.py:24 website/models.py:36
+#: website/models.py:24 website/models.py:36 website/models.py:48
 msgid "Content"
 msgstr "Zawartość"
 
@@ -74,69 +92,74 @@ msgstr "Strony główne"
 msgid "Practical Info"
 msgstr "Informacje praktyczne"
 
-#: website/models.py:47 website/models.py:63 website/models.py:73
+#: website/models.py:51 website/models.py:52 website/models.py:55
+#: website/templates/website/website.html:69
+msgid "Tips for Trips"
+msgstr ""
+
+#: website/models.py:59 website/models.py:75 website/models.py:85
 msgid "Photo"
 msgstr "Zdjęcie"
 
-#: website/models.py:51
+#: website/models.py:63
 msgid "HeaderImage"
 msgstr "Zdjęcie główne"
 
-#: website/models.py:52
+#: website/models.py:64
 msgid "HeaderImages"
 msgstr "Zdjęcia główne"
 
-#: website/models.py:64 website/models.py:136 website/models.py:161
+#: website/models.py:76 website/models.py:148 website/models.py:173
 #: website/templates/website/booking.html:47
 #: website/templates/website/new_booking.html:72
 msgid "Description"
 msgstr "Opis"
 
-#: website/models.py:69
+#: website/models.py:81
 msgid "Photo Date"
 msgstr "Zdjęcie zrobione dnia"
 
-#: website/models.py:74
+#: website/models.py:86
 msgid "Photos"
 msgstr "Zdjęcia"
 
-#: website/models.py:135
+#: website/models.py:147
 msgid "Title"
 msgstr "Tytuł"
 
-#: website/models.py:141 website/templates/website/website.html:69
+#: website/models.py:153 website/templates/website/website.html:74
 msgid "Photo Gallery"
 msgstr "Galeria zdjęć"
 
-#: website/models.py:142 website/templates/website/gallery.html:8
+#: website/models.py:154 website/templates/website/gallery.html:8
 msgid "Photo Galleries"
 msgstr "Galerie zdjęć"
 
-#: website/models.py:157
+#: website/models.py:169
 msgid "Start date"
 msgstr ""
 
-#: website/models.py:158
+#: website/models.py:170
 msgid "End date"
 msgstr ""
 
-#: website/models.py:160
+#: website/models.py:172
 msgid "Booker"
 msgstr ""
 
-#: website/models.py:162 website/templates/website/booking.html:67
+#: website/models.py:174 website/templates/website/booking.html:67
 msgid "Approved"
 msgstr ""
 
-#: website/models.py:165
+#: website/models.py:177
 msgid "Booking"
 msgstr ""
 
-#: website/models.py:166
+#: website/models.py:178
 msgid "Bookings"
 msgstr ""
 
-#: website/models.py:169
+#: website/models.py:181
 #, python-brace-format
 msgid "{booker}s booking"
 msgstr ""
@@ -180,7 +203,7 @@ msgid "Cancel"
 msgstr ""
 
 #: website/templates/website/calendar.html:21
-#: website/templates/website/website.html:74
+#: website/templates/website/website.html:79
 msgid "Calendar"
 msgstr ""
 
@@ -212,10 +235,10 @@ msgstr ""
 msgid "Practical Information"
 msgstr "Praktyczne informacje"
 
-#: website/templates/website/website.html:80
+#: website/templates/website/website.html:85
 msgid "Administration"
 msgstr "Zarządzanie"
 
-#: website/templates/website/website.html:88
+#: website/templates/website/website.html:93
 msgid "Logout"
 msgstr "Wyloguj"

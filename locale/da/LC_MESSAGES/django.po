@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 19:18+0000\n"
+"POT-Creation-Date: 2021-04-26 12:15+0000\n"
 "PO-Revision-Date: 2018-09-02 12:50+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,6 +28,24 @@ msgstr ""
 #: ebbamåla/settings.py:102
 msgid "Polish"
 msgstr ""
+
+#: templates/404.html:10
+msgid "Page not found"
+msgstr "Siden kunne ikke findes"
+
+#: templates/404.html:12
+msgid "We’re sorry, but the requested page could not be found."
+msgstr "Siden kunne ikke findes"
+
+#: templates/500.html:10
+msgid "Server Error <em>(500)</em>"
+msgstr "Server Fejl <em>(500)</em>"
+
+#: templates/500.html:12
+msgid ""
+"There’s been an error. It’s been reported to the site administrators via "
+"email and should be fixed shortly. Thanks for your patience."
+msgstr "Der er opstået en fejl. Frejas far har fået en mail om problemet og skal nok se på det."
 
 #: templates/admin/website/gallery/change_form.html:10
 msgid "Upload Photos"
