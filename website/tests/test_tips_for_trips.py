@@ -1,7 +1,6 @@
 from unittest import mock
 from urllib.parse import urlencode
 
-from bs4 import BeautifulSoup
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import TestCase
