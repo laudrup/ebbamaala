@@ -23,7 +23,11 @@ def index(request):
 
 
 def info(request):
-    info = PracticalInfo.objects.latest('pub_date')
+    try:
+        info = PracticalInfo.objects.latest('pub_date')
+    except PracticalInfo.DoesNotExist:
+        logger.warning('No practical info added')
+        raise Http404
     return render(request, 'website/info.html', {'info': info})
 
 
