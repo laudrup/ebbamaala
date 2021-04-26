@@ -3,7 +3,7 @@ from imagekit.admin import AdminThumbnail
 from markdownx.admin import MarkdownxModelAdmin
 
 from .models import (Booking, Frontpage, Gallery, GalleryPhoto, HeaderImage,
-                     PracticalInfo)
+                     PracticalInfo, Trips)
 
 
 class GalleryPhotoInline(admin.TabularInline):
@@ -47,6 +47,7 @@ class BookingAdmin(admin.ModelAdmin):
 
 admin.site.register(Frontpage, MarkdownxModelAdmin)
 admin.site.register(PracticalInfo, MarkdownxModelAdmin)
+admin.site.register(Trips, MarkdownxModelAdmin)
 admin.site.register(HeaderImage, HeaderImageAdmin)
 admin.site.register(Gallery, GalleryAdmin)
 admin.site.register(Booking, BookingAdmin)

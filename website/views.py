@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
 from .forms import BookingForm
-from .models import Booking, Frontpage, Gallery, PracticalInfo
+from .models import Booking, Frontpage, Gallery, PracticalInfo, Trips
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +29,15 @@ def info(request):
         logger.warning('No practical info added')
         raise Http404
     return render(request, 'website/info.html', {'info': info})
+
+
+def trips(request):
+    try:
+        trips = Trips.objects.latest('pub_date')
+    except Trips.DoesNotExist:
+        logger.warning('No trips added')
+        raise Http404
+    return render(request, 'website/trips.html', {'trips': trips})
 
 
 def gallery(request):

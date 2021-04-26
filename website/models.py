@@ -43,6 +43,18 @@ class PracticalInfo(models.Model):
         return "{} ({})".format(_('Practical Info'), self.id)
 
 
+class Trips(models.Model):
+    pub_date = models.DateTimeField(editable=False, auto_now=True)
+    content = MarkdownxField(verbose_name=_('Content'))
+
+    class Meta:
+        verbose_name = _('Tips for Trips')
+        verbose_name_plural = _('Tips for Trips')
+
+    def __str__(self):
+        return "{} ({})".format(_('Tips for Trips'), self.id)
+
+
 class HeaderImage(models.Model):
     photo = models.ImageField(upload_to='headers', verbose_name=_('Photo'))
     thumbnail = ImageSpecField(source='photo', processors=[ResizeToFill(600, 180)])

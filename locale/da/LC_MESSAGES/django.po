@@ -54,7 +54,7 @@ msgstr "En reservation kan ikke slutte før den begynder"
 msgid "{user} has already booked these dates."
 msgstr "{user} har allerede reserveret de ønskede datoer"
 
-#: website/models.py:24 website/models.py:36
+#: website/models.py:24 website/models.py:36 website/models.py:48
 msgid "Content"
 msgstr "Indhold"
 
@@ -71,69 +71,75 @@ msgstr "Forsider"
 msgid "Practical Info"
 msgstr "Praktisk information"
 
-#: website/models.py:47 website/models.py:63 website/models.py:73
+#: website/models.py:51 website/models.py:52 website/models.py:55
+#: website/templates/website/website.html:69
+msgid "Tips for Trips"
+msgstr "Tips til udflugter"
+
+#: website/models.py:59 website/models.py:75 website/models.py:85
 msgid "Photo"
 msgstr "Billede"
 
-#: website/models.py:51
+#: website/models.py:63
 msgid "HeaderImage"
 msgstr "Headerbillede"
 
-#: website/models.py:52
+#: website/models.py:64
 msgid "HeaderImages"
 msgstr "Headerbilleder"
 
-#: website/models.py:64 website/models.py:136 website/models.py:161
+#: website/models.py:76 website/models.py:148 website/models.py:173
 #: website/templates/website/booking.html:47
 #: website/templates/website/new_booking.html:72
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: website/models.py:69
+#: website/models.py:81
 msgid "Photo Date"
 msgstr "Tidspunkt for billede"
 
-#: website/models.py:74
+#: website/models.py:86
 msgid "Photos"
 msgstr "Billede"
 
-#: website/models.py:135
+#: website/models.py:147
 msgid "Title"
 msgstr "Titel"
 
-#: website/models.py:141 website/templates/website/website.html:69
+#: website/models.py:153 website/templates/website/website.html:74
 msgid "Photo Gallery"
 msgstr "Fotogalleri"
 
-#: website/models.py:142 website/templates/website/gallery.html:8
+#: website/models.py:154 website/templates/website/gallery.html:8
 msgid "Photo Galleries"
 msgstr "Fotogallerier"
 
-#: website/models.py:157
+#: website/models.py:169
 msgid "Start date"
 msgstr "Startdato"
 
-#: website/models.py:158
+#: website/models.py:170
 msgid "End date"
 msgstr "Slutdato"
 
-#: website/models.py:160
+#: website/models.py:172
 msgid "Booker"
 msgstr "Besøgende"
 
-#: website/models.py:162 website/templates/website/booking.html:67
+#: website/models.py:174 website/templates/website/booking.html:67
 msgid "Approved"
 msgstr "Godkendt"
 
-#: website/models.py:165
+#: website/models.py:177
 msgid "Booking"
 msgstr "Reservation"
 
-#: website/models.py:166
+#: website/models.py:178
 msgid "Bookings"
 msgstr "Reservationer"
 
-#: website/models.py:169
+#: website/models.py:181
+#, python-brace-format
 msgid "{booker}s booking"
 msgstr "{booker}s reservation"
 
@@ -174,7 +180,7 @@ msgid "Cancel"
 msgstr "Annuller"
 
 #: website/templates/website/calendar.html:21
-#: website/templates/website/website.html:74
+#: website/templates/website/website.html:79
 msgid "Calendar"
 msgstr "Kalender"
 
@@ -206,11 +212,11 @@ msgstr "Reserver"
 msgid "Practical Information"
 msgstr "Praktisk information"
 
-#: website/templates/website/website.html:80
+#: website/templates/website/website.html:85
 msgid "Administration"
 msgstr "Administration"
 
-#: website/templates/website/website.html:88
+#: website/templates/website/website.html:93
 msgid "Logout"
 msgstr "Log ud"
 
