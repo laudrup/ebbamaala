@@ -6,4 +6,4 @@ fi
 
 export DJANGO_SECRET_KEY=decafbad
 export DJANGO_DS_API_KEY=decafbad
-python manage.py makemessages -i env
+python manage.py makemessages -i env --all
