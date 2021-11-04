@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run coverage
-        run: coverage run --source=website manage.py check
-
       - name: Run tests
         run: python manage.py test
 

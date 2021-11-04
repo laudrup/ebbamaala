@@ -121,6 +121,7 @@ class Common(Configuration):
     NOSE_ARGS = [
         '--with-coverage',
         '--cover-package=website',
+        '--cover-html'
     ]
 
 
