@@ -1,0 +1,36 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      DJANGO_SECRET_KEY: "deadcafebabe"
+      DJANGO_DS_API_KEY: "deadcafebabe"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run coverage
+        run: coverage run --source=website manage.py check
+
+      - name: Run tests
+        run: python manage.py test
+
+      - name: Run flake8
+        run: flake8
+
+      - name: Uploade code coverage report
+        run: coveralls --service=github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
