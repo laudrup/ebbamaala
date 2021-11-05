@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-26 12:15+0000\n"
+"POT-Creation-Date: 2021-11-05 13:09+0000\n"
 "PO-Revision-Date: 2018-09-02 12:50+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,9 @@ msgstr "Server Fejl <em>(500)</em>"
 msgid ""
 "There’s been an error. It’s been reported to the site administrators via "
 "email and should be fixed shortly. Thanks for your patience."
-msgstr "Der er opstået en fejl. Frejas far har fået en mail om problemet og skal nok se på det."
+msgstr ""
+"Der er opstået en fejl. Frejas far har fået en mail om problemet og skal nok "
+"se på det."
 
 #: templates/admin/website/gallery/change_form.html:10
 msgid "Upload Photos"
@@ -108,7 +110,7 @@ msgstr "Headerbilleder"
 
 #: website/models.py:76 website/models.py:148 website/models.py:173
 #: website/templates/website/booking.html:47
-#: website/templates/website/new_booking.html:72
+#: website/templates/website/edit_booking.html:76
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -166,7 +168,7 @@ msgid "Duration"
 msgstr "Varighed"
 
 #: website/templates/website/booking.html:33
-#: website/templates/website/new_booking.html:64
+#: website/templates/website/edit_booking.html:68
 msgid "Reserved for"
 msgstr "Reserveret til"
 
@@ -177,25 +179,6 @@ msgstr "Status"
 #: website/templates/website/booking.html:69
 msgid "Waiting for approval"
 msgstr "Venter på godkendelse"
-
-#: website/templates/website/booking.html:81
-#: website/templates/website/booking.html:108
-#: website/templates/website/booking.html:124
-msgid "Delete booking"
-msgstr "Slet reservation"
-
-#: website/templates/website/booking.html:90
-msgid "Approve booking"
-msgstr "Godkend reservation"
-
-#: website/templates/website/booking.html:117
-#, python-format
-msgid "Are you sure you want to delete %(booking)s?"
-msgstr "Er du sikker på du vil slette %(booking)s"
-
-#: website/templates/website/booking.html:123
-msgid "Cancel"
-msgstr "Annuller"
 
 #: website/templates/website/calendar.html:21
 #: website/templates/website/website.html:79
@@ -214,17 +197,42 @@ msgstr "I dag"
 msgid "Next"
 msgstr "Næste"
 
-#: website/templates/website/new_booking.html:49
+#: website/templates/website/edit_booking.html:53
 msgid "Dates"
 msgstr "Datoer"
 
-#: website/templates/website/new_booking.html:54
+#: website/templates/website/edit_booking.html:58
 msgid "to"
 msgstr "til"
 
-#: website/templates/website/new_booking.html:79
+#: website/templates/website/edit_booking.html:87
+msgid "Update"
+msgstr "Opdater"
+
+#: website/templates/website/edit_booking.html:92
+#: website/templates/website/edit_booking.html:118
+#: website/templates/website/edit_booking.html:134
+msgid "Delete booking"
+msgstr "Slet reservation"
+
+#: website/templates/website/edit_booking.html:98
+#, fuzzy
+#| msgid "Approved"
+msgid "Approve"
+msgstr "Godkendt"
+
+#: website/templates/website/edit_booking.html:105
 msgid "Book"
 msgstr "Reserver"
+
+#: website/templates/website/edit_booking.html:127
+#, python-format
+msgid "Are you sure you want to delete %(booking)s?"
+msgstr "Er du sikker på du vil slette %(booking)s"
+
+#: website/templates/website/edit_booking.html:133
+msgid "Cancel"
+msgstr "Annuller"
 
 #: website/templates/website/website.html:64
 msgid "Practical Information"
@@ -237,6 +245,9 @@ msgstr "Administration"
 #: website/templates/website/website.html:93
 msgid "Logout"
 msgstr "Log ud"
+
+#~ msgid "Approve booking"
+#~ msgstr "Godkend reservation"
 
 #, python-brace-format
 #~ msgid "{first_name} {last_name}s booking"

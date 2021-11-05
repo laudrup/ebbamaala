@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-26 12:15+0000\n"
+"POT-Creation-Date: 2021-11-05 13:09+0000\n"
 "PO-Revision-Date: 2018-07-06 19:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -111,7 +111,7 @@ msgstr "Zdjęcia główne"
 
 #: website/models.py:76 website/models.py:148 website/models.py:173
 #: website/templates/website/booking.html:47
-#: website/templates/website/new_booking.html:72
+#: website/templates/website/edit_booking.html:76
 msgid "Description"
 msgstr "Opis"
 
@@ -171,7 +171,7 @@ msgid "Duration"
 msgstr "Opis"
 
 #: website/templates/website/booking.html:33
-#: website/templates/website/new_booking.html:64
+#: website/templates/website/edit_booking.html:68
 msgid "Reserved for"
 msgstr ""
 
@@ -181,25 +181,6 @@ msgstr ""
 
 #: website/templates/website/booking.html:69
 msgid "Waiting for approval"
-msgstr ""
-
-#: website/templates/website/booking.html:81
-#: website/templates/website/booking.html:108
-#: website/templates/website/booking.html:124
-msgid "Delete booking"
-msgstr ""
-
-#: website/templates/website/booking.html:90
-msgid "Approve booking"
-msgstr ""
-
-#: website/templates/website/booking.html:117
-#, python-format
-msgid "Are you sure you want to delete %(booking)s?"
-msgstr ""
-
-#: website/templates/website/booking.html:123
-msgid "Cancel"
 msgstr ""
 
 #: website/templates/website/calendar.html:21
@@ -219,16 +200,39 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: website/templates/website/new_booking.html:49
+#: website/templates/website/edit_booking.html:53
 msgid "Dates"
 msgstr ""
 
-#: website/templates/website/new_booking.html:54
+#: website/templates/website/edit_booking.html:58
 msgid "to"
 msgstr ""
 
-#: website/templates/website/new_booking.html:79
+#: website/templates/website/edit_booking.html:87
+msgid "Update"
+msgstr ""
+
+#: website/templates/website/edit_booking.html:92
+#: website/templates/website/edit_booking.html:118
+#: website/templates/website/edit_booking.html:134
+msgid "Delete booking"
+msgstr ""
+
+#: website/templates/website/edit_booking.html:98
+msgid "Approve"
+msgstr ""
+
+#: website/templates/website/edit_booking.html:105
 msgid "Book"
+msgstr ""
+
+#: website/templates/website/edit_booking.html:127
+#, python-format
+msgid "Are you sure you want to delete %(booking)s?"
+msgstr ""
+
+#: website/templates/website/edit_booking.html:133
+msgid "Cancel"
 msgstr ""
 
 #: website/templates/website/website.html:64
