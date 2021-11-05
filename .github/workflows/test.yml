@@ -27,7 +27,5 @@ jobs:
       - name: Run flake8
         run: flake8
 
-      - name: Uploade code coverage report
-        run: coveralls --service=github
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Coveralls
+        uses: AndreMiras/coveralls-python-action@develop
