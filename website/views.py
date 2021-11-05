@@ -76,20 +76,35 @@ def booking(request, id):
     booking = get_object_or_404(Booking, pk=id)
 
     if request.method == 'POST':
-        if 'type' not in request.POST:
-            raise SuspiciousOperation
-        if request.POST['type'] == 'approve':
+        if 'update' in request.POST:
+            if not request.user.is_superuser and request.user != booking.user:
+                raise PermissionDenied
+            instance = get_object_or_404(Booking, id=id)
+            form = BookingForm(request.user, request.POST, instance=instance)
+            if form.is_valid():
+                form.save()
+            else:
+                return render(request, 'website/edit_booking.html', {'booking': booking, 'form': form})
+        elif 'delete' in request.POST:
+            if not request.user.is_superuser and request.user != booking.user:
+                raise PermissionDenied
+            booking.delete()
+        elif 'approve' in request.POST:
             if not request.user.is_superuser:
                 raise PermissionDenied
             booking.approved = True
             booking.save()
-        elif request.POST['type'] == 'delete':
-            if not request.user.is_superuser and request.user != booking.user:
-                raise PermissionDenied
-            booking.delete()
         else:
-            raise PermissionDenied
+            raise SuspiciousOperation
         return HttpResponseRedirect(reverse('website:calendar'))
+
+    if request.user.is_superuser or request.user == booking.user:
+        form = BookingForm(request.user,
+                           initial={'start_date': booking.start_date,
+                                    'end_date': booking.end_date,
+                                    'booker': booking.booker,
+                                    'description': booking.description})
+        return render(request, 'website/edit_booking.html', {'booking': booking, 'form': form})
 
     return render(request, 'website/booking.html', {'booking': booking})
 
@@ -98,8 +113,8 @@ def new_booking(request):
     if request.method == 'POST':
         form = BookingForm(request.user, request.POST)
         if form.is_valid():
-            saved_form = form.save()
-            return HttpResponseRedirect(reverse('website:booking', args=(saved_form.id, )))
+            form.save()
+            return HttpResponseRedirect(reverse('website:calendar'))
     else:
         if all(val in request.GET for val in ['year', 'month', 'day']):
             start_date = datetime.date(int(request.GET['year']),
@@ -112,7 +127,7 @@ def new_booking(request):
                            initial={'start_date': start_date,
                                     'end_date': start_date + datetime.timedelta(days=2)})
 
-    return render(request, 'website/new_booking.html', {'form': form})
+    return render(request, 'website/edit_booking.html', {'form': form})
 
 
 def media(request, path):

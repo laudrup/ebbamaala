@@ -50,6 +50,6 @@ class BookingForm(forms.ModelForm):
         return booking
 
     def _find_overlapping(self, start_date, end_date):
-        for booking in Booking.objects.all():
+        for booking in Booking.objects.exclude(id=self.instance.id):
             if end_date >= booking.start_date and booking.end_date >= start_date:
                 return booking

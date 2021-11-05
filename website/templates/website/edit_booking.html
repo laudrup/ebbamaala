@@ -39,7 +39,11 @@
 
 {% block content %}
   {% form_errors form.non_field_errors %}
+{% if booking %}
+  <form action="{% url 'website:booking' booking.id %}" method="post" autocomplete="off">
+    {% else %}
   <form action="{% url 'website:booking' %}" method="post" autocomplete="off">
+{% endif %}
     {% csrf_token %}
     {% form_errors form.start_date.errors %}
     {% form_errors form.end_date.errors %}
@@ -74,10 +78,63 @@
         {{ form.description }}
       </div>
     </div>
-    {% buttons %}
-    <button type="submit" class="btn btn-primary">
-      {% trans "Book" %}
-    </button>
-  {% endbuttons %}
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        {% if booking %}
+        <div class="form-row">
+          <div class="form-group col-md">
+            <button type="submit" name="update" id="update" class="btn btn-primary">
+              {% trans "Update" %}
+            </button>
+          </div>
+          <div class="form-group col-md">
+            <button type="button" name="delete" id="delete" class="btn btn-danger" data-toggle="modal" data-target="#delete_booking_dialog">
+              {% trans "Delete booking" %}
+            </button>
+          </div>
+          {% if not booking.approved and user.is_superuser %}
+          <div class="form-group col-md">
+            <button type="submit" name="approve" id="approve" class="btn btn-secondary">
+              {% trans "Approve" %}
+            </button>
+          </div>
+          {% endif %}
+        </div>
+        {% else %}
+        <button type="submit" class="btn btn-primary">
+          {% trans "Book" %}
+        </button>
+        {% endif %}
+      </div>
+    </div>
   </form>
-{% endblock %}
+  {% endblock %}
+  {% block endbody %}
+  <div class="modal fade" id="delete_booking_dialog" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            {% trans "Delete booking" %}
+          </h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>
+              &times;
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {% blocktrans %}Are you sure you want to delete {{ booking }}?{% endblocktrans %}
+        </div>
+        <div class="modal-footer">
+          <form action="{{ request.path }}" method="post" class="mb-0">
+            {% csrf_token %}
+            <input type="hidden" name="type" value="delete">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Cancel" %}</button>
+            <button type="submit" name="delete" class="btn btn-danger">{% trans "Delete booking" %}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
