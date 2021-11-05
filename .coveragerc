@@ -2,3 +2,10 @@
 omit =
      website/admin.py
      website/apps.py
+     website/migrations/*
+
+[report]
+omit =
+     website/admin.py
+     website/apps.py
+     website/migrations/*
