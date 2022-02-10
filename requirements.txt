@@ -5,7 +5,7 @@ bs4
 certifi
 chardet
 coverage
-Django==3.2.5
+Django==3.2.12
 django-activeurl
 django-appconf
 django-bootstrap4
