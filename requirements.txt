@@ -9,6 +9,7 @@ bs4
 certifi
 chardet
 coverage
+coveralls
 django-appconf
 django-bootstrap4
 django-classy-tags
