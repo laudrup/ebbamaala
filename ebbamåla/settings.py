@@ -124,6 +124,8 @@ class Common(Configuration):
         '--cover-html'
     ]
 
+    DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 
 class Development(Common):
     DEBUG = True

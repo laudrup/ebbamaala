@@ -6,7 +6,7 @@ import salling_group_holidays
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django import template
 
 
