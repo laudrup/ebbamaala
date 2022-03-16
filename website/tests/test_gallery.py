@@ -3,12 +3,19 @@ from io import BytesIO
 from unittest import mock
 
 import piexif
+import os.path
+import tzdata
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.utils import timezone
 from PIL import Image
 from pyfakefs.fake_filesystem_unittest import Patcher
 from website.models import Gallery, GalleryPhoto
+
+utc_tz_data = b'''TZif2\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\
+\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00TZif2\x00\x00\x00\x00\x00\x00\
+\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\
+\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00UTC\x00\nUTC0\n'''
 
 
 class GalleryPhotoModelTests(TestCase):
@@ -21,6 +28,7 @@ class GalleryPhotoModelTests(TestCase):
         # Mock away things that pyfakefs doesn't handle
         self.flock_patcher = mock.patch('fcntl.flock')
         self.flock_patcher.start()
+        self.fs_patcher.fs.create_file(str(os.path.join(tzdata.__path__[0], 'zoneinfo', 'UTC')), contents=utc_tz_data)
 
     def tearDown(self):
         self.fs_patcher.tearDown()
