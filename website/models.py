@@ -178,4 +178,4 @@ class Booking(models.Model):
         verbose_name_plural = _('Bookings')
 
     def __str__(self):
-        return _('{booker}s booking').format(booker=self.booker)
+        return _(f'{self.booker}s booking from {self.start_date} to {self.end_date}')
