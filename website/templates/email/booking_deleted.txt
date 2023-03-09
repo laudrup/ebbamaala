@@ -1,7 +1,6 @@
 {% load i18n %}
-{% blocktrans with first_name=user.first_name%}
-Hi {{ first_name }},
-{% endblocktrans %}{% blocktrans with booker=booking.booker start_date=booking.start_date end_date=booking.end_date %}
+{% blocktrans with first_name=user.first_name%}Hi {{ first_name }},{% endblocktrans %}
+{% blocktrans with booker=booking.booker start_date=booking.start_date end_date=booking.end_date %}
 {{ booker }} has deleted has cancelled the booking of the house in Ebbamåla from {{ start_date }} to {{ end_date }}
 {% endblocktrans %}
 {% blocktrans %}

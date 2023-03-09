@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-05 13:09+0000\n"
-"PO-Revision-Date: 2018-09-02 12:50+0200\n"
+"POT-Creation-Date: 2023-03-09 14:00+0000\n"
+"PO-Revision-Date: 2023-03-09 15:14+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ebbamåla/settings.py:100
+#: ebbamåla/settings.py:99
 msgid "English"
-msgstr ""
+msgstr "Engelsk"
+
+#: ebbamåla/settings.py:100
+msgid "Danish"
+msgstr "Dansk"
 
 #: ebbamåla/settings.py:101
-msgid "Danish"
-msgstr ""
-
-#: ebbamåla/settings.py:102
 msgid "Polish"
-msgstr ""
+msgstr "Polsk"
 
 #: templates/404.html:10
 msgid "Page not found"
@@ -160,8 +160,49 @@ msgstr "Reservationer"
 
 #: website/models.py:181
 #, python-brace-format
-msgid "{booker}s booking"
-msgstr "{booker}s reservation"
+msgid "{self.booker}s booking from {self.start_date} to {self.end_date}"
+msgstr "{self.booker}s reservation fra {self.start_date} til {self.end_date}"
+
+#: website/signals.py:29
+msgid "New booking of the house in Ebbamåla"
+msgstr "Ny reservation af huset i Ebbamåla"
+
+#: website/signals.py:32
+msgid "Booking of the house in Ebbamåla has been updated"
+msgstr "En reservation af huset i Ebbamåla er blevet ændret"
+
+#: website/signals.py:38
+msgid "A booking of the house in Ebbamåla has been cancelled"
+msgstr "En reservation af huset i Ebbamåla er blevet annulleret"
+
+#: website/templates/email/booking_created.txt:2
+#: website/templates/email/booking_deleted.txt:2
+#, python-format
+msgid "Hi %(first_name)s,"
+msgstr "Hej %(first_name)s,"
+
+#: website/templates/email/booking_created.txt:3
+#, python-format
+msgid ""
+"\n"
+"%(booker)s wishes to book the house in Ebbamåla from %(start_date)s to "
+"%(end_date)s\n"
+msgstr "\n%(booker)s har reserveret huset i Ebbamåla fra %(start_date)s til %(end_date)s\n"
+
+#: website/templates/email/booking_created.txt:7
+#: website/templates/email/booking_deleted.txt:6
+msgid ""
+"\n"
+"Kind regards,"
+msgstr "\nVenlig hilsen,"
+
+#: website/templates/email/booking_deleted.txt:3
+#, python-format
+msgid ""
+"\n"
+"%(booker)s has deleted has cancelled the booking of the house in Ebbamåla "
+"from %(start_date)s to %(end_date)s\n"
+msgstr "\n%(booker)s har annulleret sin reservation af huset i Ebbamåla fra %(start_date)s til %(end_date)s\n"
 
 #: website/templates/website/booking.html:21
 msgid "Duration"
@@ -245,6 +286,10 @@ msgstr "Administration"
 #: website/templates/website/website.html:93
 msgid "Logout"
 msgstr "Log ud"
+
+#, python-brace-format
+#~ msgid "{booker}s booking"
+#~ msgstr "{booker}s reservation"
 
 #~ msgid "Approve booking"
 #~ msgstr "Godkend reservation"
