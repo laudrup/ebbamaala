@@ -122,6 +122,27 @@ class Development(Common):
     DEBUG = True
     ALLOWED_HOSTS = []
     MEDIA_ROOT = os.path.join(Common.BASE_DIR, 'media')
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format': '%(levelname)s - %(name)s.%(funcName)s:%(lineno)s - %(message)s'
+            }
+        },
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+                'formatter': 'verbose',
+                'level': 'DEBUG',
+            }
+        },
+        'root': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'DEBUG',
+        },
+    }
 
 
 class Production(Common):
@@ -137,21 +158,31 @@ class Production(Common):
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
-        'handlers': {
-            'console': {
-                'level': 'INFO',
-                'class': 'logging.StreamHandler',
-            },
-            'mail_admins': {
-                'level': 'ERROR',
-                'class': 'django.utils.log.AdminEmailHandler'
+        'formatters': {
+            'verbose': {
+                'format': '%(levelname)s - %(name)s.%(funcName)s:%(lineno)s - %(message)s'
             }
         },
-        'loggers': {
-            'django': {
-                'handlers': ['console', 'mail_admins'],
-                'propagate': True,
-                'level': 'DEBUG',
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+                'formatter': 'verbose',
+                'level': 'INFO',
             },
-        }
+            'syslog': {
+                'class': 'logging.handlers.SysLogHandler',
+                'formatter': 'verbose',
+                'address': '/dev/log',
+                'level': 'INFO',
+            },
+            'mail_admins': {
+                'class': 'django.utils.log.AdminEmailHandler',
+                'level': 'ERROR',
+            }
+        },
+        'root': {
+            'handlers': ['console', 'syslog', 'mail_admins'],
+            'propagate': True,
+            'level': 'DEBUG',
+        },
     }
