@@ -34,3 +34,4 @@ salling-group-holidays
 six
 tzdata
 urllib3
+django-ical
