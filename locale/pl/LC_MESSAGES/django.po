@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-09 14:00+0000\n"
+"POT-Creation-Date: 2023-03-17 12:42+0100\n"
 "PO-Revision-Date: 2018-07-06 19:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -164,15 +164,15 @@ msgstr ""
 msgid "{self.booker}s booking from {self.start_date} to {self.end_date}"
 msgstr ""
 
-#: website/signals.py:29
+#: website/signals.py:30
 msgid "New booking of the house in Ebbamåla"
 msgstr ""
 
-#: website/signals.py:32
+#: website/signals.py:33
 msgid "Booking of the house in Ebbamåla has been updated"
 msgstr ""
 
-#: website/signals.py:38
+#: website/signals.py:39
 msgid "A booking of the house in Ebbamåla has been cancelled"
 msgstr ""
 

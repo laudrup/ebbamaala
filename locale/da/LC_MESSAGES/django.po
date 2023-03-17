@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-09 14:00+0000\n"
+"POT-Creation-Date: 2023-03-17 12:42+0100\n"
 "PO-Revision-Date: 2023-03-09 15:14+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -163,15 +163,15 @@ msgstr "Reservationer"
 msgid "{self.booker}s booking from {self.start_date} to {self.end_date}"
 msgstr "{self.booker}s reservation fra {self.start_date} til {self.end_date}"
 
-#: website/signals.py:29
+#: website/signals.py:30
 msgid "New booking of the house in Ebbamåla"
 msgstr "Ny reservation af huset i Ebbamåla"
 
-#: website/signals.py:32
+#: website/signals.py:33
 msgid "Booking of the house in Ebbamåla has been updated"
 msgstr "En reservation af huset i Ebbamåla er blevet ændret"
 
-#: website/signals.py:38
+#: website/signals.py:39
 msgid "A booking of the house in Ebbamåla has been cancelled"
 msgstr "En reservation af huset i Ebbamåla er blevet annulleret"
 
@@ -187,14 +187,19 @@ msgid ""
 "\n"
 "%(booker)s wishes to book the house in Ebbamåla from %(start_date)s to "
 "%(end_date)s\n"
-msgstr "\n%(booker)s har reserveret huset i Ebbamåla fra %(start_date)s til %(end_date)s\n"
+msgstr ""
+"\n"
+"%(booker)s har reserveret huset i Ebbamåla fra %(start_date)s til "
+"%(end_date)s\n"
 
 #: website/templates/email/booking_created.txt:7
 #: website/templates/email/booking_deleted.txt:6
 msgid ""
 "\n"
 "Kind regards,"
-msgstr "\nVenlig hilsen,"
+msgstr ""
+"\n"
+"Venlig hilsen,"
 
 #: website/templates/email/booking_deleted.txt:3
 #, python-format
@@ -202,7 +207,10 @@ msgid ""
 "\n"
 "%(booker)s has deleted has cancelled the booking of the house in Ebbamåla "
 "from %(start_date)s to %(end_date)s\n"
-msgstr "\n%(booker)s har annulleret sin reservation af huset i Ebbamåla fra %(start_date)s til %(end_date)s\n"
+msgstr ""
+"\n"
+"%(booker)s har annulleret sin reservation af huset i Ebbamåla fra "
+"%(start_date)s til %(end_date)s\n"
 
 #: website/templates/website/booking.html:21
 msgid "Duration"
@@ -257,10 +265,8 @@ msgid "Delete booking"
 msgstr "Slet reservation"
 
 #: website/templates/website/edit_booking.html:98
-#, fuzzy
-#| msgid "Approved"
 msgid "Approve"
-msgstr "Godkendt"
+msgstr "Godkend"
 
 #: website/templates/website/edit_booking.html:105
 msgid "Book"
