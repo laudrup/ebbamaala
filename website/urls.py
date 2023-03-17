@@ -3,6 +3,7 @@ from django.urls import path, re_path, include
 from django.conf import settings
 
 from . import views
+from .feeds import BookingFeed
 
 app_name = 'website'
 urlpatterns = [
@@ -16,6 +17,7 @@ urlpatterns = [
     path('booking', views.new_booking, name='booking'),
     path('booking/<int:id>/', views.booking, name='booking'),
     path('markdownx/', include(markdownx)),
+    path('bookings.ics', BookingFeed()),
 ]
 
 if not settings.DEBUG:

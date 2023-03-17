@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from imagekit.models import ImageSpecField
@@ -179,3 +180,6 @@ class Booking(models.Model):
 
     def __str__(self):
         return _(f'{self.booker}s booking from {self.start_date} to {self.end_date}')
+
+    def get_absolute_url(self):
+        return reverse('website:booking', kwargs={'id': self.pk})
