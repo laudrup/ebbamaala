@@ -39,7 +39,7 @@ class Common(Configuration):
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
-        'ebbamåla.middleware.LoginRequiredMiddleware'
+        'website.middleware.LoginRequiredMiddleware'
     ]
 
     ROOT_URLCONF = 'ebbamåla.urls'
