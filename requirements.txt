@@ -35,3 +35,4 @@ six
 tzdata
 urllib3
 django-ical
+ics

@@ -179,7 +179,7 @@ class Booking(models.Model):
         verbose_name_plural = _('Bookings')
 
     def __str__(self):
-        return _(f'{self.booker}s booking from {self.start_date} to {self.end_date}')
+        return _(f'{self.booker}s booking')
 
     def get_absolute_url(self):
         return reverse('website:booking', kwargs={'id': self.pk})
