@@ -3,7 +3,7 @@
 {% load calendar %}
 {% load static %}
 {% load i18n %}
-{% load fontawesome_5 %}
+{% load fontawesome_6 %}
 
 {% block head %}
   {{ block.super }}
@@ -28,11 +28,11 @@
       <div class="row align-items-center justify-content-center">
         <div class="btn-group calendar-buttons">
           <a href="{% url 'website:calendar' prev_month.0 prev_month.1 %}" class="btn btn-primary" style="min-width: 110px;">
-            {% fa5_icon 'arrow-left' %} {% trans "Previous" %}
+            {% fa6_icon 'arrow-left' %} {% trans "Previous" %}
           </a>
           <a href="{% url 'website:calendar' %}" class="btn btn-outline-primary">{% trans "Today" %}</a>
           <a href="{% url 'website:calendar' next_month.0 next_month.1 %}" class="btn btn-primary" style="min-width: 110px;">
-            {% trans "Next" %} {% fa5_icon 'arrow-right' %}
+            {% trans "Next" %} {% fa6_icon 'arrow-right' %}
           </a>
         </div>
       </div>

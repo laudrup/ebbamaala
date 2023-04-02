@@ -14,7 +14,7 @@ django-appconf
 django-bootstrap4
 django-classy-tags
 django-configurations
-django-fontawesome-5
+django-fontawesome-6
 django-ical
 django-imagekit
 django-markdownx>=4.0.0b1

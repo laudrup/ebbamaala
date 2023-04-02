@@ -1,6 +1,6 @@
 {% extends 'website/base.html' %}
 
-{% load fontawesome_5 %}
+{% load fontawesome_6 %}
 {% load activeurl %}
 {% load static %}
 {% load header_image %}
@@ -56,33 +56,33 @@
             <ul class="navbar-nav mr-auto">
               <li>
                 <a class="nav-item nav-link" href="{% url 'website:index' %}">
-                  {% trans "Frontpage" %} {% fa5_icon 'home' %}
+                  {% trans "Frontpage" %} {% fa6_icon 'home' %}
                 </a>
               </li>
               <li>
                 <a class="nav-item nav-link" href="{% url 'website:info' %}">
-                  {% trans "Practical Information" %} {% fa5_icon 'info' %}
+                  {% trans "Practical Information" %} {% fa6_icon 'info' %}
                 </a>
               </li>
               <li>
                 <a class="nav-item nav-link" href="{% url 'website:trips' %}">
-                  {% trans "Tips for Trips" %} {% fa5_icon 'route' %}
+                  {% trans "Tips for Trips" %} {% fa6_icon 'route' %}
                 </a>
               </li>
               <li>
                 <a class="nav-item nav-link" href="{% url 'website:gallery' %}">
-                  {% trans "Photo Gallery" %} {% fa5_icon 'image' %}
+                  {% trans "Photo Gallery" %} {% fa6_icon 'image' %}
                 </a>
               </li>
               <li>
                 <a class="nav-item nav-link" href="{% url 'website:calendar' %}">
-                  {% trans "Calendar" %} {% fa5_icon 'calendar' %}
+                  {% trans "Calendar" %} {% fa6_icon 'calendar' %}
                 </a>
               </li>
               {% if user.is_superuser %}
                 <li>
                   <a class="nav-item nav-link" href="{% url 'admin:index' %}">
-                    {% trans "Administration" %} {% fa5_icon 'cog' %}
+                    {% trans "Administration" %} {% fa6_icon 'cog' %}
                   </a>
                 </li>
               {% endif %}
@@ -90,7 +90,7 @@
           {% endactiveurl %}
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="/accounts/logout">
-              {% trans "Logout" %} {% fa5_icon 'sign-out' %}
+              {% trans "Logout" %} {% fa6_icon 'sign-out' %}
             </a>
           </div>
           </div>
