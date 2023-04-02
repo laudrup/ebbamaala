@@ -1,8 +1,21 @@
 {% extends 'website/website.html' %}
-{% load markdown %}
+
+{% load i18n %}
+{% load fontawesome_6 %}
 
 {% block content %}
+{% for name, section in sections.items %}
   <p>
-    {{ info.content|markdown|safe }}
+    <h1>{% trans section.title %}
+      <a class="btn btn-link" href="{% url 'website:pdf' name=name %}">
+        <i class="fas fa-file-pdf mr-1"></i>
+        {% trans 'Download PDF' %}
+      </a>
+    </h1>
+    {% with template_name='website/'|add:name|add:'.html' %}
+      {% include ""|add:template_name %}
+    {% endwith %}
   </p>
+  <hr />
+{% endfor %}
 {% endblock %}

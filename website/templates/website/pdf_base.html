@@ -1,0 +1,25 @@
+{% load static %}
+{% load i18n %}
+{% load l10n %}
+{% load fontawesome_6 %}
+<html>
+  <head>
+    <title>
+      {{ title }}
+    </title>
+    {% fontawesome_6_static %}
+    <style>
+     @page {
+         size: a4 {{ orientation }};
+     }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pdf.css' %}" />
+  </head>
+  <body>
+    <h1 class="header text-center">{% trans title %} Ebbamåla {{revision_date|date:'F Y'|capfirst}}</h1>
+    {% with template_name='website/'|add:name|add:'.html' %}
+    {% include ""|add:template_name %}
+    {% endwith %}
+  </body>
+</html>

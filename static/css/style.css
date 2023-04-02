@@ -28,3 +28,20 @@ body.website {
     border-radius: 0; border: 1px solid #ced4da;
     border-width: 1px 0 1px 0;
 }
+
+body {
+    counter-reset: section
+}
+
+.travel-guide h2 {
+    margin-top: 2rem;
+}
+
+.travel-guide h3 {
+    margin-top: 1rem;
+}
+
+.travel-guide h2:before {
+    counter-increment: section;
+    content: counter(section) ". ";
+}

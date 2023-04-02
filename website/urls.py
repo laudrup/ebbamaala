@@ -18,6 +18,7 @@ urlpatterns = [
     path('booking/<int:id>/', views.booking, name='booking'),
     path('markdownx/', include(markdownx)),
     path('bookings.ics', BookingFeed()),
+    path('<str:name>.pdf', views.PdfView.as_view(), name='pdf'),
 ]
 
 if not settings.DEBUG:

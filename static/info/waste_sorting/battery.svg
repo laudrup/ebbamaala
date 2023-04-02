@@ -1,0 +1,9 @@
+<svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Icons_FullBattery" overflow="hidden"><style>
+.MsftOfcThm_Accent1_Fill_v2 {
+ fill:#4472C4; 
+}
+.MsftOfcThm_Accent1_Stroke_v2 {
+ stroke:#4472C4; 
+}
+</style>
+<path d="M88 39 84 39 84 28C84 25.8 82.2 24 80 24L8 24C5.8 24 4 25.8 4 28L4 68C4 70.2 5.8 72 8 72L80 72C82.2 72 84 70.2 84 68L84 57 88 57C90.2 57 92 55.2 92 53L92 43C92 40.8 90.2 39 88 39ZM78 66 10 66 10 30 78 30 78 66Z" class="MsftOfcThm_Accent1_Fill_v2 MsftOfcThm_Accent1_Stroke_v2" stroke="#4472C4" fill="#4472C4"/><rect x="14" y="34" width="60" height="28" class="MsftOfcThm_Accent1_Fill_v2 MsftOfcThm_Accent1_Stroke_v2" stroke="#4472C4" fill="#4472C4"/></svg>
