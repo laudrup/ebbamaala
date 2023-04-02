@@ -164,5 +164,4 @@ class PdfView(WeasyTemplateView):
         if name not in INFO_SECTIONS:
             raise Http404
         context.update(INFO_SECTIONS[name])
-        context['revision_date'] = datetime.date.today()
         return context

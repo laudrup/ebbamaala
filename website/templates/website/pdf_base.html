@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load l10n %}
 {% load fontawesome_6 %}
+{% load template_revision %}
 <html>
   <head>
     <title>
@@ -17,9 +18,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/pdf.css' %}" />
   </head>
   <body>
-    <h1 class="header text-center">{% trans title %} Ebbamåla {{revision_date|date:'F Y'|capfirst}}</h1>
     {% with template_name='website/'|add:name|add:'.html' %}
-    {% include ""|add:template_name %}
+      {% with revision=template_name|template_revision %}
+        <h1 class="header text-center">{% trans title %} Ebbamåla {{revision|date:'F Y'|capfirst}}</h1>
+      {% endwith %}
+      {% include ""|add:template_name %}
     {% endwith %}
   </body>
 </html>
