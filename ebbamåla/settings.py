@@ -122,6 +122,8 @@ class Development(Common):
     DEBUG = True
     ALLOWED_HOSTS = []
     MEDIA_ROOT = os.path.join(Common.BASE_DIR, 'media')
+    SECRET_KEY = 'decafbad'
+    DS_API_KEY = 'decafbad'
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
