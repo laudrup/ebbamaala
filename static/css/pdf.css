@@ -1,0 +1,63 @@
+hr {
+    display: none;
+}
+
+h1 {
+    text-align: center;
+}
+
+.page-break {
+    page-break-before: always;
+}
+
+.float-right {
+    float: right;
+}
+
+.btn-link {
+    padding: .375rem .75rem;
+}
+
+#waste-sorting > .row > .col-4 {
+    float: left;
+    width: 30%;
+    padding: 15px;
+}
+
+#waste-sorting > .row > .col-4 img {
+    max-width: 100%;
+    max-height: 100%
+}
+
+#waste-sorting > .row > .col {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 0 1em;
+    float: left;
+    width: 66%;
+}
+
+#waste-sorting > .row > .col img {
+    display: block;
+    max-width: 100%;
+    padding: 10px;
+}
+
+#waste-sorting > .row > .col > .row {
+    display: table-row;
+}
+
+#waste-sorting > .row > .col > .row > div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#waste-sorting > .row > .col > .row > .col-2 {
+    border-radius: 10px 0 0 10px;
+    padding: 0 10px 0 10px;
+}
+
+#waste-sorting > .row > .col > .row > .col {
+    border-radius: 0 10px 10px 0;
+    padding: 15px;
+}

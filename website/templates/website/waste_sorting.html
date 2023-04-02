@@ -1,0 +1,65 @@
+{% load static %}
+{% load i18n %}
+
+<div class="container" id="waste-sorting">
+  <div class="row align-items-center">
+    <div class="col-4 m-4 text-center">
+      <p>
+        <h1>Affald</h1>
+      </p>
+      <img class="img-fluid" src="{% static 'info/waste_sorting/trash-cans.jpg' %}">
+    </div>
+    <div class="col">
+      <div class="row align-items-center p-2 my-3 rounded" style="background-color:#a68e6e;">
+        <div class="col-2">
+          <img class="img-fluid p-2" src="{% static 'info/waste_sorting/trash-bag.svg' %}">
+        </div>
+        <div class="col-4">
+          <h3 class="mb-0">Madaffald</h3>
+        </div>
+        <div class="col">
+          I brun beholder ved vejen.
+          Skal være i Brun affaldspose.
+          Poser kan fåes ved Ica i Långasjö og Vissefjärda.
+        </div>
+      </div>
+      <div class="row align-items-center p-2 my-3 rounded" style="background-color:#cfd5e9;">
+        <div class="col-2">
+          <img class="img-fluid p-2" src="{% static 'info/waste_sorting/newspaper.svg' %}">
+        </div>
+        <div class="col-4">
+          <h3 class="mb-0">Papir, plast, flasker, aviser</h3>
+        </div>
+        <div class="col">
+          Genbrugspladsen (FTI station)
+          <ul class="mb-0">
+            <li>Långasjö: Allégården, bakom, Kyrkvägen 38</li>
+            <li>Vissefjärda: Vid panncentralen, Industrigatan</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row align-items-center p-2 my-3 rounded" style="background-color:#cfd5e9;">
+        <div class="col-2">
+          <img class="img-fluid p-2" src="{% static 'info/waste_sorting/battery.svg' %}">
+        </div>
+        <div class="col-4">
+          <h3 class="mb-0">Batterier og el</h3>
+        </div>
+        <div class="col">
+          Möjligheternas Hus i Emmaboda.
+        </div>
+      </div>
+      <div class="row align-items-center p-2 my-3 rounded" style="background-color:#416b61;">
+        <div class="col-2">
+          <img class="img-fluid p-2" src="{% static 'info/waste_sorting/checkmark.svg' %}">
+        </div>
+        <div class="col-4">
+          <h3 class="mb-0">Restaffald</h3>
+        </div>
+        <div class="col">
+          I grøn beholder.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,11 +6,29 @@ from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.utils.translation import gettext_noop
+from django_weasyprint.views import WeasyTemplateView
 
 from .forms import BookingForm
-from .models import Booking, Frontpage, Gallery, PracticalInfo, Trips
+from .models import Booking, Frontpage, Gallery, Trips
 
 logger = logging.getLogger(__name__)
+
+
+INFO_SECTIONS = {
+    'travel_guide': {
+        'title': gettext_noop('Travel Guide'),
+        'orientation': 'portrait',
+    },
+    'waste_sorting': {
+        'title': gettext_noop('Waste Sorting'),
+        'orientation': 'landscape',
+    },
+    'wilderness_bath': {
+        'title': gettext_noop('Wilderness Bath'),
+        'orientation': 'portrait',
+    },
+}
 
 
 def index(request):
@@ -23,12 +41,7 @@ def index(request):
 
 
 def info(request):
-    try:
-        info = PracticalInfo.objects.latest('pub_date')
-    except PracticalInfo.DoesNotExist:
-        logger.warning('No practical info added')
-        raise Http404
-    return render(request, 'website/info.html', {'info': info})
+    return render(request, 'website/info.html', {'sections': INFO_SECTIONS})
 
 
 def trips(request):
@@ -135,3 +148,21 @@ def media(request, path):
     del response['Content-Type']
     response['X-Accel-Redirect'] = '/protected/media/{}'.format(path).encode('utf-8')
     return response
+
+
+class PdfView(WeasyTemplateView):
+    logging.getLogger('fontTools').setLevel(logging.ERROR)
+    logging.getLogger('weasyprint').setLevel(logging.ERROR)
+    logging.getLogger('django_weasyprint').setLevel(logging.ERROR)
+    logging.getLogger('PIL').setLevel(logging.ERROR)
+
+    template_name = 'website/pdf_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        name = context['name']
+        if name not in INFO_SECTIONS:
+            raise Http404
+        context.update(INFO_SECTIONS[name])
+        context['revision_date'] = datetime.date.today()
+        return context
