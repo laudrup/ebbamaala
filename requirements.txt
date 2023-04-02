@@ -15,11 +15,13 @@ django-bootstrap4
 django-classy-tags
 django-configurations
 django-fontawesome-5
+django-ical
 django-imagekit
 django-markdownx>=4.0.0b1
 flake8
 git+https://github.com/christianwgd/django-activeurl.git@django40
 gunicorn
+ics
 idna
 lxml
 more-itertools
@@ -34,5 +36,3 @@ salling-group-holidays
 six
 tzdata
 urllib3
-django-ical
-ics
