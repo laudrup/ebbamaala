@@ -7,8 +7,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DJANGO_SECRET_KEY: "deadcafebabe"
-      DJANGO_DS_API_KEY: "deadcafebabe"
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
