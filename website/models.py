@@ -165,6 +165,9 @@ class Gallery(models.Model):
     def thumbnail(self):
         return self.galleryphoto_set.order_by('?')[0].thumbnail
 
+    def get_absolute_url(self):
+        return reverse('website:photos', kwargs={'gallery_id': self.slug})
+
 
 class Booking(models.Model):
     start_date = models.DateField(verbose_name=_('Start date'))
