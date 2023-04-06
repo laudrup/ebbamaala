@@ -20,6 +20,7 @@ django-imagekit
 django-markdownx>=4.0.0b1
 django-weasyprint
 flake8
+freezegun
 git+https://github.com/christianwgd/django-activeurl.git@django40
 gunicorn
 ics
