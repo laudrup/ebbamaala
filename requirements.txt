@@ -23,7 +23,7 @@ flake8
 freezegun
 git+https://github.com/christianwgd/django-activeurl.git@django40
 gunicorn
-ics
+git+https://github.com/ics-py/ics-py@v0.8.0-dev0
 idna
 lxml
 more-itertools
