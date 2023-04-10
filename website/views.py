@@ -2,6 +2,7 @@ import calendar as cal
 import datetime
 import logging
 
+from django.views import View
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -15,139 +16,140 @@ from .models import Booking, Frontpage, Gallery, Trips
 logger = logging.getLogger(__name__)
 
 
-INFO_SECTIONS = {
-    'travel_guide': {
-        'title': gettext_noop('Travel Guide'),
-        'orientation': 'portrait',
-    },
-    'waste_sorting': {
-        'title': gettext_noop('Waste Sorting'),
-        'orientation': 'landscape',
-    },
-    'wilderness_bath': {
-        'title': gettext_noop('Wilderness Bath'),
-        'orientation': 'portrait',
-    },
-}
+class IndexView(View):
+    def get(self, request):
+        try:
+            frontpage = Frontpage.objects.latest('pub_date')
+        except Frontpage.DoesNotExist:
+            logger.warning('No frontpage added')
+            raise Http404
+        return render(request, 'website/index.html', {'frontpage': frontpage})
 
 
-def index(request):
-    try:
-        frontpage = Frontpage.objects.latest('pub_date')
-    except Frontpage.DoesNotExist:
-        logger.warning('No frontpage added')
-        raise Http404
-    return render(request, 'website/index.html', {'frontpage': frontpage})
+class InfoView(View):
+    sections = {
+        'travel_guide': {
+            'title': gettext_noop('Travel Guide'),
+            'orientation': 'portrait',
+        },
+        'waste_sorting': {
+            'title': gettext_noop('Waste Sorting'),
+            'orientation': 'landscape',
+        },
+        'wilderness_bath': {
+            'title': gettext_noop('Wilderness Bath'),
+            'orientation': 'portrait',
+        },
+    }
+
+    def get(self, request):
+        return render(request, 'website/info.html', {'sections': InfoView.sections})
 
 
-def info(request):
-    return render(request, 'website/info.html', {'sections': INFO_SECTIONS})
+class TripsView(View):
+    def get(self, request):
+        try:
+            trips = Trips.objects.latest('pub_date')
+        except Trips.DoesNotExist:
+            logger.warning('No trips added')
+            raise Http404
+        return render(request, 'website/trips.html', {'trips': trips})
 
 
-def trips(request):
-    try:
-        trips = Trips.objects.latest('pub_date')
-    except Trips.DoesNotExist:
-        logger.warning('No trips added')
-        raise Http404
-    return render(request, 'website/trips.html', {'trips': trips})
+class GalleryView(View):
+    def get(self, request, gallery_id=None):
+        if gallery_id:
+            return render(request, 'website/photos.html',
+                          {'gallery': Gallery.objects.get(slug=gallery_id)})
+        return render(request, 'website/gallery.html',
+                      {'galleries': Gallery.objects.all()})
 
 
-def gallery(request):
-    galleries = Gallery.objects.all()
-    return render(request, 'website/gallery.html', {'galleries': galleries})
+class CalendarView(View):
+    def get(self, request, year=None, month=None):
+        now = datetime.datetime.now()
+        if not year:
+            year = now.year
+        if not month:
+            month = now.month
+        if month > 12:
+            raise Http404()
+
+        last_day = cal.monthrange(year, month)[1]
+        start_date = datetime.date(year, month, 1)
+        end_date = datetime.date(year, month, last_day)
+        bookings = Booking.objects.filter(start_date__lte=end_date, end_date__gte=start_date)
+        next_month = (year, month + 1) if month < 12 else (year + 1, 1)
+        prev_month = (year, month - 1) if month > 1 else (year - 1, 12)
+        return render(request, 'website/calendar.html', {'year': year,
+                                                         'month': month,
+                                                         'next_month': next_month,
+                                                         'prev_month': prev_month,
+                                                         'bookings': bookings})
 
 
-def photos(request, gallery_id):
-    gallery = Gallery.objects.get(slug=gallery_id)
-    return render(request, 'website/photos.html', {'gallery': gallery})
-
-
-def calendar(request, year=None, month=None):
-    now = datetime.datetime.now()
-    if not year:
-        year = now.year
-    if not month:
-        month = now.month
-    if month > 12:
-        raise Http404()
-
-    last_day = cal.monthrange(year, month)[1]
-    start_date = datetime.date(year, month, 1)
-    end_date = datetime.date(year, month, last_day)
-    bookings = Booking.objects.filter(start_date__lte=end_date, end_date__gte=start_date)
-    next_month = (year, month + 1) if month < 12 else (year + 1, 1)
-    prev_month = (year, month - 1) if month > 1 else (year - 1, 12)
-    return render(request, 'website/calendar.html', {'year': year,
-                                                     'month': month,
-                                                     'next_month': next_month,
-                                                     'prev_month': prev_month,
-                                                     'bookings': bookings})
-
-
-def booking(request, id):
-    booking = get_object_or_404(Booking, pk=id)
-
-    if request.method == 'POST':
-        if 'update' in request.POST:
-            if not request.user.is_superuser and request.user != booking.user:
-                raise PermissionDenied
-            instance = get_object_or_404(Booking, id=id)
-            form = BookingForm(request.user, request.POST, instance=instance)
+class BookingView(View):
+    def post(self, request, id=None):
+        if id:
+            booking = get_object_or_404(Booking, pk=id)
+            if 'update' in request.POST:
+                if not request.user.is_superuser and request.user != booking.user:
+                    raise PermissionDenied
+                instance = get_object_or_404(Booking, id=id)
+                form = BookingForm(request.user, request.POST, instance=instance)
+                if form.is_valid():
+                    form.save()
+                else:
+                    return render(request, 'website/edit_booking.html', {'booking': booking, 'form': form})
+            elif 'delete' in request.POST:
+                if not request.user.is_superuser and request.user != booking.user:
+                    raise PermissionDenied
+                booking.delete()
+            elif 'approve' in request.POST:
+                if not request.user.is_superuser:
+                    raise PermissionDenied
+                booking.approved = True
+                booking.save()
+            else:
+                raise SuspiciousOperation
+            return HttpResponseRedirect(reverse('website:calendar'))
+        else:
+            form = BookingForm(request.user, request.POST)
             if form.is_valid():
                 form.save()
-            else:
+                return HttpResponseRedirect(reverse('website:calendar'))
+            return render(request, 'website/edit_booking.html', {'form': form})
+
+    def get(self, request, id=None):
+        if id:
+            booking = get_object_or_404(Booking, pk=id)
+            if request.user.is_superuser or request.user == booking.user:
+                form = BookingForm(request.user,
+                                   initial={'start_date': booking.start_date,
+                                            'end_date': booking.end_date,
+                                            'booker': booking.booker,
+                                            'description': booking.description})
                 return render(request, 'website/edit_booking.html', {'booking': booking, 'form': form})
-        elif 'delete' in request.POST:
-            if not request.user.is_superuser and request.user != booking.user:
-                raise PermissionDenied
-            booking.delete()
-        elif 'approve' in request.POST:
-            if not request.user.is_superuser:
-                raise PermissionDenied
-            booking.approved = True
-            booking.save()
+            return render(request, 'website/booking.html', {'booking': booking})
         else:
-            raise SuspiciousOperation
-        return HttpResponseRedirect(reverse('website:calendar'))
-
-    if request.user.is_superuser or request.user == booking.user:
-        form = BookingForm(request.user,
-                           initial={'start_date': booking.start_date,
-                                    'end_date': booking.end_date,
-                                    'booker': booking.booker,
-                                    'description': booking.description})
-        return render(request, 'website/edit_booking.html', {'booking': booking, 'form': form})
-
-    return render(request, 'website/booking.html', {'booking': booking})
+            if all(val in request.GET for val in ['year', 'month', 'day']):
+                start_date = datetime.date(int(request.GET['year']),
+                                           int(request.GET['month']),
+                                           int(request.GET['day']))
+            else:
+                start_date = datetime.date.today()
+            form = BookingForm(request.user,
+                               initial={'start_date': start_date,
+                                        'end_date': start_date + datetime.timedelta(days=2)})
+            return render(request, 'website/edit_booking.html', {'form': form})
 
 
-def new_booking(request):
-    if request.method == 'POST':
-        form = BookingForm(request.user, request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('website:calendar'))
-    else:
-        if all(val in request.GET for val in ['year', 'month', 'day']):
-            start_date = datetime.date(int(request.GET['year']),
-                                       int(request.GET['month']),
-                                       int(request.GET['day']))
-        else:
-            start_date = datetime.date.today()
-
-        form = BookingForm(request.user,
-                           initial={'start_date': start_date,
-                                    'end_date': start_date + datetime.timedelta(days=2)})
-
-    return render(request, 'website/edit_booking.html', {'form': form})
-
-
-def media(request, path):
-    response = HttpResponse()
-    del response['Content-Type']
-    response['X-Accel-Redirect'] = '/protected/media/{}'.format(path).encode('utf-8')
-    return response
+class MediaView(View):
+    def get(self, request, path):
+        response = HttpResponse()
+        del response['Content-Type']
+        response['X-Accel-Redirect'] = '/protected/media/{}'.format(path).encode('utf-8')
+        return response
 
 
 class PdfView(WeasyTemplateView):
@@ -161,7 +163,7 @@ class PdfView(WeasyTemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         name = context['name']
-        if name not in INFO_SECTIONS:
+        if name not in InfoView.sections:
             raise Http404
-        context.update(INFO_SECTIONS[name])
+        context.update(InfoView.sections[name])
         return context
