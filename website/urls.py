@@ -7,19 +7,19 @@ from .feeds import BookingFeed
 
 app_name = 'website'
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('info', views.info, name='info'),
-    path('trips', views.trips, name='trips'),
-    path('gallery', views.gallery, name='gallery'),
-    path('gallery/<gallery_id>/', views.photos, name='photos'),
-    path('calendar', views.calendar, name='calendar'),
-    path('calendar/<int:year>/<int:month>/', views.calendar, name='calendar'),
-    path('booking', views.new_booking, name='booking'),
-    path('booking/<int:id>/', views.booking, name='booking'),
+    path('', views.IndexView.as_view(), name='index'),
+    path('info', views.InfoView.as_view(), name='info'),
+    path('trips', views.TripsView.as_view(), name='trips'),
+    path('gallery', views.GalleryView.as_view(), name='gallery'),
+    path('gallery/<gallery_id>/', views.GalleryView.as_view(), name='photos'),
+    path('calendar', views.CalendarView.as_view(), name='calendar'),
+    path('calendar/<int:year>/<int:month>/', views.CalendarView.as_view(), name='calendar'),
+    path('booking', views.BookingView.as_view(), name='booking'),
+    path('booking/<int:id>/', views.BookingView.as_view(), name='booking'),
     path('markdownx/', include(markdownx)),
     path('bookings.ics', BookingFeed(), name='feeds'),
     path('<str:name>.pdf', views.PdfView.as_view(), name='pdf'),
 ]
 
 if not settings.DEBUG:
-    urlpatterns += [re_path(r'^media/(?P<path>.*)', views.media, name='media')]
+    urlpatterns += [re_path(r'^media/(?P<path>.*)', views.MediaView.as_view(), name='media')]
