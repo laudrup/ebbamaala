@@ -3,10 +3,12 @@ relative_files = True
 omit =
      website/admin.py
      website/apps.py
+     website/test_runner.py
      website/migrations/*
 
 [report]
 omit =
      website/admin.py
      website/apps.py
+     website/test_runner.py
      website/migrations/*
