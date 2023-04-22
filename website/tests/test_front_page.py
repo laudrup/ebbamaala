@@ -1,4 +1,3 @@
-from unittest import mock
 from urllib.parse import urlencode
 
 from bs4 import BeautifulSoup
@@ -18,13 +17,11 @@ class FrontpageViewTests(TestCase):
         url = "{}?{}".format(settings.LOGIN_URL, urlencode({'next': '/'}))
         self.assertRedirects(response, url)
 
-    @mock.patch('website.views.logger')
-    def test_no_frontage(self, mock_logger):
+    def test_no_frontage(self):
         self.client.login(username='bobby', password='tables')
 
         response = self.client.get('/')
         self.assertEqual(404, response.status_code)
-        mock_logger.warning.assert_called_with('No frontpage added')
 
     def test_frontpage_added(self):
         frontpage_header = 'Welcome to the frontpage'

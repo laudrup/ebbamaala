@@ -27,6 +27,7 @@ class Frontpage(models.Model):
     class Meta:
         verbose_name = _('Frontpage')
         verbose_name_plural = _('Frontpages')
+        get_latest_by = "pub_date"
 
     def __str__(self):
         return "{} ({})".format(_('Frontpage'), self.id)
@@ -51,6 +52,7 @@ class Trips(models.Model):
     class Meta:
         verbose_name = _('Tips for Trips')
         verbose_name_plural = _('Tips for Trips')
+        get_latest_by = "pub_date"
 
     def __str__(self):
         return "{} ({})".format(_('Tips for Trips'), self.id)
