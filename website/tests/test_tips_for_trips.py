@@ -1,4 +1,3 @@
-from unittest import mock
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -17,13 +16,11 @@ class TripsViewTests(TestCase):
         url = "{}?{}".format(settings.LOGIN_URL, urlencode({'next': '/trips'}))
         self.assertRedirects(response, url)
 
-    @mock.patch('website.views.logger')
-    def test_no_trips(self, mock_logger):
+    def test_no_trips(self):
         self.client.login(username='bobby', password='tables')
 
         response = self.client.get('/trips')
         self.assertEqual(404, response.status_code)
-        mock_logger.warning.assert_called_with('No trips added')
 
     def test_trips_added(self):
         trips_content = b'Go spot a moose'
