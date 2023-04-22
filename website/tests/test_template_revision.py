@@ -7,16 +7,16 @@ from django.test import TestCase
 
 
 class TemplateRevisionFilterTests(TestCase):
-    @mock.patch('subprocess.check_output')
-    def test_template_revision(self, check_output):
+    @mock.patch('os.path.getmtime')
+    def test_template_revision(self, getmtime):
         template_to_render = Template(
             '{% load template_revision %}'
             '{% with template_name="website/"|add:name|add:".html" %}'
             '{{template_name|template_revision|date:"U" }}'
             '{% endwith %}'
         )
-        timestamp = 123456789
-        check_output.return_value = datetime.utcfromtimestamp(timestamp).isoformat().encode()
+        timestamp = int(datetime.fromisoformat('2019-01-06').timestamp())
+        getmtime.return_value = timestamp
         self.assertEqual(f'{timestamp}', template_to_render.render(Context({'name': 'base'})))
         with self.assertRaises(TemplateDoesNotExist):
             template_to_render.render(Context({'name': 'non-existing-template'}))
