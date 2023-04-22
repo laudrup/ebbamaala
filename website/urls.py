@@ -1,9 +1,11 @@
 from markdownx import urls as markdownx
 from django.urls import path, re_path, include
 from django.conf import settings
+from django.conf.urls import static
 
 from . import views
 from .feeds import BookingFeed
+
 
 app_name = 'website'
 urlpatterns = [
@@ -21,5 +23,7 @@ urlpatterns = [
     path('<str:name>.pdf', views.PdfView.as_view(), name='pdf'),
 ]
 
-if not settings.DEBUG:
+if settings.DEBUG:
+    urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
     urlpatterns += [re_path(r'^media/(?P<path>.*)', views.MediaView.as_view(), name='media')]
