@@ -117,6 +117,8 @@ class Common(Configuration):
 
     DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
+    TEST_RUNNER = 'website.test_runner.TestRunner'
+
 
 class Development(Common):
     DEBUG = True
