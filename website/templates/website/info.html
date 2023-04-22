@@ -16,6 +16,8 @@
       {% include ""|add:template_name %}
     {% endwith %}
   </p>
+  {% if not forloop.last %}
   <hr />
+  {% endif %}
 {% endfor %}
 {% endblock %}
