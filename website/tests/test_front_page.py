@@ -51,3 +51,27 @@ class FrontpageViewTests(TestCase):
         self.assertIsNotNone(content)
         self.assertEqual(1, len(content.contents))
         self.assertEqual(frontpage_content, content.contents[0])
+
+        new_frontpage_header = 'New frontpage'
+        new_frontpage_content = 'With new information'
+        Frontpage.objects.create(content='#{header}\n{content}'.format(header=new_frontpage_header,
+                                                                       content=new_frontpage_content))
+
+        response = self.client.get('/')
+        self.assertEqual(200, response.status_code)
+
+        # The markdown formatted text should be converted to HTML
+        soup = BeautifulSoup(response.content, 'lxml')
+        main_elements = soup.find_all('main')
+        self.assertEqual(1, len(main_elements))
+
+        main = main_elements[0]
+        header = main.h1
+        self.assertIsNotNone(header)
+        self.assertEqual(1, len(header.contents))
+        self.assertEqual(new_frontpage_header, header.contents[0])
+
+        content = main.p
+        self.assertIsNotNone(content)
+        self.assertEqual(1, len(content.contents))
+        self.assertEqual(new_frontpage_content, content.contents[0])

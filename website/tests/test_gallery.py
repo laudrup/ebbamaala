@@ -120,12 +120,26 @@ class GalleryPhotoViewTests(TestCase):
         response = self.client.get(gallery.get_absolute_url())
         self.assertEqual(200, response.status_code)
 
-    def test_gallery_photo(self):
+    @mock.patch('django.core.files.storage.FileSystemStorage.save')
+    def test_gallery_photo(self, mock_storage_save):
         gallery = Gallery.objects.create(title='Test Gallery')
+
+        def photo_saver(path, contents, **kwargs):
+            content_bytes = b''.join([b for b in contents.chunks()])
+            expected_path = os.path.join('photos', gallery.slug, 'test.jpg')
+            self.assertEqual(create_jpeg_data(), content_bytes)
+            self.assertEqual(expected_path, path)
+            return path
+
+        mock_storage_save.side_effect = photo_saver
         photo = GalleryPhoto.objects.create(photo=SimpleUploadedFile('test.jpg', create_jpeg_data()),
                                             gallery=gallery)
         response = self.client.get(gallery.get_absolute_url())
         self.assertEqual(200, response.status_code)
         soup = BeautifulSoup(response.content, 'lxml')
         self.assertIn(photo.get_absolute_url(), [a['href'] for a in soup.find_all('a', href=True)])
-        self.assertEqual(200, self.client.get(photo.get_absolute_url()).status_code)
+
+        response = self.client.get(photo.get_absolute_url())
+        self.assertEqual(200, response.status_code)
+        self.assertIn('X-Accel-Redirect', response)
+        self.assertEqual(f'/protected{photo.get_absolute_url()}', response['X-Accel-Redirect'])
