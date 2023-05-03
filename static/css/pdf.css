@@ -18,13 +18,17 @@ h1 {
     padding: .375rem .75rem;
 }
 
-#waste-sorting > .row > .col-4 {
+.text-white {
+    color: white;
+}
+
+#waste-sorting > .row > .col-lg-4 {
     float: left;
     width: 30%;
     padding: 15px;
 }
 
-#waste-sorting > .row > .col-4 img {
+#waste-sorting > .row > .col-lg-4 img {
     max-width: 100%;
     max-height: 100%
 }
@@ -52,9 +56,9 @@ h1 {
     vertical-align: middle;
 }
 
-#waste-sorting > .row > .col > .row > .col-2 {
+#waste-sorting > .row > .col > .row > .col-md-2 {
     border-radius: 10px 0 0 10px;
-    padding: 0 10px 0 10px;
+    padding: 0 20px 0 10px;
 }
 
 #waste-sorting > .row > .col > .row > .col {
