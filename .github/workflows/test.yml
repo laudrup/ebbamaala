@@ -17,8 +17,14 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Install dependencies
+      - name: Install apt dependencies
+        run: sudo apt update && sudo apt install -y gettext
+
+      - name: Install pip dependencies
         run: pip install -r requirements.txt
+
+      - name: Compile messages
+        run: python manage.py compilemessages
 
       - name: Run tests
         run: coverage run --omit=*/tests/* manage.py test
