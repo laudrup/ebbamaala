@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-01 13:23+0000\n"
-"PO-Revision-Date: 2023-04-01 15:24+0200\n"
+"POT-Creation-Date: 2023-05-10 14:57+0000\n"
+"PO-Revision-Date: 2023-05-10 15:56+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -74,11 +74,11 @@ msgstr "En reservation kan ikke slutte før den begynder"
 msgid "{user} has already booked these dates."
 msgstr "{user} har allerede reserveret de ønskede datoer"
 
-#: website/models.py:25 website/models.py:37 website/models.py:49
+#: website/models.py:25 website/models.py:38 website/models.py:50
 msgid "Content"
 msgstr "Indhold"
 
-#: website/models.py:28 website/models.py:32
+#: website/models.py:28 website/models.py:33
 #: website/templates/website/website.html:59
 msgid "Frontpage"
 msgstr "Forside"
@@ -87,78 +87,78 @@ msgstr "Forside"
 msgid "Frontpages"
 msgstr "Forsider"
 
-#: website/models.py:40 website/models.py:41 website/models.py:44
+#: website/models.py:41 website/models.py:42 website/models.py:45
 msgid "Practical Info"
 msgstr "Praktisk information"
 
-#: website/models.py:52 website/models.py:53 website/models.py:56
+#: website/models.py:53 website/models.py:54 website/models.py:58
 #: website/templates/website/website.html:69
 msgid "Tips for Trips"
 msgstr "Tips til udflugter"
 
-#: website/models.py:60 website/models.py:76 website/models.py:86
+#: website/models.py:62 website/models.py:78 website/models.py:88
 msgid "Photo"
 msgstr "Billede"
 
-#: website/models.py:64
+#: website/models.py:66
 msgid "HeaderImage"
 msgstr "Headerbillede"
 
-#: website/models.py:65
+#: website/models.py:67
 msgid "HeaderImages"
 msgstr "Headerbilleder"
 
-#: website/models.py:77 website/models.py:149 website/models.py:174
+#: website/models.py:79 website/models.py:151 website/models.py:179
 #: website/templates/website/booking.html:47
 #: website/templates/website/edit_booking.html:76
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: website/models.py:82
+#: website/models.py:84
 msgid "Photo Date"
 msgstr "Tidspunkt for billede"
 
-#: website/models.py:87
+#: website/models.py:89
 msgid "Photos"
 msgstr "Billede"
 
-#: website/models.py:148
+#: website/models.py:150
 msgid "Title"
 msgstr "Titel"
 
-#: website/models.py:154 website/templates/website/website.html:74
+#: website/models.py:156 website/templates/website/website.html:74
 msgid "Photo Gallery"
 msgstr "Fotogalleri"
 
-#: website/models.py:155 website/templates/website/gallery.html:8
+#: website/models.py:157 website/templates/website/gallery.html:8
 msgid "Photo Galleries"
 msgstr "Fotogallerier"
 
-#: website/models.py:170
+#: website/models.py:175
 msgid "Start date"
 msgstr "Startdato"
 
-#: website/models.py:171
+#: website/models.py:176
 msgid "End date"
 msgstr "Slutdato"
 
-#: website/models.py:173
+#: website/models.py:178
 msgid "Booker"
 msgstr "Besøgende"
 
-#: website/models.py:175 website/templates/website/booking.html:67
+#: website/models.py:180 website/templates/website/booking.html:67
 msgid "Approved"
 msgstr "Godkendt"
 
-#: website/models.py:178
+#: website/models.py:183
 msgid "Booking"
 msgstr "Reservation"
 
-#: website/models.py:179
+#: website/models.py:184
 msgid "Bookings"
 msgstr "Reservationer"
 
-#: website/models.py:182
+#: website/models.py:187
 #, python-brace-format
 msgid "{self.booker}s booking"
 msgstr "{self.booker}s reservation"
@@ -193,7 +193,7 @@ msgstr ""
 "%(end_date)s\n"
 
 #: website/templates/email/booking_created.txt:7
-#: website/templates/email/booking_deleted.txt:6
+#: website/templates/email/booking_deleted.txt:5
 msgid ""
 "\n"
 "Kind regards,"
@@ -205,12 +205,12 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"%(booker)s has deleted has cancelled the booking of the house in Ebbamåla "
-"from %(start_date)s to %(end_date)s\n"
+"%(booker)ss booking of the house in Ebbamåla from %(start_date)s to "
+"%(end_date)s has been deleted.\n"
 msgstr ""
 "\n"
-"%(booker)s har annulleret sin reservation af huset i Ebbamåla fra "
-"%(start_date)s til %(end_date)s\n"
+"%(booker)ss reservation af huset i Ebbamåla fra %(start_date)s til "
+"%(end_date)s er blevet annulleret.\n"
 
 #: website/templates/website/booking.html:21
 msgid "Duration"
@@ -297,45 +297,15 @@ msgstr "Administration"
 msgid "Logout"
 msgstr "Log ud"
 
-#: website/views.py:28
+#: website/views.py:42
 msgid "Travel Guide"
 msgstr "Rejsevejledning"
 
-#: website/views.py:33
+#: website/views.py:46
 msgid "Waste Sorting"
 msgstr "Affaldssortering"
 
-#: website/views.py:38
+#: website/views.py:50
 msgid "Wilderness Bath"
 msgstr "Vildmarksbad"
 
-#, fuzzy
-#~| msgid "HeaderImage"
-#~ msgid "Image"
-#~ msgstr "Headerbillede"
-
-#, fuzzy
-#~| msgid "Delete booking"
-#~ msgid "Delete"
-#~ msgstr "Slet reservation"
-
-#, fuzzy
-#~| msgid "Status"
-#~ msgid "Sat"
-#~ msgstr "Status"
-
-#, python-brace-format
-#~ msgid "{self.booker}s booking from {self.start_date} to {self.end_date}"
-#~ msgstr ""
-#~ "{self.booker}s reservation fra {self.start_date} til {self.end_date}"
-
-#~ msgid "Approve booking"
-#~ msgstr "Godkend reservation"
-
-#, python-brace-format
-#~ msgid "{first_name} {last_name}s booking"
-#~ msgstr "{first_name} {last_name}s reservation"
-
-#, python-brace-format
-#~ msgid "{first_name}s booking"
-#~ msgstr "{first_name}s reservation"

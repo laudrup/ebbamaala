@@ -1,4 +1,5 @@
 from datetime import date
+from unittest import mock
 
 from bs4 import BeautifulSoup
 from django.contrib.auth import get_user_model
@@ -56,20 +57,42 @@ class BookingFormTests(TestCase):
                             'end_date': end_date})
 
 
+@mock.patch('website.signals.send_mail')
 class BookingViewTests(TestCase):
+
+    booking_created_subject = 'Ny reservation af huset i Ebbamåla'
+    booking_deleted_subject = 'En reservation af huset i Ebbamåla er blevet annulleret'
+    booking_changed_subject = 'En reservation af huset i Ebbamåla er blevet ændret'
+
     def setUp(self):
         User = get_user_model()
         self.alice_user = User.objects.create_user('alice', 'bob@nowhere.invalid', 'password')
         self.bob_user = User.objects.create_user('bob', 'alice@nowhere.invalid', 'password')
-        self.admin_user = User.objects.create_user('admin', 'admin@nowhere.invalid', 'password', is_superuser=True)
+        self.admin_user = User.objects.create_user('admin', 'admin@nowhere.invalid', 'password',
+                                                   first_name='Jimmy', last_name='Johnson',
+                                                   is_superuser=True)
 
-    def test_delete_booking(self):
+    def test_delete_booking(self, send_email):
         self.client.login(username='alice', password='password')
         response = self.client.post('/booking', {'description': 'Not important',
                                                  'booker': 'John Doe',
                                                  'start_date': date(2018, 7, 25),
                                                  'end_date': date(2018, 7, 27)})
         self.assertEqual(1, len(Booking.objects.all()))
+        send_email.assert_called_with(BookingViewTests.booking_created_subject,
+                                      '''
+Hej Jimmy,
+
+John Doe har reserveret huset i Ebbamåla fra 25. juli 2018 til 27. juli 2018
+
+"Not important"
+
+Venlig hilsen,
+ebbamåla.se
+''',
+                                      'admin@ebbamaala.se',
+                                      ['admin@nowhere.invalid'],
+                                      fail_silently=False)
         alice_booking = Booking.objects.get(user=self.alice_user)
         alice_booking_url = reverse('website:booking', args=[alice_booking.id])
 
@@ -93,11 +116,38 @@ class BookingViewTests(TestCase):
                                                  'start_date': date(2018, 7, 28),
                                                  'end_date': date(2018, 7, 30)})
         self.assertEqual(2, len(Booking.objects.all()))
+        send_email.assert_called_with(BookingViewTests.booking_created_subject,
+                                      '''
+Hej Jimmy,
+
+John Doe har reserveret huset i Ebbamåla fra 28. juli 2018 til 30. juli 2018
+
+"Not important"
+
+Venlig hilsen,
+ebbamåla.se
+''',
+                                      'admin@ebbamaala.se',
+                                      ['admin@nowhere.invalid'],
+                                      fail_silently=False)
+
         bob_booking = Booking.objects.get(user=self.bob_user)
         bob_booking_url = reverse('website:booking', args=[bob_booking.id])
         response = self.client.post(bob_booking_url, {'delete': 'Something'})
         self.assertNotEqual(403, response.status_code)
         self.assertEqual(1, len(Booking.objects.all()))
+        send_email.assert_called_with(BookingViewTests.booking_deleted_subject,
+                                      '''
+Hej Jimmy,
+
+John Does reservation af huset i Ebbamåla fra 28. juli 2018 til 30. juli 2018 er blevet annulleret.
+
+Venlig hilsen,
+ebbamåla.se
+''',
+                                      'admin@ebbamaala.se',
+                                      ['admin@nowhere.invalid'],
+                                      fail_silently=False)
 
         # Admin should have a button for deleting Alices booking
         self.client.login(username='admin', password='password')
@@ -108,8 +158,21 @@ class BookingViewTests(TestCase):
         response = self.client.post(alice_booking_url, {'delete': 'Something'})
         self.assertNotEqual(403, response.status_code)
         self.assertEqual(0, len(Booking.objects.all()))
+        send_email.assert_called_with(BookingViewTests.booking_deleted_subject,
+                                      '''
+Hej Jimmy,
 
-    def test_approve_booking(self):
+John Does reservation af huset i Ebbamåla fra 25. juli 2018 til 27. juli 2018 er blevet annulleret.
+
+Venlig hilsen,
+ebbamåla.se
+''',
+                                      'admin@ebbamaala.se',
+                                      ['admin@nowhere.invalid'],
+                                      fail_silently=False)
+        self.assertEqual(4, send_email.call_count)
+
+    def test_approve_booking(self, send_email):
         self.client.login(username='alice', password='password')
         response = self.client.post('/booking', {'description': 'Not important',
                                                  'booker': 'John Doe',
@@ -142,13 +205,28 @@ class BookingViewTests(TestCase):
         self.assertEqual(302, response.status_code)
         self.assertTrue(Booking.objects.all().last().approved)
 
-    def test_edit_booking(self):
+    def test_edit_booking(self, send_email):
         self.client.login(username='alice', password='password')
         response = self.client.post('/booking', {'description': 'Not important',
                                                  'booker': 'John Doe',
                                                  'start_date': date(2018, 7, 25),
                                                  'end_date': date(2018, 7, 27)})
         self.assertEqual(1, len(Booking.objects.all()))
+        send_email.assert_called_with(BookingViewTests.booking_created_subject,
+                                      '''
+Hej Jimmy,
+
+John Doe har reserveret huset i Ebbamåla fra 25. juli 2018 til 27. juli 2018
+
+"Not important"
+
+Venlig hilsen,
+ebbamåla.se
+''',
+                                      'admin@ebbamaala.se',
+                                      ['admin@nowhere.invalid'],
+                                      fail_silently=False)
+
         alice_booking = Booking.objects.get(user=self.alice_user)
         alice_booking_url = reverse('website:booking', args=[alice_booking.id])
 
@@ -172,6 +250,20 @@ class BookingViewTests(TestCase):
                                                  'start_date': date(2018, 7, 28),
                                                  'end_date': date(2018, 7, 30)})
         self.assertEqual(2, len(Booking.objects.all()))
+        send_email.assert_called_with(BookingViewTests.booking_created_subject,
+                                      '''
+Hej Jimmy,
+
+John Doe har reserveret huset i Ebbamåla fra 28. juli 2018 til 30. juli 2018
+
+"Not important"
+
+Venlig hilsen,
+ebbamåla.se
+''',
+                                      'admin@ebbamaala.se',
+                                      ['admin@nowhere.invalid'],
+                                      fail_silently=False)
         bob_booking = Booking.objects.get(user=self.bob_user)
         self.assertEqual('Not important', bob_booking.description)
         bob_booking_url = reverse('website:booking', args=[bob_booking.id])
@@ -183,6 +275,21 @@ class BookingViewTests(TestCase):
                                                       'update': 'Something'})
         self.assertNotEqual(403, response.status_code)
         self.assertEqual(2, len(Booking.objects.all()))
+        send_email.assert_called_with(BookingViewTests.booking_changed_subject,
+                                      '''
+Hej Jimmy,
+
+John Doe har reserveret huset i Ebbamåla fra 28. juli 2018 til 30. juli 2018
+
+"Very important!"
+
+Venlig hilsen,
+ebbamåla.se
+''',
+                                      'admin@ebbamaala.se',
+                                      ['admin@nowhere.invalid'],
+                                      fail_silently=False)
+
         bobs_booking = Booking.objects.get(user=self.bob_user)
         self.assertEqual('Very important!', bobs_booking.description)
 
@@ -190,8 +297,9 @@ class BookingViewTests(TestCase):
         self.client.login(username='admin', password='password')
         soup = BeautifulSoup(self.client.get(alice_booking_url).content, 'lxml')
         self.assertIsNotNone(soup.find(id='delete'))
+        self.assertEqual(3, send_email.call_count)
 
-    def test_admin_booking_approved(self):
+    def test_admin_booking_approved(self, send_email):
         # An admin doesn't have to approve her own booking
         self.client.login(username='admin', password='password')
         self.client.post('/booking', {'description': 'Not important',
