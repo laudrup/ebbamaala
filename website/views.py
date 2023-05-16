@@ -50,6 +50,10 @@ class InfoView(TemplateView):
             'title': gettext_noop('Wilderness Bath'),
             'orientation': 'portrait',
         },
+        'wood': {
+            'title': gettext_noop('Wood'),
+            'orientation': 'landscape',
+        },
     }
 
     def get_context_data(self, **kwargs):

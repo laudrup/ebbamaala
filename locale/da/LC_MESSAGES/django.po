@@ -313,3 +313,6 @@ msgstr "Affaldssortering"
 msgid "Wilderness Bath"
 msgstr "Vildmarksbad"
 
+#: website/views.py:54
+msgid "Wood"
+msgstr "Brænde"
