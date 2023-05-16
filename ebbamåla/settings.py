@@ -5,6 +5,7 @@ Django settings for ebbamåla project.
 import os
 
 from configurations import Configuration, values
+from django.contrib.messages import constants as messages
 from django.utils.translation import gettext_lazy as _
 
 
@@ -59,6 +60,14 @@ class Common(Configuration):
             },
         },
     ]
+
+    MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+    }
 
     WSGI_APPLICATION = 'ebbamåla.wsgi.application'
 

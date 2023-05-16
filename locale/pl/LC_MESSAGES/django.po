@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-10 14:57+0000\n"
+"POT-Creation-Date: 2023-05-15 20:53+0000\n"
 "PO-Revision-Date: 2018-07-06 19:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,15 +20,15 @@ msgstr ""
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 "X-Generator: Poedit 2.0.8\n"
 
-#: ebbamåla/settings.py:99
+#: ebbamåla/settings.py:108
 msgid "English"
 msgstr ""
 
-#: ebbamåla/settings.py:100
+#: ebbamåla/settings.py:109
 msgid "Danish"
 msgstr ""
 
-#: ebbamåla/settings.py:101
+#: ebbamåla/settings.py:110
 msgid "Polish"
 msgstr ""
 
@@ -224,20 +224,20 @@ msgstr ""
 msgid "Waiting for approval"
 msgstr ""
 
-#: website/templates/website/calendar.html:21
+#: website/templates/website/calendar.html:35
 #: website/templates/website/website.html:79
 msgid "Calendar"
 msgstr ""
 
-#: website/templates/website/calendar.html:31
+#: website/templates/website/calendar.html:45
 msgid "Previous"
 msgstr ""
 
-#: website/templates/website/calendar.html:33
+#: website/templates/website/calendar.html:47
 msgid "Today"
 msgstr ""
 
-#: website/templates/website/calendar.html:35
+#: website/templates/website/calendar.html:49
 msgid "Next"
 msgstr ""
 
@@ -292,6 +292,10 @@ msgstr "Zarządzanie"
 msgid "Logout"
 msgstr "Wyloguj"
 
+#: website/templatetags/calendar.py:41
+msgid "Cannot display holidays"
+msgstr ""
+
 #: website/views.py:42
 msgid "Travel Guide"
 msgstr ""
@@ -304,7 +308,6 @@ msgstr ""
 msgid "Wilderness Bath"
 msgstr ""
 
-#, fuzzy
-#~| msgid "HeaderImage"
-#~ msgid "Image"
-#~ msgstr "Zdjęcie główne"
+#: website/views.py:54
+msgid "Wood"
+msgstr ""

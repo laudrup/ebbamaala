@@ -5,11 +5,17 @@ from freezegun import freeze_time
 from bs4 import BeautifulSoup
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.template import Context, Template
+from django.contrib.messages import get_messages, constants as messages
+from django.contrib.messages.storage.base import Message
+from django.http import HttpRequest, HttpResponse
+from django.template import Context, RequestContext, Template
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import translation
 from website.models import Booking
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
+from salling_group_holidays.api import SallingGroupHolidaysException
 
 
 class MonthNameTagTests(TestCase):
@@ -67,10 +73,22 @@ class CalendarTagTests(TestCase):
              'bookings': []}
         )
 
+    def get_response(self, request):
+        return HttpResponse()
+
     @mock.patch('salling_group_holidays.v1')
     def test_holiday_api_key(self, mock_holidays_api):
         self._render_template(self.context)
         mock_holidays_api.assert_called_with(settings.DS_API_KEY)
+
+    @mock.patch('salling_group_holidays.v1.holidays')
+    def test_holiday_api_failure(self, mock_holidays):
+        mock_holidays.side_effect = SallingGroupHolidaysException('Whoopsie')
+        request, _ = self._render_template(self.context)
+        storage = get_messages(request)
+        self.assertEqual(1, len(storage))
+        msgs = [m for m in storage]
+        self.assertEqual(Message(messages.WARNING, 'Cannot display holidays'), msgs[0])
 
     @mock.patch('salling_group_holidays.v1.holidays')
     def test_holidays(self, mock_holidays):
@@ -78,7 +96,8 @@ class CalendarTagTests(TestCase):
                                       {'name': 'Robanukah',
                                        'holiday': True}}
 
-        soup = BeautifulSoup(self._render_template(self.context), 'lxml')
+        request, soup = self._render_template(self.context)
+        self.assertEqual(0, len(get_messages(request)))
         mock_holidays.assert_called_with(datetime.date(2018, 1, 1),
                                          datetime.date(2018, 1, 31))
 
@@ -93,7 +112,8 @@ class CalendarTagTests(TestCase):
     @freeze_time('2018-01-14')
     @mock.patch('salling_group_holidays.v1.holidays')
     def test_today(self, mock_holidays):
-        soup = BeautifulSoup(self._render_template(self.context), 'lxml')
+        request, soup = self._render_template(self.context)
+        self.assertEqual(0, len(get_messages(request)))
         days = soup.findAll('div', {'class': 'day-cell'})
         today = days[13]
         self.assertIsNotNone(today)
@@ -114,7 +134,8 @@ class CalendarTagTests(TestCase):
 
         context = self.context
         context['bookings'] = Booking.objects.all()
-        soup = BeautifulSoup(self._render_template(context), 'lxml')
+        request, soup = self._render_template(context)
+        self.assertEqual(0, len(get_messages(request)))
         days = soup.find_all('div', {'class': 'day-cell'})
         for i in range(13):
             self.assertFalse(days[i].find(href=True))
@@ -154,7 +175,14 @@ class CalendarTagTests(TestCase):
             '{% load calendar %}'
             '{% calendar year month bookings %}'
         )
-        return template_to_render.render(context)
+        request = HttpRequest()
+        for middleware in [
+            SessionMiddleware(self.get_response),
+            MessageMiddleware(self.get_response)
+        ]:
+            middleware.process_request(request)
+        html = template_to_render.render(RequestContext(request, context))
+        return request, BeautifulSoup(html, 'lxml')
 
 
 @mock.patch('salling_group_holidays.v1.holidays')

@@ -1,19 +1,26 @@
+import logging
 import calendar as cal
 import datetime
 
+from requests import ConnectionError
 import salling_group_holidays
+from salling_group_holidays.api import SallingGroupHolidaysException
 
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.contrib import messages
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 from django import template
 
+logger = logging.getLogger(__name__)
+
 
 class BootstrapCalendar(cal.Calendar):
 
-    def __init__(self, year, month, bookings):
+    def __init__(self, request, year, month, bookings):
         super().__init__()
+        self._request = request
         self._year = year
         self._month = month
         self._bookings = bookings
@@ -26,8 +33,13 @@ class BootstrapCalendar(cal.Calendar):
     def _getholidays(self):
         api = salling_group_holidays.v1(settings.DS_API_KEY)
         last_day = cal.monthrange(self._year, self._month)[1]
-        return api.holidays(datetime.date(self._year, self._month, 1),
-                            datetime.date(self._year, self._month, last_day))
+        try:
+            return api.holidays(datetime.date(self._year, self._month, 1),
+                                datetime.date(self._year, self._month, last_day))
+        except (SallingGroupHolidaysException, ConnectionError) as e:
+            logger.warn(e)
+            messages.add_message(self._request, messages.WARNING, _('Cannot display holidays'))
+            return {}
 
     def _istoday(self, day):
         if self._today.year != self._year:
@@ -98,9 +110,9 @@ class BootstrapCalendar(cal.Calendar):
 register = template.Library()
 
 
-@register.simple_tag()
-def calendar(year, month, bookings):
-    cal = BootstrapCalendar(year, month, bookings)
+@register.simple_tag(takes_context=True)
+def calendar(context, year, month, bookings):
+    cal = BootstrapCalendar(context['request'], year, month, bookings)
     return mark_safe(cal.render())
 
 
