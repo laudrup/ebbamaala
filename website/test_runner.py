@@ -55,6 +55,13 @@ class TimedTextTestResult(TextTestResult):
             test.captured_logs = self.handler.buffer.copy()
         self.handler.clear()
 
+    def addError(self, test, err):
+        super().addError(test, err)
+        self.stream.writeln()
+        if self.handler.buffer:
+            test.captured_logs = self.handler.buffer.copy()
+        self.handler.clear()
+
     def printErrorList(self, flavour, errors):
         for test, err in errors:
             self.stream.writeln(self.separator1)
