@@ -172,39 +172,6 @@ ebbamåla.se
                                       fail_silently=False)
         self.assertEqual(4, send_email.call_count)
 
-    def test_approve_booking(self, send_email):
-        self.client.login(username='alice', password='password')
-        response = self.client.post('/booking', {'description': 'Not important',
-                                                 'booker': 'John Doe',
-                                                 'start_date': date(2018, 7, 25),
-                                                 'end_date': date(2018, 7, 27)})
-        self.assertEqual(1, len(Booking.objects.all()))
-        booking = Booking.objects.all().last()
-        self.assertFalse(booking.approved)
-
-        # Alice should not have a button for approving her booking
-        alice_booking = Booking.objects.get(user=self.alice_user)
-        alice_booking_url = reverse('website:booking', args=[alice_booking.id])
-        soup = BeautifulSoup(self.client.get(alice_booking_url).content, 'lxml')
-        self.assertIsNone(soup.find(id='approve'))
-
-        # Alice cannot approve her own booking
-        response = self.client.post(alice_booking_url, {'approve': 'Whatever'})
-        self.assertEqual(403, response.status_code)
-        self.assertFalse(Booking.objects.all().last().approved)
-
-        # And neither can Bob
-        self.client.login(username='bob', password='password')
-        response = self.client.post(alice_booking_url, {'approve': 'Whatever'})
-        self.assertEqual(403, response.status_code)
-        self.assertFalse(Booking.objects.all().last().approved)
-
-        # But an admin can
-        self.client.login(username='admin', password='password')
-        response = self.client.post(alice_booking_url, {'approve': 'Whatever'})
-        self.assertEqual(302, response.status_code)
-        self.assertTrue(Booking.objects.all().last().approved)
-
     def test_edit_booking(self, send_email):
         self.client.login(username='alice', password='password')
         response = self.client.post('/booking', {'description': 'Not important',
@@ -298,14 +265,3 @@ ebbamåla.se
         soup = BeautifulSoup(self.client.get(alice_booking_url).content, 'lxml')
         self.assertIsNotNone(soup.find(id='delete'))
         self.assertEqual(3, send_email.call_count)
-
-    def test_admin_booking_approved(self, send_email):
-        # An admin doesn't have to approve her own booking
-        self.client.login(username='admin', password='password')
-        self.client.post('/booking', {'description': 'Not important',
-                                      'booker': 'John Doe',
-                                      'start_date': date(2018, 7, 25),
-                                      'end_date': date(2018, 7, 27)})
-        self.assertEqual(1, len(Booking.objects.all()))
-        booking = Booking.objects.all().last()
-        self.assertTrue(booking.approved)

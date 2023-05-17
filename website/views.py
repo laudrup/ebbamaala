@@ -132,11 +132,6 @@ class BookingView(View):
                 if not request.user.is_superuser and request.user != booking.user:
                     raise PermissionDenied
                 booking.delete()
-            elif 'approve' in request.POST:
-                if not request.user.is_superuser:
-                    raise PermissionDenied
-                booking.approved = True
-                booking.save()
             else:
                 raise SuspiciousOperation
             return HttpResponseRedirect(reverse('website:calendar'))
