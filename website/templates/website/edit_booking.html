@@ -92,13 +92,6 @@
               {% trans "Delete booking" %}
             </button>
           </div>
-          {% if not booking.approved and user.is_superuser %}
-          <div class="form-group col-md">
-            <button type="submit" name="approve" id="approve" class="btn btn-secondary">
-              {% trans "Approve" %}
-            </button>
-          </div>
-          {% endif %}
         </div>
         {% else %}
         <button type="submit" class="btn btn-primary">

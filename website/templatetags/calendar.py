@@ -63,10 +63,6 @@ class BootstrapCalendar(cal.Calendar):
                 booking_class = 'booking first'
             elif date == booking.end_date:
                 booking_class = 'booking last'
-            if booking.approved:
-                booking_class += ' approved'
-            else:
-                booking_class += ' not-approved'
 
         day_class = ''
         if self._istoday(day):

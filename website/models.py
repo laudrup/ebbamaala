@@ -177,7 +177,6 @@ class Booking(models.Model):
     user = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
     booker = models.CharField(max_length=100, blank=False, verbose_name=_('Booker'))
     description = models.CharField(max_length=500, blank=False, verbose_name=_('Description'))
-    approved = models.BooleanField(default=False, verbose_name=_('Approved'))
 
     class Meta:
         verbose_name = _('Booking')

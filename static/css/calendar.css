@@ -72,21 +72,10 @@
     margin-left: 11px;
     margin-right: 10px;
     width: 100%;
+    background: green;
     box-shadow:
         inset 0px 11px 8px -10px rgba(0, 0, 0, .4),
         inset 0px -11px 8px -10px white;
-}
-
-.calendar
-.day-cell
-.booking.approved {
-    background: green;
-}
-
-.calendar
-.day-cell
-.booking.not-approved {
-    background: yellow;
 }
 
 .calendar
