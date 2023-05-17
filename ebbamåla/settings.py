@@ -135,6 +135,7 @@ class Development(Common):
     MEDIA_ROOT = os.path.join(Common.BASE_DIR, 'media')
     SECRET_KEY = 'decafbad'
     DS_API_KEY = 'decafbad'
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
