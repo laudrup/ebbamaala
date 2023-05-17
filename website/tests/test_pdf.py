@@ -15,6 +15,9 @@ class PdfViewTests(TestCase):
     def test_non_existing_pdf(self):
         response = self.client.get('/foo.pdf')
         self.assertEqual(404, response.status_code)
+
+    @override_settings(WEASYPRINT_BASEURL=settings.BASE_DIR)
+    def test_existing_pdf(self):
         for name in website.views.InfoView.sections:
             response = self.client.get(f'/{name}.pdf')
             self.assertEqual(200, response.status_code)
