@@ -17,7 +17,7 @@ django-configurations
 django-fontawesome-6
 django-ical
 django-imagekit
-django-markdownx>=4.0.0b1
+django-markdownx
 weasyprint==58.0 # Temporary workaround https://github.com/fdemmer/django-weasyprint/issues/71
 django-weasyprint
 flake8
