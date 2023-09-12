@@ -4,6 +4,13 @@
 {% load fontawesome_6 %}
 
 {% block content %}
+<h1>{% trans 'Practical Information' %}
+  <a class="btn btn-link" href="{% url 'website:pdf' name='practical_info' %}">
+    <i class="fas fa-file-pdf mr-1"></i>
+    {% trans 'Download PDF' %}
+  </a>
+</h1>
+<hr />
 {% for name, section in sections.items %}
   <p>
     <h1>{% trans section.title %}

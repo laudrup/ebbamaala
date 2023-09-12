@@ -1,15 +1,19 @@
 import calendar as cal
 import datetime
 import logging
+from io import BytesIO
 
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.http import (
+    Http404, HttpResponse, HttpResponseRedirect, StreamingHttpResponse,
+)
 from django.shortcuts import _get_queryset, get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import gettext_noop
 from django.views import View
 from django.views.generic.base import TemplateView
 from django_weasyprint.views import WeasyTemplateView
+from pypdf import PdfWriter
 
 from .forms import BookingForm
 from .models import Booking, Frontpage, Gallery, Trips
@@ -194,10 +198,25 @@ class PdfView(WeasyTemplateView):
 
     template_name = 'website/pdf_base.html'
 
-    def get_context_data(self, **kwargs):
+    def get(self, request, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         name = context['name']
+        if name == 'practical_info':
+            return self.merged_content(context)
         if name not in InfoView.sections:
             raise Http404
         context.update(InfoView.sections[name])
-        return context
+        return self.render_to_response(context)
+
+    def merged_content(self, context):
+        merger = PdfWriter()
+        for name, section in InfoView.sections.items():
+            context['name'] = name
+            context.update(section)
+            response = self.render_to_response(context)
+            response.render()
+            merger.append(BytesIO(response.content))
+        bytes_stream = BytesIO()
+        merger.write(bytes_stream)
+        bytes_stream.seek(0)
+        return StreamingHttpResponse(bytes_stream, content_type='application/pdf')

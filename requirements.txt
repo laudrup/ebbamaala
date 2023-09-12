@@ -33,6 +33,7 @@ piexif
 pilkit
 pluggy
 pyfakefs
+pypdf
 pytz
 requests
 salling-group-holidays

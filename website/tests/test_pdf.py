@@ -22,3 +22,9 @@ class PdfViewTests(TestCase):
             response = self.client.get(f'/{name}.pdf')
             self.assertEqual(200, response.status_code)
             self.assertEqual('application/pdf', response['Content-Type'])
+
+    @override_settings(WEASYPRINT_BASEURL=settings.BASE_DIR)
+    def test_merged_pdf(self):
+        response = self.client.get('/practical_info.pdf')
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('application/pdf', response['Content-Type'])

@@ -32,6 +32,8 @@ class PracticalInfoViewTests(TestCase):
                    for h in soup.find_all('h1') if h.find('a', href=True)]
         for h in headers:
             name = splitext(basename(h[1]))[0]
+            if name == 'practical_info':
+                continue
             self.assertIn(name, InfoView.sections)
             self.assertEqual(h[0], InfoView.sections[name]['title'])
 
