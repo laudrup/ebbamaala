@@ -7,6 +7,16 @@ body.website {
     background-color: #e6e6e6;
 }
 
+ol.legal {
+    counter-reset: item;
+    list-style-type: none;
+}
+
+ol.legal li:before {
+    content: '§' counter(item, decimal) '. ';
+    counter-increment: item;
+}
+
 .navbar {
     border-top: 1px solid #ededed;
     border-bottom: 1px solid #ededed;
