@@ -1,4 +1,4 @@
-Django==4.2.15
+Django==4.2.16
 Markdown
 Pillow
 PyYAML
