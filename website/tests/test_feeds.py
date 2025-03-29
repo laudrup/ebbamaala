@@ -42,9 +42,9 @@ class calendarFeedTests(TestCase):
 
         self.assertEqual(1, len(calendar.events))
         event = calendar.events.pop()
-        self.assertEquals(f'{booker}s booking', event.summary)
+        self.assertEqual(f'{booker}s booking', event.summary)
         self.assertEqual(start_date, event.begin.date())
         self.assertEqual(end_date, event.end.date())
         self.assertEqual(event.description, description)
-        self.assertEquals(response.wsgi_request.build_absolute_uri(booking.get_absolute_url()), event.url)
+        self.assertEqual(response.wsgi_request.build_absolute_uri(booking.get_absolute_url()), event.url)
         self.assertEqual(geo.Geo(latitude=56.500111, longitude=15.471333), event.geo)
