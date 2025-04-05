@@ -56,7 +56,7 @@ class InfoView(TemplateView):
         },
         'wood': {
             'title': gettext_noop('Wood'),
-            'orientation': 'landscape',
+            'orientation': 'potrait',
         },
     }
 
