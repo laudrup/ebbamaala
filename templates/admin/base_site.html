@@ -1,0 +1,12 @@
+{% extends "admin/base.html" %}
+
+{% load django_version %}
+
+{% block footer %}
+  {{ block.super }}
+  <div style="text-align: center;">
+    <p>
+      Django {% django_version %}
+    </p>
+  </div>
+{% endblock %}
