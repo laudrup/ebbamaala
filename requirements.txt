@@ -10,6 +10,7 @@ certifi
 chardet
 coverage
 coveralls
+django-admin-footer
 django-appconf
 django-bootstrap4
 django-classy-tags
